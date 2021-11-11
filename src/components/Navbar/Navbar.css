@@ -1,0 +1,61 @@
+.header{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: orange;
+    padding: 5px 4px 5px 4px;
+    justify-content: flex-start;
+
+}
+.iconText{
+    margin: 0 30px 0 10px;
+    font-size: 40px;
+}
+.searchContainer{
+    margin: 10px 20px 0 20px;
+    padding: 0 30px 0 30px;
+    background-color: white;
+    border-radius: 50px;
+    height: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: stretch;
+    width: 25%;
+
+}
+.RBOX{
+    background-color: white;
+    padding: 5px;
+    border-radius: 50px;
+    height: 40px;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+    text-align: center;
+    align-self: center;
+    min-width: 7vw;
+    max-width: 7vw;
+    text-align: center !important;
+}
+.RBOXContainer{
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-self: center;
+}
+.searchText1{
+    font-size: 25px;
+    color: orange;
+    text-align: left;
+    width: 30;
+}
+.searchText2{
+    margin-top: 5px;
+    font-size: 20px;
+    color: gray;
+    text-align: center;
+    width: 60%;   
+}
+.fa-search{
+    font-size: 20PX;
+    color: gray;
+}
