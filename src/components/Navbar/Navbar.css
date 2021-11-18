@@ -1,61 +1,71 @@
-.header{
-    display: flex;
-    flex-wrap: wrap;
-    background-color: orange;
-    padding: 5px 4px 5px 4px;
-    justify-content: flex-start;
+.navbar {
+  background-color: #ffa409;
+}
+.navbar__container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 5%;
+  justify-content: space-between;
+}
+.navbar__logo__area {
+  display: flex;
+  width: 15%;
+}
+.icon {
+  display: flex;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+}
+.iconText {
+  display: flex;
+  padding: 0px 10px;
+  font-size: 20px;
+  font-weight: 700;
+  align-items: center;
+}
 
+.search__area {
+  width: 60%;
 }
-.iconText{
-    margin: 0 30px 0 10px;
-    font-size: 40px;
-}
-.searchContainer{
-    margin: 10px 20px 0 20px;
-    padding: 0 30px 0 30px;
-    background-color: white;
-    border-radius: 50px;
-    height: 40px;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: stretch;
-    width: 25%;
 
+.auth__buttons {
+  display: flex;
+  width: 20%;
+  justify-content: space-between;
+  text-align: center !important;
 }
-.RBOX{
-    background-color: white;
-    padding: 5px;
-    border-radius: 50px;
-    height: 40px;
-    margin-left: 0.5vw;
-    margin-right: 0.5vw;
-    text-align: center;
-    align-self: center;
-    min-width: 7vw;
-    max-width: 7vw;
-    text-align: center !important;
+
+.login__btn {
+  display: flex;
+  width: 45%;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 7px 0px;
+  color: #ffa409;
+  justify-content: center;
+  border-radius: 25px;
+  cursor: pointer;
+  background-color: white;
+  align-items: center;
+  box-shadow: 0px 6px 5px 5px #05050517;
+  margin: 5px 0px;
+  text-align: center;
 }
-.RBOXContainer{
-    position: absolute;
-    right: 0;
-    display: flex;
-    flex-wrap: wrap;
-    align-self: center;
-}
-.searchText1{
-    font-size: 25px;
-    color: orange;
-    text-align: left;
-    width: 30;
-}
-.searchText2{
-    margin-top: 5px;
-    font-size: 20px;
-    color: gray;
-    text-align: center;
-    width: 60%;   
-}
-.fa-search{
-    font-size: 20PX;
-    color: gray;
+.signup__btn {
+  display: flex;
+  width: 45%;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 7px 0px;
+  color: #ffa308;
+  justify-content: center;
+  border-radius: 25px;
+  cursor: pointer;
+  background-color: white;
+  align-items: center;
+  box-shadow: 0px 6px 5px 5px #05050517;
+  margin: 5px 0px;
+  text-align: center;
 }

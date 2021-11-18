@@ -1,25 +1,27 @@
 import React from "react";
 import "./Navbar.css";
 import { FaSearch } from "react-icons/fa";
-import icon from "../../favicon.ico";
+import icon from "../../assets/logoicon.png";
+import SearchBar from "../SearchBar/SearchBar";
 
-function Home() {
+function Navbar() {
   return (
-    <div className="header">
-      <img src={icon} alt="Icon" />
-      <span className="iconText">SHIBA INU</span>
-      <div className="searchContainer">
-        <div className="searchText1">Lorem Ipsum</div>
-        <div className="searchText2">
-          <FaSearch /> Lorem Ipsum
+    <div className="navbar">
+      <div className="navbar__container">
+        <div className="navbar__logo__area">
+          <img className="icon" src={icon} alt="Icon" />
+          <span className="iconText">SHIBA INU</span>
         </div>
-      </div>
-      <div className="RBOXContainer">
-        <div className="RBOX searchText1">Login</div>
-        <div className="RBOX searchText1">Sign Up</div>
+        <div className="search__area">
+          <SearchBar />
+        </div>
+        <div className="auth__buttons">
+          <div className="login__btn">Login</div>
+          <div className="signup__btn">Sign Up</div>
+        </div>
       </div>
     </div>
   );
 }
 
-export default Home;
+export default Navbar;

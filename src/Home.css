@@ -1,0 +1,15 @@
+.home {
+  background-color: #f00500;
+  height: 100%;
+}
+
+.map {
+  display: flex;
+  padding: 2px;
+  height: 500px;
+}
+.footer {
+  display: flex;
+  height: 300px;
+  background-color: #ffa409;
+}
