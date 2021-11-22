@@ -1,5 +1,6 @@
 import React from "react";
 import Footer from "./components/Footer/Footer";
+import Map from "./components/Map/Map";
 import Navbar from "./components/Navbar/Navbar";
 import "./Home.css";
 
@@ -10,7 +11,7 @@ function Home() {
         <Navbar />
       </div>
       <div className="map">
-        <h4>Map</h4>
+        <Map/>
       </div>
       <div className="footer">
         <Footer />
