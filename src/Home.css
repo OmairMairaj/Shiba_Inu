@@ -5,8 +5,9 @@
 
 .map {
   display: flex;
-  padding: 2px;
-  height: 500px;
+  padding: 4px 0;
+  height: fit-content;
+  justify-content: space-around;
 }
 .footer {
   display: flex;
