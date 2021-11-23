@@ -1,0 +1,40 @@
+.leafmapsearch {
+    position: absolute;
+    top: 5rem;
+    left: 16vw;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 400px;
+    z-index: 10;
+  }
+  
+  .leafmapsearch input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 100%;
+  }
+  
+  .leafmaplocate {
+    position: absolute;
+    top: 5rem;
+    right: 2vw;
+    background: rgb(177, 177, 255);
+    border: none;
+    z-index: 10;
+  }
+  .leafmaplocate img {
+    width: 40px;
+    cursor: pointer;
+  }
+  .leafmapPictureAll{
+      display: flex;
+      flex-wrap:nowrap;
+      overflow-x: scroll;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  .leafmapPicture{
+      max-height: 15vh;
+      border-radius: 5px;
+  }

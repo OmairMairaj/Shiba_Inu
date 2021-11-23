@@ -1,5 +1,7 @@
 import React from "react";
-import LocImage from "../../assets/user.png"
+import data from "../../data/data.json";
+import Slider from "../Slider/Slider"
+import LocImage from "../../assets/user.png";
 import {
   GoogleMap,
   useLoadScript,
@@ -20,7 +22,7 @@ import {
 
 import "@reach/combobox/styles.css";
 import { formatRelative } from "date-fns";
-
+import "./Map.css";
 import mapStyles from "./mapStyles";
 
 const libraries = ["places"];
@@ -30,30 +32,32 @@ const mapContainerStyle = {
 };
 
 const options = {
-  styles: mapStyles,
+  // styles: mapStyles,
   disableDefaultUI: true,
   zoomControl: true,
 };
 
 const center = {
-  lat: 43.6532,
-  lng: -79.3832,
+  lat: 40.712062139,
+  lng: -74.0131062,
 };
 
 export default function App() {
-  const [markers, setMarkers] = React.useState([]);
+  const [markers, setMarkers] = React.useState(data);
   const [selected, setSelected] = React.useState(null);
 
-  const onMapClick = React.useCallback((e) => {
-    setMarkers((current) => [
-      ...current,
-      {
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-        time: new Date(),
-      },
-    ]);
-  }, []);
+  // const onMapClick = React.useCallback((e) => {
+  //   setMarkers((current) => [
+  //     ...current,
+  //     {
+  //       lat: e.lat,
+  //       lng: e.lng,
+  //       name: e.name,
+  //       address : e.address,
+  //       pictures:e.pictures
+  //     },
+  //   ]);
+  // }, []);
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
@@ -67,8 +71,17 @@ export default function App() {
 
   const panTo = React.useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(10);
+    mapRef.current.setZoom(17);
   }, []);
+  const getPictures = (selection) => {
+    if (selection.pictures.length !== 0) {
+      return selection.pictures.map((picture) => (
+        <img src={`${picture}`} alt="Place Image" className="mapPicture" />
+      ));
+    } else {
+      return <div>No pictures to show</div>;
+    }
+  };
 
   if (loadError) return "Error Occured. Please try again";
   if (!isLoaded) return "Loading...";
@@ -76,25 +89,28 @@ export default function App() {
   return (
     <div>
       <Locate panTo={panTo} />
-      <Search panTo={panTo} />
+      {/* <Search panTo={panTo} /> */}
       <GoogleMap
         id="map"
         mapContainerStyle={mapContainerStyle}
-        zoom={8}
+        zoom={15}
         center={center}
         options={options}
-        onClick={onMapClick}
+        // onClick={onMapClick}
         onLoad={onMapLoad}
       >
-        {markers.map((marker) => (
-          <Marker
-            key={`${marker.lat}-${marker.lng}`}
-            position={{ lat: marker.lat, lng: marker.lng }}
-            onClick={() => {
-              setSelected(marker);
-            }}
-          />
-        ))}
+        {markers.map((marker) => {
+          // console.log(marker.lng);
+          return (
+            <Marker
+              key={`${marker.lat}-${marker.lng}`}
+              position={{ lat: marker.lat, lng: marker.lng }}
+              onClick={() => {
+                setSelected(marker);
+              }}
+            />
+          );
+        })}
 
         {selected ? (
           <InfoWindow
@@ -103,14 +119,19 @@ export default function App() {
               setSelected(null);
             }}
           >
-            <div>
-              <p>Latitude : {selected.lat}</p>
-              <p>Longitude : {selected.lng}</p>
-              <p>Updated {formatRelative(selected.time, new Date())}</p>
-            </div>
+            <>
+              <div className="mapPictureAll">{getPictures(selected)}</div>
+              <div>
+                <p>Name : {selected.name}</p>
+                <p>Address : {selected.address}</p>
+              </div>
+            </>
           </InfoWindow>
         ) : null}
       </GoogleMap>
+      <div>
+        <Slider data={data} className='mapSlider' />
+      </div>
     </div>
   );
 }

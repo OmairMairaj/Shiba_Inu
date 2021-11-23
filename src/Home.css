@@ -9,6 +9,7 @@
   height: fit-content;
   justify-content: space-around;
 }
+
 .footer {
   display: flex;
   height: 300px;

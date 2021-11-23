@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "./components/Footer/Footer";
 import Map from "./components/Map/Map";
+// import LeafMap from "./components/LeafMap/LeafMap";
 import Navbar from "./components/Navbar/Navbar";
 import "./Home.css";
 
@@ -13,6 +14,9 @@ function Home() {
       <div className="map">
         <Map/>
       </div>
+      {/* <div className="map">
+        <LeafMap/>
+      </div> */}
       <div className="footer">
         <Footer />
       </div>
