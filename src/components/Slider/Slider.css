@@ -21,3 +21,18 @@
     max-width: 15vw;
     min-width: 15vw;
 }
+.NoPicture{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 47px;
+    margin-bottom: 47px;
+    width: fit-content;
+}
+.onePicture{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    max-height: 100px;
+    min-height: 100px;
+    justify-content: center;
+}
