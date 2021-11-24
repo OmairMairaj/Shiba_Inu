@@ -1,77 +1,64 @@
-import React from "react";
-import data from "../../data/data.json";
-import Slider from "../Slider/Slider"
-import LocImage from "../../assets/user.png";
-import {
-  MapContainer,
-  Marker,
-  Popup,
-} from "react-leaflet";
-// import usePlacesAutocomplete, {
-//   getGeocode,
-//   getLatLng,
-// } from "use-places-autocomplete";
-// import {
-//   Combobox,
-//   ComboboxInput,
-//   ComboboxPopover,
-//   ComboboxList,
-//   ComboboxOption,
-// } from "@reach/combobox";
-
-import "@reach/combobox/styles.css";
-// import { formatRelative } from "date-fns";
 import "./LeafMap.css";
-// import mapStyles from "./mapStyles";
+import React, { useState , useRef , useEffect} from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMapEvent, useMap} from "react-leaflet";
+import data from "../../data/data.json";
+import Slider from "../Slider/Slider";
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
-// const libraries = ["places"];
-const mapContainerStyle = {
-  height: "80vh",
-  width: "98vw",
-};
+let DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow,
+    iconAnchor:   [13, 40], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4,50],  // the same for the shadow
+    popupAnchor:  [0,-40]// point from which the popup should open relative to the iconAnchor
+});
 
-const options = {
-  // styles: mapStyles,
-  disableDefaultUI: true,
-  zoomControl: true,
-};
+L.Marker.prototype.options.icon = DefaultIcon;
 
 const center = {
   lat: 40.712062139,
   lng: -74.0131062,
 };
 
-export default function App() {
+export default function LeafMap(props) {
+  function SetViewOnClick({ animateRef }) {
+    const map = useMapEvent('click', (e) => {
+      map.setView(e.latlng, map.getZoom(), {
+        animate: animateRef.current || false,
+      })
+    })
+  
+    return null
+  }
+
+//   var iconMarker = new L.icon({
+//     iconUrl: require('../../assets/placeholder.png'),
+//     iconSize:     [38, 95], // size of the icon
+//     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+//     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+// });
+
+//   const iconMe = new L.icon({
+//     iconUrl: require('../../assets/user.png'),
+//     shadowUrl: null,
+//     iconSize:     [38, 95], // size of the icon
+//     shadowSize:   [50, 64], // size of the shadow
+//     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+//     shadowAnchor: [4, 62],  // the same for the shadow
+//     popupAnchor:  [-3, -76]// point from which the popup should open relative to the iconAnchor
+// });
+  
+  const animateRef = useRef(true)
   const [markers, setMarkers] = React.useState(data);
-  const [selected, setSelected] = React.useState(null);
-
-  // const onMapClick = React.useCallback((e) => {
-  //   setMarkers((current) => [
-  //     ...current,
-  //     {
-  //       lat: e.lat,
-  //       lng: e.lng,
-  //       name: e.name,
-  //       address : e.address,
-  //       pictures:e.pictures
-  //     },
-  //   ]);
-  // }, []);
-
-  // const mapRef = React.useRef();
-  // const onMapLoad = React.useCallback((map) => {
-  //   mapRef.current = map;
-  // }, []);
-
-  // const { isLoaded, loadError } = useLoadScript({
-  //   googleMapsApiKey: "AIzaSyAg8ymI6t_XxGKgeGJMTUExDPtl_3xvTo4",
-  //   libraries,
-  // });
 
   // const panTo = React.useCallback(({ lat, lng }) => {
   //   mapRef.current.panTo({ lat, lng });
   //   mapRef.current.setZoom(17);
   // }, []);
+
   const getPictures = (selection) => {
     if (selection.pictures.length !== 0) {
       return selection.pictures.map((picture) => (
@@ -82,129 +69,65 @@ export default function App() {
     }
   };
 
-  // if (loadError) return "Error Occured. Please try again";
-  // if (!isLoaded) return "Loading...";
+  function LocationMarker() {
+    const [position, setPosition] = useState(null);
+    const [bbox, setBbox] = useState([]);
+
+    const map = useMap();
+
+    useEffect(() => {
+      map.locate().on("locationfound", function (e) {
+        setPosition(e.latlng);
+        map.flyTo(e.latlng, map.getZoom());
+        const radius = e.accuracy;
+        const circle = L.circle(e.latlng, radius);
+        circle.addTo(map);
+        setBbox(e.bounds.toBBoxString().split(","));
+      });
+
+    }, [map]);
+
+    return position === null ? null : (
+      <Marker position={position}>
+        <Popup>
+          You are here. <br />
+          {/* Map bbox: <br />
+          <b>Southwest lng</b>: {bbox[0]} <br />
+          <b>Southwest lat</b>: {bbox[1]} <br />
+          <b>Northeast lng</b>: {bbox[2]} <br />
+          <b>Northeast lat</b>: {bbox[3]} */}
+        </Popup>
+      </Marker>
+    );
+  }
 
   return (
-    <div>
-      {/* <Locate panTo={panTo} /> */}
-      {/* <Search panTo={panTo} /> */}
-      <MapContainer
-        // id="map"
-        // mapContainerStyle={mapContainerStyle}
-        zoom={15}
-        center={center}
-        // options={options}
-        // onClick={onMapClick}
-        // onLoad={onMapLoad}
-      >
+    <>
+      <MapContainer center={center} zoom={12} scrollWheelZoom={false}>
+      <TileLayer
+      attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    />
+        <SetViewOnClick animateRef={animateRef} />
+        <LocationMarker/>
         {markers.map((marker) => {
-          // console.log(marker.lng);
           return (
-            <Marker
-              key={`${marker.lat}-${marker.lng}`}
-              position={{ lat: marker.lat, lng: marker.lng }}
-              onClick={() => {
-                setSelected(marker);
-              }}
-            />
+            <Marker position={[marker.lat, marker.lng]}>
+              <Popup>
+                <>
+                  <div className="leafmapPictureAll">{getPictures(marker)}</div>
+                  <div>
+                    <p>Name : {marker.name}</p>
+                    <p>Address : {marker.address}</p>
+                  </div>
+                </>
+              </Popup>
+            </Marker>
           );
         })}
-
-        {selected ? (
-          <Popup
-            position={{ lat: selected.lat, lng: selected.lng }}
-            onCloseClick={() => {
-              setSelected(null);
-            }}
-          >
-            <>
-              <div className="leafmapPictureAll">{getPictures(selected)}</div>
-              <div>
-                <p>Name : {selected.name}</p>
-                <p>Address : {selected.address}</p>
-              </div>
-            </>
-          </Popup>
-        ) : null}
       </MapContainer>
-      <div>
-        <Slider data={data} className='leafmapSlider' />
-      </div>
-    </div>
+    </>
   );
 }
 
-// function Locate({ panTo }) {
-//   return (
-//     <button
-//       className="leafmaplocate"
-//       onClick={() => {
-//         navigator.geolocation.getCurrentPosition(
-//           (position) => {
-//             panTo({
-//               lat: position.coords.latitude,
-//               lng: position.coords.longitude,
-//             });
-//           },
-//           () => null
-//         );
-//       }}
-//     >
-//       <img src={LocImage} alt="compass" />
-//     </button>
-//   );
-// }
 
-// function Search({ panTo }) {
-//   const {
-//     ready,
-//     value,
-//     suggestions: { status, data },
-//     setValue,
-//     clearSuggestions,
-//   } = usePlacesAutocomplete({
-//     requestOptions: {
-//       location: { lat: () => 43.6532, lng: () => -79.3832 },
-//       radius: 100 * 1000,
-//     },
-//   });
-
-//   const handleInput = (e) => {
-//     setValue(e.target.value);
-//   };
-
-//   const handleSelect = async (address) => {
-//     setValue(address, false);
-//     clearSuggestions();
-
-//     try {
-//       const results = await getGeocode({ address });
-//       const { lat, lng } = await getLatLng(results[0]);
-//       panTo({ lat, lng });
-//     } catch (error) {
-//       console.log("Error: ", error);
-//     }
-//   };
-
-//   return (
-//     <div className="leafmapsearch">
-//       <Combobox onSelect={handleSelect}>
-//         <ComboboxInput
-//           value={value}
-//           onChange={handleInput}
-//           disabled={!ready}
-//           placeholder="Search for a location"
-//         />
-//         <ComboboxPopover>
-//           <ComboboxList>
-//             {status === "OK" &&
-//               data.map(({ id, description }) => (
-//                 <ComboboxOption key={id} value={description} />
-//               ))}
-//           </ComboboxList>
-//         </ComboboxPopover>
-//       </Combobox>
-//     </div>
-//   );
-// }

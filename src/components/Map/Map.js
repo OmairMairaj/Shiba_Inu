@@ -21,9 +21,7 @@ import {
 } from "@reach/combobox";
 
 import "@reach/combobox/styles.css";
-import { formatRelative } from "date-fns";
 import "./Map.css";
-import mapStyles from "./mapStyles";
 
 const libraries = ["places"];
 const mapContainerStyle = {
