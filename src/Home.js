@@ -19,9 +19,9 @@ function Home() {
       <div className="map">
         <LeafMap/>
       </div>
-      <div>
+      {/* <div>
         <Slider data={data} className="leafmapSlider" />
-      </div>
+      </div> */}
       <div className="footer">
         <Footer />
       </div>

@@ -1,19 +1,36 @@
 import "./LeafMap.css";
-import React, { useState , useRef , useEffect} from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMapEvent, useMap} from "react-leaflet";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMapEvent,
+  useMap,
+} from "react-leaflet";
 import data from "../../data/data.json";
-import Slider from "../Slider/Slider";
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import icon from "C:/Users/goget/Downloads/Projects/Shiba Inu/Shiba_Inu/src/assets/logoicon.png";
+import userIcon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
 let DefaultIcon = L.icon({
-    iconUrl: icon,
-    shadowUrl: iconShadow,
-    iconAnchor:   [13, 40], // point of the icon which will correspond to marker's location
-    shadowAnchor: [4,50],  // the same for the shadow
-    popupAnchor:  [0,-40]// point from which the popup should open relative to the iconAnchor
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40], // point of the icon which will correspond to marker's location
+  shadowAnchor: [4, 50], // the same for the shadow
+  popupAnchor: [0, -40], // point from which the popup should open relative to the iconAnchor
+});
+
+let me = L.icon({
+  iconUrl: userIcon,
+  shadowUrl: iconShadow,
+  iconSize: [20, 40],
+  iconAnchor: [11, 40], // point of the icon which will correspond to marker's location
+  shadowAnchor: [4, 50], // the same for the shadow
+  popupAnchor: [0, -40], // point from which the popup should open relative to the iconAnchor
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
@@ -24,41 +41,50 @@ const center = {
 };
 
 export default function LeafMap(props) {
+  const animateRef = useRef(true);
+  const [markers, setMarkers] = React.useState(data);
+  const [tempMarker, setTempMarker] = useState(null);
+  const [addNew, setAddNew] = useState(false);
+
   function SetViewOnClick({ animateRef }) {
-    const map = useMapEvent('click', (e) => {
+    const map = useMapEvent("click", (e) => {
+      if (addNew) {
+        setTempMarker(e.latlng);
+      }
       map.setView(e.latlng, map.getZoom(), {
         animate: animateRef.current || false,
-      })
-    })
-  
-    return null
+      });
+    });
+
+    return null;
   }
 
-//   var iconMarker = new L.icon({
-//     iconUrl: require('../../assets/placeholder.png'),
-//     iconSize:     [38, 95], // size of the icon
-//     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-//     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-// });
+  //   var iconMarker = new L.icon({
+  //     iconUrl: require('../../assets/placeholder.png'),
+  //     iconSize:     [38, 95], // size of the icon
+  //     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+  //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+  // });
 
-//   const iconMe = new L.icon({
-//     iconUrl: require('../../assets/user.png'),
-//     shadowUrl: null,
-//     iconSize:     [38, 95], // size of the icon
-//     shadowSize:   [50, 64], // size of the shadow
-//     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-//     shadowAnchor: [4, 62],  // the same for the shadow
-//     popupAnchor:  [-3, -76]// point from which the popup should open relative to the iconAnchor
-// });
-  
-  const animateRef = useRef(true)
-  const [markers, setMarkers] = React.useState(data);
+  //   const iconMe = new L.icon({
+  //     iconUrl: require('../../assets/user.png'),
+  //     shadowUrl: null,
+  //     iconSize:     [38, 95], // size of the icon
+  //     shadowSize:   [50, 64], // size of the shadow
+  //     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+  //     shadowAnchor: [4, 62],  // the same for the shadow
+  //     popupAnchor:  [-3, -76]// point from which the popup should open relative to the iconAnchor
+  // });
 
   // const panTo = React.useCallback(({ lat, lng }) => {
   //   mapRef.current.panTo({ lat, lng });
   //   mapRef.current.setZoom(17);
   // }, []);
 
+  // function addMarker(e){
+  //     console.log(e)
+  //     // setTempMarker();
+  //   }
   const getPictures = (selection) => {
     if (selection.pictures.length !== 0) {
       return selection.pictures.map((picture) => (
@@ -76,19 +102,23 @@ export default function LeafMap(props) {
     const map = useMap();
 
     useEffect(() => {
-      map.locate().on("locationfound", function (e) {
-        setPosition(e.latlng);
-        map.flyTo(e.latlng, map.getZoom());
-        const radius = e.accuracy;
-        const circle = L.circle(e.latlng, radius);
-        circle.addTo(map);
-        setBbox(e.bounds.toBBoxString().split(","));
-      });
-
-    }, [map]);
+      if (!addNew) {
+        map.locate().on("locationfound", function (e) {
+          setPosition(e.latlng);
+          map.flyTo(e.latlng, map.getZoom());
+          const radius = e.accuracy;
+          const circle = L.circle(e.latlng, radius);
+          circle.addTo(map);
+          setBbox(e.bounds.toBBoxString().split(","));
+        });
+      }
+    }, []);
 
     return position === null ? null : (
-      <Marker position={position}>
+      <Marker
+        position={position}
+        icon={me}
+      >
         <Popup>
           You are here. <br />
           {/* Map bbox: <br />
@@ -103,13 +133,30 @@ export default function LeafMap(props) {
 
   return (
     <>
-      <MapContainer center={center} zoom={12} scrollWheelZoom={false}>
-      <TileLayer
-      attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    />
+      <div 
+      style={{backgroundColor:"blue",width:"fit-content",height:"fit-content", position:"absolute",zIndex:"999"}} 
+      onClick={() => {
+          setAddNew(true);
+        }}>
+          click here to add more
+        </div>
+        {addNew ? (
+          <>
+            <div>
+              <input
+              type="text"
+              placeholder="name"
+              />
+            </div>
+          </>
+        ) : null}
+      <MapContainer center={center} zoom={12} scrollWheelZoom={true}>
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
         <SetViewOnClick animateRef={animateRef} />
-        <LocationMarker/>
+        <LocationMarker />
         {markers.map((marker) => {
           return (
             <Marker position={[marker.lat, marker.lng]}>
@@ -125,9 +172,12 @@ export default function LeafMap(props) {
             </Marker>
           );
         })}
+        {tempMarker ? (
+          <>
+            <Marker position={[tempMarker.lat, tempMarker.lng]}></Marker>
+          </>
+        ) : null}
       </MapContainer>
     </>
   );
 }
-
-
