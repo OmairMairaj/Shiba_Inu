@@ -17,12 +17,10 @@ function Dropdown({ selected, setSelected }) {
   }, [wrapperRef]);
   const [isActive, setIsActive] = useState(false);
   const options = [
+    "All",
+    "Shop",
+    "Restaurant",
     "Lorem Ipsum",
-    "Lorem Ipsum@",
-    "Lorem Ipsum$",
-    "Lorem Ipsum#",
-    "Lorem Ipsum*",
-    "Lorem Ipsum Lorem",
   ];
   return (
     <div ref={wrapperRef} className="dropdown">

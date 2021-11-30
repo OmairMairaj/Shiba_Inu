@@ -1,54 +1,184 @@
 [
     {
-        "lat":40.71206213925839,
-        "lng":-74.013106201219,
-        "name":"World Trade Center",
-        "address":"New York, USA",
-        "pictures":[
-            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h240-k-no","https://lh5.googleusercontent.com/p/AF1QipPZAkm0jQ9N9tatBPhhEn28RboT_bmX0GVONFUR=w256-h132-p-k-no","https://lh5.googleusercontent.com/p/AF1QipOWxBItcAW6988nxQsNB5neIaivoCtZAopU8xe1=w256-h132-p-k-no"
+        "id": 1,
+        "category": "Restaurant",
+        "lat": 24.0,
+        "lng": 67.0,
+        "name": "World Trade Center",
+        "address": "New York, USA",
+        "pictures": [
+            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h240-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipPZAkm0jQ9N9tatBPhhEn28RboT_bmX0GVONFUR=w256-h132-p-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipOWxBItcAW6988nxQsNB5neIaivoCtZAopU8xe1=w256-h132-p-k-no"
         ]
     },
     {
-        "lat":40.72027648241553,
-        "lng":-74.00836326475583,
-        "name":"Bubby's",
-        "address":"120 Hudson St, New York, NY 10013, United States",
-        "pictures":[
+        "id": 2,
+        "category": "Restaurant",
+        "lat": 24.1,
+        "lng": 67.1,
+        "name": "World Trade Center",
+        "address": "New York, USA",
+        "pictures": [
+            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h240-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipPZAkm0jQ9N9tatBPhhEn28RboT_bmX0GVONFUR=w256-h132-p-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipOWxBItcAW6988nxQsNB5neIaivoCtZAopU8xe1=w256-h132-p-k-no"
+        ]
+    },
+    {
+        "id": 3,
+        "category": "Restaurant",
+        "lat": 24.2,
+        "lng": 67.2,
+        "name": "World Trade Center",
+        "address": "New York, USA",
+        "pictures": [
+            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h240-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipPZAkm0jQ9N9tatBPhhEn28RboT_bmX0GVONFUR=w256-h132-p-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipOWxBItcAW6988nxQsNB5neIaivoCtZAopU8xe1=w256-h132-p-k-no"
+        ]
+    },
+    {
+        "id": 4,
+        "category": "Restaurant",
+        "lat": 24.3,
+        "lng": 67.0,
+        "name": "World Trade Center",
+        "address": "New York, USA",
+        "pictures": [
+            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h240-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipPZAkm0jQ9N9tatBPhhEn28RboT_bmX0GVONFUR=w256-h132-p-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipOWxBItcAW6988nxQsNB5neIaivoCtZAopU8xe1=w256-h132-p-k-no"
+        ]
+    },
+    {
+        "id": 5,
+        "category": "Shop",
+        "lat": 24.4,
+        "lng": 67.0,
+        "name": "World Trade Center",
+        "address": "New York, USA",
+        "pictures": [
+            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h240-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipPZAkm0jQ9N9tatBPhhEn28RboT_bmX0GVONFUR=w256-h132-p-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipOWxBItcAW6988nxQsNB5neIaivoCtZAopU8xe1=w256-h132-p-k-no"
+        ]
+    },
+    {
+        "id": 6,
+        "category": "Shop",
+        "lat": 24.5,
+        "lng": 67.0,
+        "name": "World Trade Center",
+        "address": "New York, USA",
+        "pictures": [
+            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h240-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipPZAkm0jQ9N9tatBPhhEn28RboT_bmX0GVONFUR=w256-h132-p-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipOWxBItcAW6988nxQsNB5neIaivoCtZAopU8xe1=w256-h132-p-k-no"
+        ]
+    },
+    {
+        "id": 7,
+        "category": "Restaurant",
+        "lat": 24.6,
+        "lng": 67.0,
+        "name": "World Trade Center",
+        "address": "New York, USA",
+        "pictures": [
+            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h240-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipPZAkm0jQ9N9tatBPhhEn28RboT_bmX0GVONFUR=w256-h132-p-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipOWxBItcAW6988nxQsNB5neIaivoCtZAopU8xe1=w256-h132-p-k-no"
+        ]
+    },
+    {
+        "id": 8,
+        "category": "Shop",
+        "lat": 24.7,
+        "lng": 67.0,
+        "name": "World Trade Center",
+        "address": "New York, USA",
+        "pictures": [
+            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h240-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipPZAkm0jQ9N9tatBPhhEn28RboT_bmX0GVONFUR=w256-h132-p-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipOWxBItcAW6988nxQsNB5neIaivoCtZAopU8xe1=w256-h132-p-k-no"
+        ]
+    },
+    {
+        "id": 9,
+        "category": "Restaurant",
+        "lat": 24.8,
+        "lng": 67.0,
+        "name": "World Trade Center",
+        "address": "New York, USA",
+        "pictures": [
+            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h240-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipPZAkm0jQ9N9tatBPhhEn28RboT_bmX0GVONFUR=w256-h132-p-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipOWxBItcAW6988nxQsNB5neIaivoCtZAopU8xe1=w256-h132-p-k-no"
+        ]
+    },
+    {
+        "id": 10,
+        "category": "Shop",
+        "lat": 24.9,
+        "lng": 67.0,
+        "name": "World Trade Center",
+        "address": "New York, USA",
+        "pictures": [
+            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h240-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipPZAkm0jQ9N9tatBPhhEn28RboT_bmX0GVONFUR=w256-h132-p-k-no",
+            "https://lh5.googleusercontent.com/p/AF1QipOWxBItcAW6988nxQsNB5neIaivoCtZAopU8xe1=w256-h132-p-k-no"
+        ]
+    },
+    {
+        "id": 11,
+        "category": "Restaurant",
+        "lat": 40.72027648241553,
+        "lng": -74.00836326475583,
+        "name": "Bubby's",
+        "address": "120 Hudson St, New York, NY 10013, United States",
+        "pictures": [
             "https://lh5.googleusercontent.com/p/AF1QipN3UwrL3uE2Q8PZ2Xzqr9Wxedg1ASlqbIgRBjMW=w408-h271-k-no"
         ]
     },
     {
-        "lat":40.75982465392194,
-        "lng":-73.98523666406413,
-        "name":"Times Square",
-        "address":"Manhattan, NY 10036, United States",
-        "pictures":[
+        "id": 12,
+        "category": "Restaurant",
+        "lat": 40.75982465392194,
+        "lng": -73.98523666406413,
+        "name": "Times Square",
+        "address": "Manhattan, NY 10036, United States",
+        "pictures": [
             "https://lh5.googleusercontent.com/p/AF1QipMxrLqW43sBNl8pIWjSrZCTgk2bSK1YOqxu5VHs=w408-h903-k-no"
         ]
     },
     {
-        "lat":40.81642352791771,
-        "lng":-74.07528870166199,
-        "name":"Metlife Stadium",
-        "address":"1 MetLife Stadium Dr, East Rutherford, NJ 07073, United States",
-        "pictures":[
-        ]
+        "id": 13,
+        "category": "Shop",
+        "lat": 40.81642352791771,
+        "lng": -74.07528870166199,
+        "name": "Metlife Stadium",
+        "address": "1 MetLife Stadium Dr, East Rutherford, NJ 07073, United States",
+        "pictures": []
     },
     {
-        "lat":40.899409147157826,
-        "lng":-73.79403155390929,
-        "name":"Cotsco Wholesale",
-        "address":"1 Industrial Ln, New Rochelle, NY 10805, United States",
-        "pictures":[
+        "id": 14,
+        "category": "Shop",
+        "lat": 40.899409147157826,
+        "lng": -73.79403155390929,
+        "name": "Cotsco Wholesale",
+        "address": "1 Industrial Ln, New Rochelle, NY 10805, United States",
+        "pictures": [
             "https://lh5.googleusercontent.com/p/AF1QipM6rWoBWU2JXMdGfYUqsJHJR5M8KiHJ82uwODlT=w408-h306-k-no"
         ]
     },
     {
-        "lat":40.85689226913027,
-        "lng":-73.84689737810439,
-        "name":"NYC Health + Hospitals/Jacobi",
-        "address":"1400 Pelham Pkwy S, Bronx, NY 10461, United States",
-        "pictures":[
+        "id": 15,
+        "category": "Restaurant",
+        "lat": 40.85689226913027,
+        "lng": -73.84689737810439,
+        "name": "NYC Health + Hospitals/Jacobi",
+        "address": "1400 Pelham Pkwy S, Bronx, NY 10461, United States",
+        "pictures": [
             "https://lh5.googleusercontent.com/p/AF1QipOxG9Lpn3H8IyQ069PWSpUrxMQ3_0Y9cFP4jClC=w408-h544-k-no"
         ]
     }

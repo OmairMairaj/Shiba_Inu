@@ -14,6 +14,7 @@ import "leaflet/dist/leaflet.css";
 import icon from "C:/Users/goget/Downloads/Projects/Shiba Inu/Shiba_Inu/src/assets/logoicon.png";
 import userIcon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import Slider from "../Slider/Slider";
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
@@ -27,7 +28,7 @@ let DefaultIcon = L.icon({
 let me = L.icon({
   iconUrl: userIcon,
   shadowUrl: iconShadow,
-  iconSize: [20, 40],
+  iconSize: [20, 35],
   iconAnchor: [11, 40], // point of the icon which will correspond to marker's location
   shadowAnchor: [4, 50], // the same for the shadow
   popupAnchor: [0, -40], // point from which the popup should open relative to the iconAnchor
@@ -43,8 +44,9 @@ const center = {
 export default function LeafMap(props) {
   const animateRef = useRef(true);
   const [markers, setMarkers] = React.useState(data);
-  const [tempMarker, setTempMarker] = useState(null);
+  const [tempMarker, setTempMarker] = useState(center);
   const [addNew, setAddNew] = useState(false);
+  const mapRef = React.useRef();
 
   function SetViewOnClick({ animateRef }) {
     const map = useMapEvent("click", (e) => {
@@ -58,10 +60,13 @@ export default function LeafMap(props) {
 
     return null;
   }
+  // function SetViewOnChange(animateRef,lng,lat) {
+
+  //   return null;
+  // }
 
   //   var iconMarker = new L.icon({
-  //     iconUrl: require('../../assets/placeholder.png'),
-  //     iconSize:     [38, 95], // size of the icon
+  //     iconUrl: require('../../assets/  //     iconSize:     [38, 95], // size of the icon
   //     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
   //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   // });
@@ -98,9 +103,8 @@ export default function LeafMap(props) {
   function LocationMarker() {
     const [position, setPosition] = useState(null);
     const [bbox, setBbox] = useState([]);
-
     const map = useMap();
-
+    mapRef.current = map;
     useEffect(() => {
       if (!addNew) {
         map.locate().on("locationfound", function (e) {
@@ -115,10 +119,7 @@ export default function LeafMap(props) {
     }, []);
 
     return position === null ? null : (
-      <Marker
-        position={position}
-        icon={me}
-      >
+      <Marker position={position} icon={me}>
         <Popup>
           You are here. <br />
           {/* Map bbox: <br />
@@ -132,24 +133,98 @@ export default function LeafMap(props) {
   }
 
   return (
-    <>
-      <div 
-      style={{backgroundColor:"blue",width:"fit-content",height:"fit-content", position:"absolute",zIndex:"999"}} 
-      onClick={() => {
-          setAddNew(true);
-        }}>
-          click here to add more
+    <div>
+      <div className="yellowStrip">
+      <div className="normalButton" style={{fontSize:"25px",color:"red"}}>
+        Lorem Ipsum
+      </div>
+      <div className="normalButton">
+        Lorem Ipsum
+      </div>
+      <div className="normalButton">
+        Lorem Ipsum
+      </div>
+      <div className="normalButton">
+        Lorem Ipsum
+      </div>
+        <div
+          className="addButton"
+          onClick={() => {
+            setAddNew(!addNew);
+          }}
+        >
+          Add Place
         </div>
-        {addNew ? (
-          <>
-            <div>
+      </div>
+      {addNew ? (
+        <>
+          <div className="redSection">
+            <div className="oneInput">
+              Latitude :
               <input
-              type="text"
-              placeholder="name"
+              className="inputField"
+                type="text"
+                
+                value={tempMarker.lat}
+                onChange={(e) => {
+                  setTempMarker({ lat: e.target.value, lng: tempMarker.lng });
+                  // SetViewOnChange(animateRef,tempMarker.lng,e.target.value);
+
+                  mapRef.current.setView(
+                    L.latLng(e.target.value, tempMarker.lng),
+                    mapRef.current.getZoom(),
+                    {
+                      animate: animateRef.current || false,
+                    }
+                  );
+                }}
               />
             </div>
-          </>
-        ) : null}
+
+            <div className="oneInput">
+              Longitude :
+              <input
+              className="inputField"
+                type="text"
+                
+                value={tempMarker.lng}
+                onChange={(e) => {
+                  setTempMarker({ lat: tempMarker.lat, lng: e.target.value });
+                  // SetViewOnChange(animateRef,tempMarker.lng,e.target.value);
+
+                  mapRef.current.setView(
+                    L.latLng(tempMarker.lat, e.target.value),
+                    mapRef.current.getZoom(),
+                    {
+                      animate: animateRef.current || false,
+                    }
+                  );
+                }}
+              />
+            </div>
+            <div className="oneInput">
+              Name :
+              <input type="text" className="inputField"  />
+            </div>
+            <div className="oneInput">
+              Address :
+              <input type="text" className="inputField" />
+            </div>
+            <div className="oneInput">
+              City :
+              <input type="text" className="inputField"  />
+            </div>
+            <div className="oneInput">
+              Country :
+              <input type="text" className="inputField"  />
+            </div>
+            <div className="oneInput">
+              Optional Details :
+              <input type="text" className="inputField" />
+            </div>
+          </div>
+        </>
+      ) : null}
       <MapContainer center={center} zoom={12} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -172,12 +247,13 @@ export default function LeafMap(props) {
             </Marker>
           );
         })}
-        {tempMarker ? (
+        {addNew === true ? (
           <>
             <Marker position={[tempMarker.lat, tempMarker.lng]}></Marker>
           </>
         ) : null}
       </MapContainer>
-    </>
+      <Slider data={data} />
+    </div>
   );
 }

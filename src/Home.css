@@ -5,9 +5,9 @@
 
 .map {
   display: flex;
-  padding: 4px 0;
   height: fit-content;
   justify-content: space-around;
+  min-width: 100vw;
 }
 
 .footer {

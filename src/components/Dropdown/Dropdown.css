@@ -1,6 +1,6 @@
 .dropdown {
   position: relative;
-  z-index: 70 !important;
+  z-index: 1001 !important;
   width: 30%;
   padding-left: 10px;
   user-select: none;
