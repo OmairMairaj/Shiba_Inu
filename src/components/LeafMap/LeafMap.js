@@ -60,36 +60,6 @@ export default function LeafMap(props) {
 
     return null;
   }
-  // function SetViewOnChange(animateRef,lng,lat) {
-
-  //   return null;
-  // }
-
-  //   var iconMarker = new L.icon({
-  //     iconUrl: require('../../assets/  //     iconSize:     [38, 95], // size of the icon
-  //     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-  //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-  // });
-
-  //   const iconMe = new L.icon({
-  //     iconUrl: require('../../assets/user.png'),
-  //     shadowUrl: null,
-  //     iconSize:     [38, 95], // size of the icon
-  //     shadowSize:   [50, 64], // size of the shadow
-  //     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-  //     shadowAnchor: [4, 62],  // the same for the shadow
-  //     popupAnchor:  [-3, -76]// point from which the popup should open relative to the iconAnchor
-  // });
-
-  // const panTo = React.useCallback(({ lat, lng }) => {
-  //   mapRef.current.panTo({ lat, lng });
-  //   mapRef.current.setZoom(17);
-  // }, []);
-
-  // function addMarker(e){
-  //     console.log(e)
-  //     // setTempMarker();
-  //   }
   const getPictures = (selection) => {
     if (selection.pictures.length !== 0) {
       return selection.pictures.map((picture) => (
@@ -122,11 +92,6 @@ export default function LeafMap(props) {
       <Marker position={position} icon={me}>
         <Popup>
           You are here. <br />
-          {/* Map bbox: <br />
-          <b>Southwest lng</b>: {bbox[0]} <br />
-          <b>Southwest lat</b>: {bbox[1]} <br />
-          <b>Northeast lng</b>: {bbox[2]} <br />
-          <b>Northeast lat</b>: {bbox[3]} */}
         </Popup>
       </Marker>
     );
@@ -168,7 +133,6 @@ export default function LeafMap(props) {
                 value={tempMarker.lat}
                 onChange={(e) => {
                   setTempMarker({ lat: e.target.value, lng: tempMarker.lng });
-                  // SetViewOnChange(animateRef,tempMarker.lng,e.target.value);
 
                   mapRef.current.setView(
                     L.latLng(e.target.value, tempMarker.lng),
@@ -190,7 +154,6 @@ export default function LeafMap(props) {
                 value={tempMarker.lng}
                 onChange={(e) => {
                   setTempMarker({ lat: tempMarker.lat, lng: e.target.value });
-                  // SetViewOnChange(animateRef,tempMarker.lng,e.target.value);
 
                   mapRef.current.setView(
                     L.latLng(tempMarker.lat, e.target.value),

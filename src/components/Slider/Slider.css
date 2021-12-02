@@ -1,27 +1,45 @@
 .sliderWhole{
+    transform: translate(0%,-60%);
     position: absolute;
     z-index: 999!important;
-    transform: translate(6%,-60%);
+    display: flex;
+    background-color: transparent;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: absolute;
+    min-width: 100vw;    
+    align-items: center;
+}
+.slider{
+    z-index: 999!important;
     display: flex;
     border-radius: 10px;
     padding: 10px;
     background-color: transparent;
     flex-wrap: nowrap;
-    overflow-x: scroll;
+    overflow-x: hidden;
     justify-content: space-between;
-    margin: 20px 200px;
-    position: absolute;
     max-width: 60vw;
+    scroll-behavior: smooth;
     
 }
+.sliderIcon{
+    cursor: pointer;
+    max-height: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    min-width: 50px;
+}
 .oneBox{
-    border-radius: 8px;
+    box-shadow: rgba(91, 91, 121, 0.25) 0px 13px 27px -5px, rgba(100, 100, 100, 0.603) 0px 8px 16px -8px;
+    border-radius: 5px;
     padding: 10px;
-    background-color: #ffa409;
+    background-color: white;
     color: red;
     margin: 0 5px;
     max-width: 18vw;
     min-width: 18vw;
+    max-height: 23vh;
 }
 .NoPicture{
     margin-left: auto;

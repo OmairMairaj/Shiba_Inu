@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import Dropdown from "../Dropdown/Dropdown";
+import Search from "../Search/Search";
 import "./SearchBar.css";
 
 function SearchBar() {
@@ -17,17 +18,18 @@ function SearchBar() {
             setSelected={setSelected}
           />
           <div className="search">
-            <input
+            {/* <input
               type="text"
               className="search__input"
               placeholder="Search for a place...."
               value={search}
               onChange={(e)=>setSearch(e.target.value)}
-            ></input>
+            ></input> */}
+            <Search/>
           </div>
-          <button className="btn" type="submit">
+          {/* <button className="btn" type="submit">
             <FaSearch className="fa-search" />
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
