@@ -11,7 +11,8 @@ import {
 import data from "../../data/data.json";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import icon from "C:/Users/goget/Downloads/Projects/Shiba Inu/Shiba_Inu/src/assets/logoicon.png";
+import icon from "../../assets/logoicon.png";
+import location from "../../assets/placeholder.png";
 import userIcon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import Slider from "../Slider/Slider";
@@ -46,6 +47,7 @@ export default function LeafMap(props) {
   const [markers, setMarkers] = React.useState(data);
   const [tempMarker, setTempMarker] = useState(center);
   const [addNew, setAddNew] = useState(false);
+  const [select, setSelect] = useState(null);
   const mapRef = React.useRef();
 
   function SetViewOnClick({ animateRef }) {
@@ -76,7 +78,7 @@ export default function LeafMap(props) {
     const map = useMap();
     mapRef.current = map;
     useEffect(() => {
-      if (!addNew) {
+      if (!addNew && select === null) {
         map.locate().on("locationfound", function (e) {
           setPosition(e.latlng);
           map.flyTo(e.latlng, map.getZoom());
@@ -97,21 +99,30 @@ export default function LeafMap(props) {
     );
   }
 
+  function SetSetter() {
+    const map = useMap();
+    mapRef.current = map;
+    useEffect(() => {
+      if (select !== null) {
+        map.flyTo({ lat: select.lat, lng: select.lng }, map.getZoom());
+      }
+    }, [select]);
+
+    return null;
+  }
+
   return (
     <div>
       <div className="yellowStrip">
-      <div className="normalButton" style={{fontSize:"25px",color:"red"}}>
-        Lorem Ipsum
-      </div>
-      <div className="normalButton">
-        Lorem Ipsum
-      </div>
-      <div className="normalButton">
-        Lorem Ipsum
-      </div>
-      <div className="normalButton">
-        Lorem Ipsum
-      </div>
+        <div
+          className="normalButton"
+          style={{ fontSize: "25px", color: "red" }}
+        >
+          Lorem Ipsum
+        </div>
+        <div className="normalButton">Lorem Ipsum</div>
+        <div className="normalButton">Lorem Ipsum</div>
+        <div className="normalButton">Lorem Ipsum</div>
         <div
           className="addButton"
           onClick={() => {
@@ -120,6 +131,14 @@ export default function LeafMap(props) {
         >
           Add Place
         </div>
+        <div
+          className="locButton"
+          onClick={() => {
+            setSelect(null);
+          }}
+        >
+          <img src={location} style={{width:"3vw"}} />
+        </div>
       </div>
       {addNew ? (
         <>
@@ -127,9 +146,8 @@ export default function LeafMap(props) {
             <div className="oneInput">
               Latitude :
               <input
-              className="inputField"
+                className="inputField"
                 type="text"
-                
                 value={tempMarker.lat}
                 onChange={(e) => {
                   setTempMarker({ lat: e.target.value, lng: tempMarker.lng });
@@ -148,9 +166,8 @@ export default function LeafMap(props) {
             <div className="oneInput">
               Longitude :
               <input
-              className="inputField"
+                className="inputField"
                 type="text"
-                
                 value={tempMarker.lng}
                 onChange={(e) => {
                   setTempMarker({ lat: tempMarker.lat, lng: e.target.value });
@@ -167,7 +184,7 @@ export default function LeafMap(props) {
             </div>
             <div className="oneInput">
               Name :
-              <input type="text" className="inputField"  />
+              <input type="text" className="inputField" />
             </div>
             <div className="oneInput">
               Address :
@@ -175,11 +192,11 @@ export default function LeafMap(props) {
             </div>
             <div className="oneInput">
               City :
-              <input type="text" className="inputField"  />
+              <input type="text" className="inputField" />
             </div>
             <div className="oneInput">
               Country :
-              <input type="text" className="inputField"  />
+              <input type="text" className="inputField" />
             </div>
             <div className="oneInput">
               Optional Details :
@@ -195,6 +212,7 @@ export default function LeafMap(props) {
         />
         <SetViewOnClick animateRef={animateRef} />
         <LocationMarker />
+        <SetSetter />
         {markers.map((marker) => {
           return (
             <Marker position={[marker.lat, marker.lng]}>
@@ -216,7 +234,13 @@ export default function LeafMap(props) {
           </>
         ) : null}
       </MapContainer>
-      <Slider data={data} />
+      <Slider
+        data={data}
+        select={select}
+        setSelect={(val) => {
+          setSelect(val);
+        }}
+      />
     </div>
   );
 }

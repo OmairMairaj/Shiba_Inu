@@ -31,6 +31,7 @@
     min-width: 50px;
 }
 .oneBox{
+    cursor: pointer;
     box-shadow: rgba(91, 91, 121, 0.25) 0px 13px 27px -5px, rgba(100, 100, 100, 0.603) 0px 8px 16px -8px;
     border-radius: 5px;
     padding: 10px;
