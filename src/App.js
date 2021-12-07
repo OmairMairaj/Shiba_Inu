@@ -1,11 +1,13 @@
 import "./App.css";
-import Home from "./Home";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 import React from "react";
 
 function App() {
   return (
     <>
-      <Home />
+      {/* <Home /> */}
+      <Login />
     </>
   );
 }
