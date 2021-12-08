@@ -1,5 +1,6 @@
 import React from "react";
-import OtherHalf from "../assets/close.png";
+import OtherHalf from "../assets/fox.png";
+import Background from "../assets/background.jpeg";
 import "./Login.css";
 export default function Login(props) {
   const [email, setEmail] = React.useState("");
@@ -9,7 +10,7 @@ export default function Login(props) {
     if (email == "" || password == "") {
       alert("Please enter Email and Password");
     } else {
-      alert("There goes an API Call");
+      alert(email+password);
     }
   }
 
@@ -40,10 +41,10 @@ export default function Login(props) {
   //   }
 
   return (
-    <div className="login_whole">
+    <div className="login_whole" style={{backgroundImage:`url(${Background})`}}>
       <div className="login_container">
         <div className="image_otherhalf">
-          <img src={OtherHalf} />
+          <img src={OtherHalf} className="login_image" />
         </div>
         <div className="login_otherhalf">
           <div className="login_heading">Login</div>
@@ -56,16 +57,14 @@ export default function Login(props) {
               <input
                 type="text"
                 className="login_oneInputBox"
-                placeholder="John Doe"
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
               />
               <input
-                type="text"
+                type="password"
                 className="login_oneInputBox"
-                placeholder="qwerty123"
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value);
