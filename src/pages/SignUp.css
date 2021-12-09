@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@350&display=swap");
 * {
   font-family: "Open Sans", sans-serif;
+  text-decoration: none;
 }
 .signup_whole {
   min-width: 100vw;
@@ -12,8 +13,8 @@
 .signup_container {
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  min-height: 70vh;
-  max-height: 70vh;
+  min-height: 80vh;
+  max-height: 80vh;
   position: absolute;
   top: 50%;
   -ms-transform: translateY(-50%);
@@ -35,10 +36,8 @@
   background-color: transparent;
 }
 .signup_image {
-  /* max-width: 100%; */
-  /* min-width: 100%; */
-  min-height: 70vh;
-  max-height: 70vh;
+  min-height: 80vh;
+  max-height: 80vh;
 }
 .signup_otherhalf {
   width: 30vw;
@@ -48,7 +47,7 @@
   min-width: 100%;
   font-size: 40px;
   max-height: 10vh;
-  margin-top: 10%;
+  margin-top: 5%;
 }
 .signup_InputSection {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -89,6 +88,7 @@
 }
 .signup_buttonBox {
   margin: auto;
+  padding-top: 20px;
   min-width: 85%;
   max-width: 85%;
   display: flex;
@@ -103,7 +103,38 @@
   padding: 5px;
   border-radius: 5px;
   border: 0px;
-  background-color: #ffa409;
+  background-color: #ff8400;
   height: 30px;
   width: 100%;
+  cursor: pointer;
+}
+.signup_button_container {
+    cursor: pointer;
+    margin: 10px auto;
+    border-radius: 5px;
+    border: 0px;
+    font-size: 12px;
+    background-color: #ff8400;
+    width: 100%;
+}
+.signup_top_buttons{
+    margin: 10px 0 0 10px;
+    min-width:25%;
+    max-width: 25%;
+}
+.signup_button_top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 5px 5px 5px 18px ;
+    border-radius: 5px;
+    border: 0px;
+    background-color: #ff8400;
+    height: 30px;
+    width: 100%;
+    cursor: pointer;
+  }
+.signup_back_button{
+    width: 20px;
+    height: 20px;
 }

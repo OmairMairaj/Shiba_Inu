@@ -10,7 +10,7 @@ function Slider({ data, select,setSelect}) {
   const slider = () => {
     return data.map((marker) =>
       select && select.id === marker.id ? (
-        <div className="oneBox" id={`${marker.id}`} style={{ backgroundColor: "orange" }}>
+        <div className="oneBox" id={`${marker.id}`} style={{ backgroundColor: "#ff8400" }}>
           {marker.pictures.length !== 0 ? (
             <img className="onePicture" src={`${marker.pictures[0]}`} />
           ) : (

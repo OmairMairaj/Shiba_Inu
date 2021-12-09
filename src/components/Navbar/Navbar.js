@@ -3,6 +3,7 @@ import "./Navbar.css";
 import { FaSearch } from "react-icons/fa";
 import icon from "../../assets/logoicon.png";
 import SearchBar from "../SearchBar/SearchBar";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -16,8 +17,8 @@ function Navbar() {
           <SearchBar />
         </div>
         <div className="auth__buttons">
-          <div className="login__btn">Login</div>
-          <div className="signup__btn">Sign Up</div>
+          <Link to="/login" className="login__btn"><div>Login</div></Link>
+          <Link to="/signup" className="signup__btn"><div>Sign Up</div></Link>
         </div>
       </div>
     </div>

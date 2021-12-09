@@ -27,9 +27,9 @@ let DefaultIcon = L.icon({
 });
 
 let me = L.icon({
-  iconUrl: userIcon,
+  iconUrl: location,
   shadowUrl: iconShadow,
-  iconSize: [20, 35],
+  iconSize: [33, 35],
   iconAnchor: [11, 40], // point of the icon which will correspond to marker's location
   shadowAnchor: [4, 50], // the same for the shadow
   popupAnchor: [0, -40], // point from which the popup should open relative to the iconAnchor
@@ -41,6 +41,7 @@ const center = {
   lat: 40.712062139,
   lng: -74.0131062,
 };
+const radius = 50000;
 
 export default function LeafMap(props) {
   const animateRef = useRef(true);
@@ -55,6 +56,7 @@ export default function LeafMap(props) {
       if (addNew) {
         setTempMarker(e.latlng);
       }
+      setSelect({});
       map.setView(e.latlng, map.getZoom(), {
         animate: animateRef.current || false,
       });
@@ -62,6 +64,7 @@ export default function LeafMap(props) {
 
     return null;
   }
+
   const getPictures = (selection) => {
     if (selection.pictures.length !== 0) {
       return selection.pictures.map((picture) => (
@@ -74,17 +77,14 @@ export default function LeafMap(props) {
 
   function LocationMarker() {
     const [position, setPosition] = useState(null);
-    const [bbox, setBbox] = useState([]);
     const map = useMap();
     mapRef.current = map;
+    const [bbox, setBbox] = useState([]);
     useEffect(() => {
       if (!addNew && select === null) {
         map.locate().on("locationfound", function (e) {
           setPosition(e.latlng);
           map.flyTo(e.latlng, map.getZoom());
-          const radius = e.accuracy;
-          const circle = L.circle(e.latlng, radius);
-          circle.addTo(map);
           setBbox(e.bounds.toBBoxString().split(","));
         });
       }
@@ -92,9 +92,7 @@ export default function LeafMap(props) {
 
     return position === null ? null : (
       <Marker position={position} icon={me}>
-        <Popup>
-          You are here. <br />
-        </Popup>
+        <Popup>You are here : {bbox[0]}</Popup>
       </Marker>
     );
   }
@@ -104,7 +102,9 @@ export default function LeafMap(props) {
     mapRef.current = map;
     useEffect(() => {
       if (select !== null) {
-        map.flyTo({ lat: select.lat, lng: select.lng }, map.getZoom());
+        if (select.lat && select.lng) {
+          map.flyTo({ lat: select.lat, lng: select.lng }, map.getZoom());
+        }
       }
     }, [select]);
 
@@ -131,14 +131,16 @@ export default function LeafMap(props) {
         >
           Add Place
         </div>
-        <div
-          className="locButton"
-          onClick={() => {
-            setSelect(null);
-          }}
-        >
-          <img src={location} style={{width:"3vw"}} />
-        </div>
+        {select ? (
+          <div
+            className="locButton"
+            onClick={() => {
+              setSelect(null);
+            }}
+          >
+            <img src={location} style={{ width: "3vw" }} />
+          </div>
+        ) : null}
       </div>
       {addNew ? (
         <>
@@ -202,10 +204,13 @@ export default function LeafMap(props) {
               Optional Details :
               <input type="text" className="inputField" />
             </div>
+            <div >
+              <button className="submit_button">Submit</button>
+            </div>
           </div>
         </>
       ) : null}
-      <MapContainer center={center} zoom={12} scrollWheelZoom={true}>
+      <MapContainer center={center} zoom={7.5} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -215,17 +220,20 @@ export default function LeafMap(props) {
         <SetSetter />
         {markers.map((marker) => {
           return (
-            <Marker position={[marker.lat, marker.lng]}>
-              <Popup>
+            // <div style={{backgroundColor:"black"}} onClick={()=>{setSelect(marker)}}>
+            <Marker position={[marker.lat, marker.lng]} >
+              <Popup className="home_popup">
                 <>
                   <div className="leafmapPictureAll">{getPictures(marker)}</div>
                   <div>
-                    <p>Name : {marker.name}</p>
-                    <p>Address : {marker.address}</p>
+                    <span>Name : {marker.name}</span>
+                    <br /><br />
+                    <span>Address : {marker.address}</span>
                   </div>
                 </>
               </Popup>
             </Marker>
+            // </div>
           );
         })}
         {addNew === true ? (

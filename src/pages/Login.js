@@ -1,7 +1,9 @@
 import React from "react";
 import OtherHalf from "../assets/fox.png";
-import Background from "../assets/background.jpeg";
+import Background from "../assets/person-background.png";
+import BackButton from "../assets/left.png"
 import "./Login.css";
+import { Link } from "react-router-dom";
 export default function Login(props) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -41,12 +43,19 @@ export default function Login(props) {
   //   }
 
   return (
-    <div className="login_whole" style={{backgroundImage:`url(${Background})`}}>
+    <div className="login_whole" style={{backgroundImage:`url(${Background})`, backgroundSize:"cover"}}>
       <div className="login_container">
         <div className="image_otherhalf">
           <img src={OtherHalf} className="login_image" />
         </div>
         <div className="login_otherhalf">
+        <div className="login_top_buttons">
+            <Link to="/" className="login_button_container">
+              <button type="submit" className="login_button_top">
+                <img src={BackButton} className="login_back_button"/><span>Home</span>
+              </button>
+            </Link>
+          </div>
           <div className="login_heading">Login</div>
           <div className="login_InputSection">
             <div className="login_InputText">
@@ -83,15 +92,14 @@ export default function Login(props) {
               Login
             </button>
             <span> Don't have an account?</span>
+            <Link to="/signup" className="login_button_container">
             <button
               type="submit"
               className="login_button"
-              onClick={() => {
-                validate();
-              }}
             >
               Sign Up
             </button>
+            </Link>
           </div>
         </div>
       </div>

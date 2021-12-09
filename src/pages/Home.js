@@ -13,15 +13,9 @@ function Home() {
       <div>
         <Navbar />
       </div>
-      {/* <div className="map">
-        <Map/>
-      </div> */}
       <div className="map">
         <LeafMap/>
       </div>
-      {/* <div>
-        <Slider data={data} className="leafmapSlider" />
-      </div> */}
       <div className="footer">
         <Footer />
       </div>

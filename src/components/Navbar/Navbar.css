@@ -1,5 +1,5 @@
 .navbar {
-  background-color: #ffa409;
+  background-color: #ffa500;
 }
 .navbar__container {
   display: flex;
@@ -38,12 +38,13 @@
 }
 
 .login__btn {
+  text-decoration: none;
   display: flex;
   width: 45%;
   font-size: 15px;
   font-weight: bold;
   margin: 7px 0px;
-  color: #ffa409;
+  color: #ffa500;
   justify-content: center;
   border-radius: 25px;
   cursor: pointer;
@@ -54,12 +55,13 @@
   text-align: center;
 }
 .signup__btn {
+  text-decoration: none;
   display: flex;
   width: 45%;
   font-size: 15px;
   font-weight: bold;
   margin: 7px 0px;
-  color: #ffa308;
+  color: #ffa500;
   justify-content: center;
   border-radius: 25px;
   cursor: pointer;
