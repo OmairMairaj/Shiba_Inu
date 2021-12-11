@@ -484,6 +484,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
   border-radius: 12px;
 }
 .leaflet-popup-content {
+  max-width: fit-content;
+  min-width: fit-content;
   margin: 13px 19px;
   line-height: 1.4;
 }
@@ -650,14 +652,23 @@ svg.leaflet-image-layer.leaflet-interactive path {
 /* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
 .yellowStrip {
   padding: 5px;
+  max-width: 100%;
+  justify-content: space-around;
   background-color: #ff8400;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+}
+.user__places{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-evenly;
+  max-width: 80%;
+  min-width: 80%;
   margin: 0 0 4px 0;
 }
 .addButton {
-  margin-right: 4.2vw;
+  align-self: right;
+  margin-right: 3vw;
   padding: 0px 10px;
   display: flex;
   width: 7vw;
@@ -731,19 +742,19 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
 }
 .leaflet-popup-content-wrapper{
-  max-width: 20vw;
-  min-width: 20vw;
+  max-width: fit-content;
+  min-width: fit-content;
   overflow-x: auto;
 }
 .leafmapPictureAll {
+  max-width: fit-content;
+  min-width: 10vw;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: scroll;
   margin-bottom: 10px;
 }
-::-webkit-scrollbar {
-  display: none;
-}
+
 .leafmapPicture {
   max-height: 15vh;
   border-radius: 5px;
@@ -754,6 +765,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   height: 70vh;
 }
 .locButton{
+  position: absolute;
   cursor: pointer;
   z-index: 1002 !important;
   position: absolute;
@@ -761,5 +773,5 @@ svg.leaflet-image-layer.leaflet-interactive path {
   background-color: #ffa500;
   border-radius: 10px;
   padding: 5px 0 5px 0;
-  transform: translate(3200%,110%);
+  transform: translate(3200%,10%);
 }

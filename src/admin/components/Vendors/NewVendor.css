@@ -1,0 +1,28 @@
+
+.new_vendor_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .new_vendor_containerBox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-self: space-around;
+    border: 1px solid #dddfe2;
+    box-shadow: 0 0 15px 2px #85b1ff;
+    border-radius: 8px;
+    width: 30vw;
+    background-color: rgba(255, 255, 255, 0.5);
+    height: fit-content;
+  }
+  
+  .new_vendor_body {
+    padding: 15vh 0;
+    min-height: 100vh;
+    max-height: 100vh;
+    min-width: 100%;
+    max-width: 100%;
+    /* background-image: url("../../assets/bg.jfif"); */
+    background-size: cover;
+  }
+  

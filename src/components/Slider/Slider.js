@@ -3,14 +3,17 @@ import "./Slider.css";
 import left from "../../assets/left.png";
 import right from "../../assets/right.png";
 
-function Slider({ data, select,setSelect}) {
-  
+function Slider({ data, select, setSelect }) {
   const ref = React.useRef(null);
   const [myID, setmyID] = React.useState(830);
   const slider = () => {
     return data.map((marker) =>
       select && select.id === marker.id ? (
-        <div className="oneBox" id={`${marker.id}`} style={{ backgroundColor: "#ff8400" }}>
+        <div
+          className="oneBox"
+          id={`${marker.id}`}
+          style={{ backgroundColor: "#ff8400", border:"2px solid white" }}
+        >
           {marker.pictures.length !== 0 ? (
             <img className="onePicture" src={`${marker.pictures[0]}`} />
           ) : (
@@ -24,9 +27,14 @@ function Slider({ data, select,setSelect}) {
           </div>
         </div>
       ) : (
-        <div onClick={()=>{
-          scrollClick(marker.id) 
-        setSelect(marker)}} id={`${marker.id}`} className="oneBox">
+        <div
+          onClick={() => {
+            scrollClick(marker.id);
+            setSelect(marker);
+          }}
+          id={`${marker.id}`}
+          className="oneBox"
+        >
           {marker.pictures.length !== 0 ? (
             <img className="onePicture" src={`${marker.pictures[0]}`} />
           ) : (
@@ -48,28 +56,31 @@ function Slider({ data, select,setSelect}) {
       ref.current.scrollLeft += myID;
     } else ref.current.scrollLeft -= myID;
   };
-  const scrollClick = (id) =>{
-    document.getElementById(id).scrollIntoView({block: "end"})
-  }
+  const scrollClick = (id) => {
+    document.getElementById(id).scrollIntoView({ block: "end" });
+  };
   return (
-    <div className="sliderWhole">
-      <img
-        className="sliderIcon"
-        onClick={() => {
-          scroll(-3);
-        }}
-        src={left}
-      />
-      <div className="slider" ref={ref}>
-        {slider()}
+    <div className="sliderContainer">
+      <div className="sliderHeader">Places near you</div>
+      <div className="sliderWhole">
+        <img
+          className="sliderIcon"
+          onClick={() => {
+            scroll(-3);
+          }}
+          src={left}
+        />
+        <div className="slider" ref={ref}>
+          {slider()}
+        </div>
+        <img
+          className="sliderIcon"
+          onClick={() => {
+            scroll(3);
+          }}
+          src={right}
+        />
       </div>
-      <img
-        className="sliderIcon"
-        onClick={() => {
-          scroll(3);
-        }}
-        src={right}
-      />
     </div>
   );
 }

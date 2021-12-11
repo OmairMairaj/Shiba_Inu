@@ -1,6 +1,6 @@
 .search__bar {
   display: flex;
-  width: 70%;
+  width: 100%;
   padding: 5px 0px;
 }
 .searchContainer {
@@ -18,10 +18,12 @@
 
 .dd {
   font-size: 12px;
+  text-align: left;
 }
 
 .search {
-  width: 300px;
+  padding: 0 10px 0 10px;
+  width: 70%;
   height: 100%;
   border: none;
 }

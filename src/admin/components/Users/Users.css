@@ -1,0 +1,38 @@
+.allUsers{
+    margin:5px;
+    margin-left: 25px;
+    border : 2px solid rgba(255, 255, 103, 0.815);
+    border-radius: 5px;
+    min-width: 100%;
+    padding: 5px;
+}
+.oneUser{
+    border : 2px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 5px;
+    margin:5px 0 ;
+
+}
+.oneUser_icon{
+    cursor: pointer;
+    min-height: 50px;
+    max-height: 50px;    
+    border-left: 1px solid rgb(129, 129, 129);
+}
+.oneUser_picture{
+    width: 60px;
+    height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-right: gray;
+}
+.oneUser_text{
+    text-align: left;
+    width: 30%;
+    padding-left: 5px;
+    border-left: 1px solid rgb(129, 129, 129);
+    font-size: 20px;
+    height: 50px;
+    color: black;
+}

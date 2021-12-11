@@ -5,7 +5,7 @@
   padding-left: 10px;
   user-select: none;
   color: #3a3a3a;
-  margin: 0 auto;
+  margin: 0 0;
   border-right: 2px solid #f00500;
   align-items: center;
   cursor: pointer;
@@ -19,8 +19,7 @@
   align-items: center;
   color: #ffa308;
 }
-
-.dropdown .dropdown__content {
+.dropdown .dropdown__contentdrawer {
   position: absolute;
   justify-content: center;
   top: 160%;
@@ -33,12 +32,12 @@
   color: #ffa308;
   width: 90%;
 }
-.dropdown .dropdown__content .dropdown__item {
+.dropdown .dropdown__contentdrawer .dropdown__item {
   padding: 5px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.dropdown .dropdown__content .dropdown__item:hover {
+.dropdown .dropdown__contentdrawer .dropdown__item:hover {
   background: #e6e6e6f8;
 }

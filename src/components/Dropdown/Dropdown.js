@@ -29,7 +29,7 @@ function Dropdown({ selected, setSelected }) {
         <span className="fas fa-caret-down"></span>
       </div>
       {isActive && (
-        <div className="dropdown__content">
+        <div className="dropdown__contentdrawer ">
           {options.map((option) => (
             <div
               onClick={(e) => {

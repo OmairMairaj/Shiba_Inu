@@ -1,6 +1,6 @@
   .searchWhole {
     max-height:3vh;
-    width: 22vw;
+    width: 100%;
     display: flex;
     justify-content: left;
     background-color: transparent;

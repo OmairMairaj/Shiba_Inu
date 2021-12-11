@@ -1,34 +1,39 @@
+.sliderContainer{
+    background-color: #ffa500;
+    margin: 2px 0;
+}
+.sliderHeader{
+    padding: 5px 15px;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+}
 .sliderWhole{
-    transform: translate(0%,-60%);
-    position: absolute;
-    z-index: 999!important;
+    margin: 0 auto;
+    padding: 10px 0 20px 0;
     display: flex;
     background-color: transparent;
     flex-wrap: wrap;
     justify-content: center;
-    position: absolute;
-    min-width: 100vw;    
+    min-width: 95vw;
     align-items: center;
 }
 .slider{
-    z-index: 999!important;
     display: flex;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 5px;
     background-color: transparent;
-    flex-wrap: nowrap;
     overflow-x: hidden;
     justify-content: space-between;
-    max-width: 60vw;
+    max-width: 90vw;
     scroll-behavior: smooth;
-    
 }
 .sliderIcon{
+    margin : 0 5px 0 5px;
     cursor: pointer;
-    max-height: 50px;
-    min-height: 50px;
-    max-width: 50px;
-    min-width: 50px;
+    max-height: 3vw;
+    min-height: 3vw;
+    max-width: 3vw;
+    min-width: 3vw;
 }
 .oneBox{
     cursor: pointer;
@@ -41,6 +46,7 @@
     max-width: 18vw;
     min-width: 18vw;
     max-height: 23vh;
+    overflow: hidden;
 }
 .NoPicture{
     margin-left: auto;

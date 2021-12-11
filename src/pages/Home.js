@@ -7,11 +7,11 @@ import Navbar from "../components/Navbar/Navbar";
 import Slider from "../components/Slider/Slider";
 import "./Home.css";
 
-function Home() {
+function Home({loggedIn ,setLoggedIn}) {
   return (
     <div className="home">
       <div>
-        <Navbar />
+        <Navbar loggedIn={loggedIn} setLoggedIn={(val)=>{setLoggedIn(val)}}/>
       </div>
       <div className="map">
         <LeafMap/>

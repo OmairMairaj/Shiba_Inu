@@ -1,0 +1,33 @@
+.allVendors{
+    margin:5px;
+    margin-left: 25px;
+    border : 2px solid rgba(255, 255, 103, 0.815);
+    background-color: rgba(255, 255, 103, 0.377);
+    border-radius: 5px;
+    min-width: 100%;
+    padding: 5px;
+}
+.oneVendor{
+    border : 2px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 5px;
+    margin:5px 0 ;
+
+}
+.oneVendor_icon{
+    cursor: pointer;
+    min-height: 50px;
+    max-height: 50px;    
+    border-left: 1px solid rgb(129, 129, 129);
+}
+
+.oneVendor_text{
+    text-align: left;
+    width: 31.5%;
+    padding-left: 5px;
+    border-left: 1px solid rgb(129, 129, 129);
+    font-size: 20px;
+    height: 50px;
+    color: black;
+}

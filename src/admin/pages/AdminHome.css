@@ -1,0 +1,28 @@
+.adminhome_container{
+    display: flex;
+    flex-wrap: wrap;
+}
+.sidebar{
+    position: fixed;
+    background-color: rgba(255, 255, 103, 0.815);
+    min-height: 100vh;
+    max-height: 100vh;
+    min-width: 25%;
+    max-width: 25%;
+    padding: 5px;
+}
+.sidebar_object{
+    padding: 10px;
+    border-bottom: 2px solid white;
+}
+.sidebar_object>span{
+    font-size: 25px;
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.admin_content{
+    margin-left: 25%;
+    min-width: 70%;
+    max-width: 70%;
+    background-color: white;
+}

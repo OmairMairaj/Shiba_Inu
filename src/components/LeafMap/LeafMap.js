@@ -12,6 +12,7 @@ import data from "../../data/data.json";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import icon from "../../assets/logoicon.png";
+import pin from "../../assets/pin.png";
 import location from "../../assets/placeholder.png";
 import userIcon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
@@ -24,6 +25,11 @@ let DefaultIcon = L.icon({
   iconAnchor: [20, 40], // point of the icon which will correspond to marker's location
   shadowAnchor: [4, 50], // the same for the shadow
   popupAnchor: [0, -40], // point from which the popup should open relative to the iconAnchor
+});
+
+let AddIcon = L.icon({
+  iconUrl: pin,
+  iconSize: [40, 40],
 });
 
 let me = L.icon({
@@ -44,6 +50,7 @@ const center = {
 const radius = 50000;
 
 export default function LeafMap(props) {
+  let count = 1000;
   const animateRef = useRef(true);
   const [markers, setMarkers] = React.useState(data);
   const [tempMarker, setTempMarker] = useState(center);
@@ -51,15 +58,29 @@ export default function LeafMap(props) {
   const [select, setSelect] = useState(null);
   const mapRef = React.useRef();
 
+  // React.useEffect(() => {
+  //   window.addEventListener("click", onClick);
+  // }, []);
+  // const onClick = () => {
+  //   console.log("I'm POP");
+  //   for (var i = 1; i < data.length+1; i++) {
+  //     let word = 1000+i;
+  //     console.log(word);
+  //     if(document.getElementById(word)!==null){
+  //     console.log(document.getElementById(word).getBoundingClientRect());
+  //   }
+  //   }
+  // };
   function SetViewOnClick({ animateRef }) {
     const map = useMapEvent("click", (e) => {
       if (addNew) {
         setTempMarker(e.latlng);
+      } else{
+        map.setView(e.latlng, map.getZoom(), {
+          animate: animateRef.current || false,
+        });
       }
       setSelect({});
-      map.setView(e.latlng, map.getZoom(), {
-        animate: animateRef.current || false,
-      });
     });
 
     return null;
@@ -114,15 +135,13 @@ export default function LeafMap(props) {
   return (
     <div>
       <div className="yellowStrip">
-        <div
-          className="normalButton"
-          style={{ fontSize: "25px", color: "red" }}
-        >
-          Lorem Ipsum
+        <div className="user__places">
+          <div className="normalButton">Lorem Ipsum</div>
+          <div className="normalButton">Lorem Ipsum</div>
+          <div className="normalButton">Lorem Ipsum</div>
+          <div className="normalButton">Lorem Ipsum</div>
+          <div className="normalButton">Lorem Ipsum</div>
         </div>
-        <div className="normalButton">Lorem Ipsum</div>
-        <div className="normalButton">Lorem Ipsum</div>
-        <div className="normalButton">Lorem Ipsum</div>
         <div
           className="addButton"
           onClick={() => {
@@ -131,17 +150,17 @@ export default function LeafMap(props) {
         >
           Add Place
         </div>
-        {select ? (
-          <div
-            className="locButton"
-            onClick={() => {
-              setSelect(null);
-            }}
-          >
-            <img src={location} style={{ width: "3vw" }} />
-          </div>
-        ) : null}
       </div>
+      {select ? (
+        <div
+          className="locButton"
+          onClick={() => {
+            setSelect(null);
+          }}
+        >
+          <img src={location} style={{ width: "3vw" }} />
+        </div>
+      ) : null}
       {addNew ? (
         <>
           <div className="redSection">
@@ -153,7 +172,6 @@ export default function LeafMap(props) {
                 value={tempMarker.lat}
                 onChange={(e) => {
                   setTempMarker({ lat: e.target.value, lng: tempMarker.lng });
-
                   mapRef.current.setView(
                     L.latLng(e.target.value, tempMarker.lng),
                     mapRef.current.getZoom(),
@@ -204,13 +222,13 @@ export default function LeafMap(props) {
               Optional Details :
               <input type="text" className="inputField" />
             </div>
-            <div >
+            <div>
               <button className="submit_button">Submit</button>
             </div>
           </div>
         </>
       ) : null}
-      <MapContainer center={center} zoom={7.5} scrollWheelZoom={true}>
+      <MapContainer center={center} zoom={14} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -219,15 +237,18 @@ export default function LeafMap(props) {
         <LocationMarker />
         <SetSetter />
         {markers.map((marker) => {
+          // count=count+1;
+          // console.log(count)
           return (
             // <div style={{backgroundColor:"black"}} onClick={()=>{setSelect(marker)}}>
-            <Marker position={[marker.lat, marker.lng]} >
-              <Popup className="home_popup">
+            <Marker position={[marker.lat, marker.lng]}>
+              <Popup>
                 <>
                   <div className="leafmapPictureAll">{getPictures(marker)}</div>
                   <div>
                     <span>Name : {marker.name}</span>
-                    <br /><br />
+                    <br />
+                    <br />
                     <span>Address : {marker.address}</span>
                   </div>
                 </>
@@ -238,7 +259,7 @@ export default function LeafMap(props) {
         })}
         {addNew === true ? (
           <>
-            <Marker position={[tempMarker.lat, tempMarker.lng]}></Marker>
+            <Marker position={[tempMarker.lat, tempMarker.lng]} icon={AddIcon} ></Marker>
           </>
         ) : null}
       </MapContainer>
