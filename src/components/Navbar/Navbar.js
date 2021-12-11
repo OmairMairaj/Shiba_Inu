@@ -46,6 +46,7 @@ function Navbar({ loggedIn, setLoggedIn }) {
                 <div className="profile__one__item">Name : John Doe</div>
                 <div className="profile__one__item">Reward Points : 1000</div>
                 <div className="profile__one__item">Role : User</div>
+                <div className="profile__one__item" onClick={()=>{setLoggedIn(false)}}>Logout</div>
               </div>
             ) : null}
           </>

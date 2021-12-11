@@ -105,7 +105,7 @@ export default function LeafMap(props) {
       if (!addNew && select === null) {
         map.locate().on("locationfound", function (e) {
           setPosition(e.latlng);
-          map.flyTo(e.latlng, map.getZoom());
+          map.flyTo(e.latlng, 14);
           setBbox(e.bounds.toBBoxString().split(","));
         });
       }

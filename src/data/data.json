@@ -2,8 +2,8 @@
     {
         "id": 11,
         "category": "Restaurant",
-        "lat": 24.950537177348835,
-        "lng": 67.05505371093751,
+        "lat": 51.2,
+        "lng": -0.1,
         "name": "Bubby's",
         "address": "120 Hudson Street, Karachi, NY 10013",
         "pictures": [
@@ -13,8 +13,8 @@
     {
         "id": 12,
         "category": "Restaurant",
-        "lat": 24.948982360989923,
-        "lng": 66.99531555175783,
+        "lat": 51.12,
+        "lng": -0.2,
         "name": "Five Star Street",
         "address": "Manhattan, NY 10036, United States",
         "pictures": [
@@ -24,8 +24,8 @@
     {
         "id": 14,
         "category": "Shop",
-        "lat": 24.899217558117996,
-        "lng": 67.0598602294922,
+        "lat": 51.4,
+        "lng": -0.5,
         "name": "Port Grand",
         "address": "1 Industrial Ln, New Rochelle, NY 10805, United States",
         "pictures": [
@@ -35,8 +35,8 @@
     {
         "id": 13,
         "category": "Shop",
-        "lat": 24.92379160186499,
-        "lng": 67.13951110839845,
+        "lat": 51.483964375,
+        "lng": -0.07141113275,
         "name": "North Stadium",
         "address": "1 MetLife Stadium Dr, East Rutherford, NJ 07073, United States",
         "pictures": []
@@ -44,8 +44,8 @@
     {
         "id": 15,
         "category": "Restaurant",
-        "lat": 24.801807778924132,
-        "lng": 67.35202789306642,
+        "lat": 51.483964371,
+        "lng": -0.0714111323,
         "name": "Steel Mills",
         "address": "1400 Pelham Pkwy S, Bronx, NY 10461, United States",
         "pictures": [
@@ -55,19 +55,19 @@
     {
         "id": 1,
         "category": "Restaurant",
-        "lat": 25.219254428729318,
-        "lng": 67.20886230468751,
+        "lat": 51.48396437332,
+        "lng": -0.07141113288,
         "name": "Place ABC",
         "address": "Karachi, Pakistan",
         "pictures": [
-            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h240-k-no"
+            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h51.48396437338122"
         ]
     },
     {
         "id": 2,
         "category": "Restaurant",
-        "lat": 25.199394929504084,
-        "lng": 66.84631347656251,
+        "lat": 51.4839643715,
+        "lng": -0.4339599609354,
         "name": "Place EFG",
         "address": "Karachi, Pakistan",
         "pictures": [
@@ -77,8 +77,8 @@
     {
         "id": 3,
         "category": "Restaurant",
-        "lat": 24.952455396984483,
-        "lng": 67.13230133056642,
+        "lat": 51.483964373457,
+        "lng": -0.071411132899,
         "name": "Place ",
         "address": "Karachi, Pakistan",
         "pictures": [
@@ -88,19 +88,19 @@
     {
         "id": 4,
         "category": "Restaurant",
-        "lat": 24.948412896589186,
-        "lng": 67.07015991210939,
+        "lat": 51.48396437338128,
+        "lng": -0.071411132812504,
         "name": "Place ",
         "address": "Karachi, Pakistan",
         "pictures": [
-            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h240-k-no"
+            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h51.48396437338122"
         ]
     },
     {
         "id": 5,
         "category": "Shop",
-        "lat": 24.903252790725496,
-        "lng": 67.06947326660158,
+        "lat": 51.4,
+        "lng": -0.1,
         "name": "Place ",
         "address": "Karachi, Pakistan",
         "pictures": [
@@ -110,8 +110,8 @@
     {
         "id": 6,
         "category": "Shop",
-        "lat": 24.92708579933721,
-        "lng": 67.07410812377931,
+        "lat": 51.48396437338128,
+        "lng": -0.071411132812506,
         "name": "Place ",
         "address": "Karachi, Pakistan",
         "pictures": [
@@ -121,8 +121,8 @@
     {
         "id": 7,
         "category": "Restaurant",
-        "lat": 24.89239097529113,
-        "lng": 67.17761993408205,
+        "lat": 51.48396437338122,
+        "lng": -0.07141113281250001,
         "name": "Place ",
         "address": "Karachi, Pakistan",
         "pictures": [
@@ -131,8 +131,8 @@
     {
         "id": 8,
         "category": "Shop",
-        "lat": 24.8179847348437,
-        "lng": 67.06809997558595,
+        "lat": 51.48396437338122,
+        "lng": -0.07141113281250001,
         "name": "Place ",
         "address": "Karachi, Pakistan",
         "pictures": [
@@ -142,23 +142,23 @@
     {
         "id": 9,
         "category": "Restaurant",
-        "lat": 24.805562409587548,
-        "lng": 67.0653533935547,
+        "lat": 51.48396437338122,
+        "lng": -0.07141113281250001,
         "name": "Place ",
         "address": "Karachi, Pakistan",
         "pictures": [
-            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h240-k-no"
+            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h51.48396437338122"
         ]
     },
     {
         "id": 10,
         "category": "Shop",
-        "lat": 24.9,
-        "lng": 67.0,
+        "lat": 51.48396437338122,
+        "lng": -0.07141113281250001,
         "name": "Place ",
         "address": "Karachi, Pakistan",
         "pictures": [
-            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h240-k-no"
+            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h51.48396437338122"
         ]
     }
 ]
