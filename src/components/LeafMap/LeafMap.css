@@ -703,6 +703,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	border: 0.5px solid rgba(255, 255, 255, 0.534);
 	border-radius: 7px;
 	padding: 3px;
+  min-width: 65%;
 }
 .redSection {
   position: absolute;
@@ -716,7 +717,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   max-width: 30vw;
   min-height: 68vh;
   max-height: 68vh;
-  padding: 10px;
+  padding: 10px 10px;
 }
 .oneInput {
   font-size: 15px;
@@ -731,6 +732,12 @@ svg.leaflet-image-layer.leaflet-interactive path {
   background-color: #ffa500;
   border: 2px #ffa500 solid;
   padding: 5px;
+}
+.write_a_review{
+  font-size: 20px;
+  color: white;
+  margin: 10px;
+  font-weight: bold;
 }
 .submit_button{
   padding: 5px 0;
@@ -774,4 +781,11 @@ svg.leaflet-image-layer.leaflet-interactive path {
   border-radius: 10px;
   padding: 5px 0 5px 0;
   transform: translate(3200%,10%);
+}
+.close_icon{
+  max-height: 10px;
+  min-height: 10px;
+  position: absolute;
+  transform: translateX(3300%);
+  cursor: pointer;
 }

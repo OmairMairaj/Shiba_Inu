@@ -11,10 +11,10 @@ import {
 import data from "../../data/data.json";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import icon from "../../assets/logoicon.png";
+import close from "../../assets/close.png";
 import pin from "../../assets/pin.png";
+import icon from "../../assets/logoicon.png";
 import location from "../../assets/placeholder.png";
-import userIcon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import Slider from "../Slider/Slider";
 
@@ -54,7 +54,10 @@ export default function LeafMap(props) {
   const animateRef = useRef(true);
   const [markers, setMarkers] = React.useState(data);
   const [tempMarker, setTempMarker] = useState(center);
+  const [revName, setRevName] = React.useState("");
+  const [revAddress, setRevAddress] = useState("");
   const [addNew, setAddNew] = useState(false);
+  const [addReview, setAddReview] = useState(true);
   const [select, setSelect] = useState(null);
   const mapRef = React.useRef();
 
@@ -75,7 +78,7 @@ export default function LeafMap(props) {
     const map = useMapEvent("click", (e) => {
       if (addNew) {
         setTempMarker(e.latlng);
-      } else{
+      } else {
         map.setView(e.latlng, map.getZoom(), {
           animate: animateRef.current || false,
         });
@@ -148,7 +151,7 @@ export default function LeafMap(props) {
             setAddNew(!addNew);
           }}
         >
-          Add Place
+          {addNew ? <span>Back to Map</span> : <span>Add Place</span>}
         </div>
       </div>
       {select ? (
@@ -164,70 +167,125 @@ export default function LeafMap(props) {
       {addNew ? (
         <>
           <div className="redSection">
-            <div className="oneInput">
-              Latitude :
-              <input
-                className="inputField"
-                type="text"
-                value={tempMarker.lat}
-                onChange={(e) => {
-                  setTempMarker({ lat: e.target.value, lng: tempMarker.lng });
-                  mapRef.current.setView(
-                    L.latLng(e.target.value, tempMarker.lng),
-                    mapRef.current.getZoom(),
-                    {
-                      animate: animateRef.current || false,
-                    }
-                  );
-                }}
-              />
-            </div>
+            <img
+              className="close_icon"
+              src={close}
+              alt="Icon"
+              onClick={() => {
+                setAddNew(false);
+              }}
+            />
+            <div style={{ paddingTop: "15px" }}>
+              <span className="write_a_review">Add a Place</span>
+              <div className="oneInput">
+                Latitude :
+                <input
+                  className="inputField"
+                  type="text"
+                  value={tempMarker.lat}
+                  onChange={(e) => {
+                    setTempMarker({ lat: e.target.value, lng: tempMarker.lng });
+                    mapRef.current.setView(
+                      L.latLng(e.target.value, tempMarker.lng),
+                      mapRef.current.getZoom(),
+                      {
+                        animate: animateRef.current || false,
+                      }
+                    );
+                  }}
+                />
+              </div>
 
-            <div className="oneInput">
-              Longitude :
-              <input
-                className="inputField"
-                type="text"
-                value={tempMarker.lng}
-                onChange={(e) => {
-                  setTempMarker({ lat: tempMarker.lat, lng: e.target.value });
+              <div className="oneInput">
+                Longitude :
+                <input
+                  className="inputField"
+                  type="text"
+                  value={tempMarker.lng}
+                  onChange={(e) => {
+                    setTempMarker({ lat: tempMarker.lat, lng: e.target.value });
 
-                  mapRef.current.setView(
-                    L.latLng(tempMarker.lat, e.target.value),
-                    mapRef.current.getZoom(),
-                    {
-                      animate: animateRef.current || false,
-                    }
-                  );
-                }}
-              />
-            </div>
-            <div className="oneInput">
-              Name :
-              <input type="text" className="inputField" />
-            </div>
-            <div className="oneInput">
-              Address :
-              <input type="text" className="inputField" />
-            </div>
-            <div className="oneInput">
-              City :
-              <input type="text" className="inputField" />
-            </div>
-            <div className="oneInput">
-              Country :
-              <input type="text" className="inputField" />
-            </div>
-            <div className="oneInput">
-              Optional Details :
-              <input type="text" className="inputField" />
-            </div>
-            <div>
-              <button className="submit_button">Submit</button>
+                    mapRef.current.setView(
+                      L.latLng(tempMarker.lat, e.target.value),
+                      mapRef.current.getZoom(),
+                      {
+                        animate: animateRef.current || false,
+                      }
+                    );
+                  }}
+                />
+              </div>
+              <div className="oneInput">
+                Name :
+                <input type="text" className="inputField" />
+              </div>
+              <div className="oneInput">
+                Address :
+                <input type="text" className="inputField" />
+              </div>
+              <div className="oneInput">
+                City :
+                <input type="text" className="inputField" />
+              </div>
+              <div className="oneInput">
+                Country :
+                <input type="text" className="inputField" />
+              </div>
+              {/* <div className="oneInput">
+                Optional Details :
+                <input type="text" className="inputField" />
+              </div> */}
+              <div>
+                <button className="submit_button">Submit</button>
+              </div>
             </div>
           </div>
         </>
       ) : null}
+
+      {addReview ? (
+        <>
+          <div className="redSection">
+            <img
+              className="close_icon"
+              src={close}
+              alt="Icon"
+              onClick={() => {
+                setRevName("")
+                setRevAddress("")
+                setAddReview(false);
+              }}
+            />
+            <div style={{ paddingTop: "15px" }}>
+              <span className="write_a_review">Write a Review</span>
+              <div className="oneInput">
+                Name :
+                <input type="text" className="inputField" value={revName} onChange={(e)=>{setRevName(e.target.value)}} />
+              </div>
+              <div className="oneInput">
+                Address :
+                <input type="text" className="inputField" value={revAddress} onChange={(e)=>{setRevAddress(e.target.value)}} />
+              </div>
+              <div className="oneInput">
+                Review :
+                <input type="text" className="inputField" />
+              </div>
+              <div className="oneInput">
+                Comments :
+                <input type="text" className="inputField" />
+              </div>
+              {/* <div className="oneInput">
+                Optional Details :
+                <input type="text" className="inputField" />
+              </div> */}
+              <div>
+                <button className="submit_button">Submit</button>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : null}
+
       <MapContainer center={center} zoom={14} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -250,6 +308,17 @@ export default function LeafMap(props) {
                     <br />
                     <br />
                     <span>Address : {marker.address}</span>
+                    <br />
+                    <div
+                      onClick={() => {
+                        setRevName(marker.name);
+                        setRevAddress(marker.address);
+                        setAddReview(true);
+                      }}
+                      style={{color:"Red",cursor:"pointer"}}
+                    >
+                      Write a review
+                    </div>
                   </div>
                 </>
               </Popup>
@@ -259,7 +328,10 @@ export default function LeafMap(props) {
         })}
         {addNew === true ? (
           <>
-            <Marker position={[tempMarker.lat, tempMarker.lng]} icon={AddIcon} ></Marker>
+            <Marker
+              position={[tempMarker.lat, tempMarker.lng]}
+              icon={AddIcon}
+            ></Marker>
           </>
         ) : null}
       </MapContainer>
