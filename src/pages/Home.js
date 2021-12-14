@@ -14,7 +14,7 @@ function Home({loggedIn ,setLoggedIn}) {
         <Navbar loggedIn={loggedIn} setLoggedIn={(val)=>{setLoggedIn(val)}}/>
       </div>
       <div className="map">
-        <LeafMap/>
+        <LeafMap loggedIn={loggedIn}/>
       </div>
       <div className="footer">
         <Footer />

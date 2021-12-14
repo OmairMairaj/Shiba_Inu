@@ -4,9 +4,10 @@ import { FaSearch } from "react-icons/fa";
 import icon from "../../assets/logoicon.png";
 import SearchBar from "../SearchBar/SearchBar";
 import { Link } from "react-router-dom";
+import close from "../../assets/close.png";
 
 function Navbar({ loggedIn, setLoggedIn }) {
-  const [pressed , setPressed] = React.useState(false)
+  const [pressed, setPressed] = React.useState(false);
   const [viewProfile, setViewProfile] = React.useState(false);
   console.log(viewProfile);
   return (
@@ -38,15 +39,49 @@ function Navbar({ loggedIn, setLoggedIn }) {
             <div className="single__auth__button">
               <div className="profile__btn">
                 <div>Hello, FirstName</div>
-                <img onClick={()=>{setPressed(!pressed)}} className="user__icon" src={icon} />
+                <img
+                  onClick={() => {
+                    setPressed(true);
+                  }}
+                  className="user__icon"
+                  src={icon}
+                />
               </div>
             </div>
             {pressed ? (
               <div className="profileWhole">
-                <div className="profile__one__item">Name : John Doe</div>
-                <div className="profile__one__item">Reward Points : 1000</div>
-                <div className="profile__one__item">Role : User</div>
-                <div className="profile__one__item" onClick={()=>{setLoggedIn(false)}}>Logout</div>
+                <img
+                  className="profile__close"
+                  src={close}
+                  onClick={() => {
+                    setPressed(false);
+                  }}
+                />
+                <img className="profile__picture" src={icon} />
+                <div className="profile__one__item">John Doe</div>
+                <div className="profile__one__item">User</div>
+                <div className="profile__one__item">
+                  <div className="profile__one__subitem">
+                    <div className="profile__one__boxleft">Email</div>
+                    <div className="profile__one__boxright">john@doe.com</div>
+                  </div>
+                  <div className="profile__one__subitem">
+                    <div className="profile__one__boxleft">Country</div>
+                    <div className="profile__one__boxright">United Kingdom</div>
+                  </div>
+                  <div className="profile__one__subitem">
+                    <div className="profile__one__boxleft">Points</div>
+                    <div className="profile__one__boxright">1000</div>
+                  </div>
+                </div>
+                <div
+                  className="profile__one__item__logout"
+                  onClick={() => {
+                    setLoggedIn(false);
+                  }}
+                >
+                  Logout
+                </div>
               </div>
             ) : null}
           </>

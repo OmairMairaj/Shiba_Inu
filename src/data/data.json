@@ -6,9 +6,7 @@
         "lng": -0.1,
         "name": "Bubby's",
         "address": "120 Hudson Street, Karachi, NY 10013",
-        "pictures": [
-            "https://lh5.googleusercontent.com/p/AF1QipN3UwrL3uE2Q8PZ2Xzqr9Wxedg1ASlqbIgRBjMW=w408-h271-k-no"
-        ]
+        "pictures": []
     },
     {
         "id": 12,
@@ -59,9 +57,7 @@
         "lng": -0.07141113288,
         "name": "Place ABC",
         "address": "Karachi, Pakistan",
-        "pictures": [
-            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h51.48396437338122"
-        ]
+        "pictures": []
     },
     {
         "id": 2,
@@ -92,9 +88,7 @@
         "lng": -0.071411132812504,
         "name": "Place ",
         "address": "Karachi, Pakistan",
-        "pictures": [
-            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h51.48396437338122"
-        ]
+        "pictures": []
     },
     {
         "id": 5,
@@ -125,8 +119,7 @@
         "lng": -0.07141113281250001,
         "name": "Place ",
         "address": "Karachi, Pakistan",
-        "pictures": [
-        ]
+        "pictures": []
     },
     {
         "id": 8,
@@ -146,9 +139,7 @@
         "lng": -0.07141113281250001,
         "name": "Place ",
         "address": "Karachi, Pakistan",
-        "pictures": [
-            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h51.48396437338122"
-        ]
+        "pictures": []
     },
     {
         "id": 10,
@@ -157,8 +148,6 @@
         "lng": -0.07141113281250001,
         "name": "Place ",
         "address": "Karachi, Pakistan",
-        "pictures": [
-            "https://lh5.googleusercontent.com/p/AF1QipMx3WEveHYE1bEzpRF6n-5uWMsMNoIs8SArj7a1=w426-h51.48396437338122"
-        ]
+        "pictures": []
     }
 ]

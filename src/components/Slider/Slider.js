@@ -2,6 +2,7 @@ import React from "react";
 import "./Slider.css";
 import left from "../../assets/left.png";
 import right from "../../assets/right.png";
+import NoPicture from "../../assets/no-pictures.png"
 
 function Slider({ data, select, setSelect }) {
   const ref = React.useRef(null);
@@ -17,7 +18,7 @@ function Slider({ data, select, setSelect }) {
           {marker.pictures.length !== 0 ? (
             <img className="onePicture" src={`${marker.pictures[0]}`} />
           ) : (
-            <div className="NoPicture">No Image</div>
+            <img className="NoPicture" src={NoPicture} />
           )}
           <div>
             <span className="oneName">{marker.name}</span>
@@ -38,7 +39,7 @@ function Slider({ data, select, setSelect }) {
           {marker.pictures.length !== 0 ? (
             <img className="onePicture" src={`${marker.pictures[0]}`} />
           ) : (
-            <div className="NoPicture">No Image</div>
+            <img className="NoPicture" src={NoPicture} />
           )}
           <div>
             <span className="oneName">{marker.name}</span>
