@@ -10,24 +10,23 @@ import {
   useMapEvent,
   useMap,
 } from "react-leaflet";
-import data from "../../data/data.json";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import close from "../../assets/close.png";
 import pin from "../../assets/pin.png";
-import icon from "../../assets/logoicon.png";
+import icon from "../../assets/locationicon.png";
 import location from "../../assets/placeholder.png";
 import NoPicture from "../../assets/no-pictures.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import Slider from "../Slider/Slider";
-import { getGeocode } from "use-places-autocomplete";
+import axios from "axios"
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 //Declaring
 let DefaultIcon = L.icon({
   iconUrl: icon,
   shadowUrl: iconShadow,
-  iconSize: [40, 40],
+  iconSize: [40, 50],
   iconAnchor: [20, 40],
   shadowAnchor: [4, 50],
   popupAnchor: [0, -40],
@@ -56,7 +55,7 @@ export default function LeafMap({ loggedIn }) {
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   //Use States
   const animateRef = useRef(true);
-  const [markers, setMarkers] = React.useState(data);
+  const [markers, setMarkers] = React.useState();
   const [tempMarker, setTempMarker] = useState(center);
   const [revName, setRevName] = React.useState("");
   const [revAddress, setRevAddress] = useState("");
@@ -65,6 +64,25 @@ export default function LeafMap({ loggedIn }) {
   const [select, setSelect] = useState(null);
   const mapRef = React.useRef();
 
+  //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //API Call
+
+  const getData = async () => {
+    await axios
+      .get("http://localhost:9002/api/places/getapprovedplaces")
+      .then((response) => {
+        setMarkers(response.data.data)
+        // setMarkers(response.data);
+      })
+      // .catch((error) => {
+      //   console.log(error);
+      //   alert("Unable to fetch data. PLease try again later")
+      // });
+  };
+
+  React.useEffect((e) => {
+    getData();
+  },[])
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   // Function : Map Animation
   function SetViewOnClick({ animateRef }) {
@@ -85,10 +103,8 @@ export default function LeafMap({ loggedIn }) {
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   // Function : To get Pictures for a single place
   function getPictures(selection) {
-    if (selection.pictures.length !== 0) {
-      return selection.pictures.map((picture) => (
-        <img src={`${picture}`} alt="Place Image" className="leafmapPicture" />
-      ));
+    if (selection.images!== "") {
+      return <img src={`${selection.images}`} alt="Place Image" className="leafmapPicture" />
     } else {
       return (
         <img src={NoPicture} alt="Place Image" className="leafmapPicture" />
@@ -127,8 +143,8 @@ export default function LeafMap({ loggedIn }) {
     mapRef.current = map;
     useEffect(() => {
       if (select !== null) {
-        if (select.lat && select.lng) {
-          map.flyTo({ lat: select.lat, lng: select.lng }, map.getZoom());
+        if (select.lat && select.lon) {
+          map.flyTo({ lat: select.lat, lon: select.lon }, map.getZoom());
         }
       }
     }, [select]);
@@ -152,7 +168,11 @@ export default function LeafMap({ loggedIn }) {
               <div className="normalButton">Lorem Ipsum</div>
               <div className="normalButton">Lorem Ipsum</div>
             </>
-          ) : (<div className="normalButtonLong">Log In to view your Added Places</div>)}
+          ) : (
+            <div className="normalButtonLong">
+              Log In to view your Added Places
+            </div>
+          )}
         </div>
         <div
           className="addButton"
@@ -195,9 +215,9 @@ export default function LeafMap({ loggedIn }) {
                   type="text"
                   value={tempMarker.lat}
                   onChange={(e) => {
-                    setTempMarker({ lat: e.target.value, lng: tempMarker.lng });
+                    setTempMarker({ lat: e.target.value, lon: tempMarker.lon });
                     mapRef.current.setView(
-                      L.latLng(e.target.value, tempMarker.lng),
+                      L.latLng(e.target.value, tempMarker.lon),
                       mapRef.current.getZoom(),
                       {
                         animate: animateRef.current || false,
@@ -212,9 +232,9 @@ export default function LeafMap({ loggedIn }) {
                 <input
                   className="inputField"
                   type="text"
-                  value={tempMarker.lng}
+                  value={tempMarker.lon}
                   onChange={(e) => {
-                    setTempMarker({ lat: tempMarker.lat, lng: e.target.value });
+                    setTempMarker({ lat: tempMarker.lat, lon: e.target.value });
 
                     mapRef.current.setView(
                       L.latLng(tempMarker.lat, e.target.value),
@@ -322,22 +342,22 @@ export default function LeafMap({ loggedIn }) {
         <SetViewOnClick animateRef={animateRef} />
         <LocationMarker />
         <SetSetter />
-        {markers.map((marker) => {
+        {markers ? markers.map((marker) => {
           return (
-            <Marker position={[marker.lat, marker.lng]}>
+            <Marker position={[marker.lat, marker.lon]}>
               <Popup>
                 <>
                   <div className="leafmapPictureAll">{getPictures(marker)}</div>
                   <div>
-                    <span>Name : {marker.name}</span>
+                    <span>Name : {marker.place_name}</span>
                     <br />
                     <br />
-                    <span>Address : {marker.address}</span>
+                    <span>Address : {marker.desc}</span>
                     <br />
                     <div
                       onClick={() => {
-                        setRevName(marker.name);
-                        setRevAddress(marker.address);
+                        setRevName(marker.place_name);
+                        setRevAddress(marker.desc);
                         setAddReview(true);
                       }}
                       style={{ color: "Red", cursor: "pointer" }}
@@ -349,13 +369,13 @@ export default function LeafMap({ loggedIn }) {
               </Popup>
             </Marker>
           );
-        })}
+        }) : <div style={{position:"absolute", zIndex:"1000",backgroundColor:"blue"}}>Fetching Data...</div>}
 
         {/* Condition : Marker to Add Place */}
         {addNew === true ? (
           <>
             <Marker
-              position={[tempMarker.lat, tempMarker.lng]}
+              position={[tempMarker.lat, tempMarker.lon]}
               icon={AddIcon}
             ></Marker>
           </>
@@ -363,13 +383,13 @@ export default function LeafMap({ loggedIn }) {
       </MapContainer>
 
       {/* Slider Main*/}
-      <Slider
-        data={data}
+      {markers ? <Slider
+        data={markers}
         select={select}
         setSelect={(val) => {
           setSelect(val);
         }}
-      />
+      /> : null}
     </div>
   );
 }
