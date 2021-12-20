@@ -1,32 +1,26 @@
 import React from "react";
 import axios from "axios";
 import del from "../../../assets/delete.png";
+import edit from "../../../assets/edit.png";
 import delwhite from "../../../assets/deletewhite.png";
 import "./Places.css";
-import { useHistory } from "react-router-dom";
 
 function Places() {
-  const history = useHistory();
-  const [data, setData] = React.useState([
-    {
-      place_name: "Five Star",
-      lon: 25.6542151525,
-      lat: 25.6542151525,
-      isApproved: true,
-      isDeleted: false,
-    },
-  ]);
+  const [data, setData] = React.useState([]);
   // let [bool,setBool] = React.useState(true);
-  // React.useEffect(() => {
-  //   const role = {"role":"admin"};
-  //   axios.get("http://localhost:9002/api/com/getAllCompanies").then((res) => {
-  //     console.log(res);
-  //     if (res.data.success === true) {
-  //       console.log(res.status);
-  //       setData(res.data.data);
-  //     }
-  //   });
-  // }, [bool]);
+
+  React.useEffect(() => {
+    axios.get("http://localhost:9002/admin/getallplaces").then((res) => {
+      console.log(res);
+      if (res.data.error === false) {
+        // console.log(res.status);
+        setData(res.data.data);
+      }
+      else{
+        alert("Unable to fetch data. Try again later");
+      }
+    });
+  },[]);
 
   // const deletePlace = (name, email, role) => {
   //   const collection = {
@@ -54,8 +48,9 @@ function Places() {
           <div className="onePlace_text">{value.place_name}</div>
           <div className="onePlace_text">{value.lon}</div>
           <div className="onePlace_text">{value.lat}</div>
-          <div className="onePlace_text">{`${value.isApproved}`}</div>
-          <div className="onePlace_text">{`${value.isDeleted}`}</div>
+          <div className="onePlace_text">{`${value.is_approved}`}</div>
+          <div className="onePlace_text">{`${value.is_deleted}`}</div>
+          <img className="onePlace_icon" src={edit} alt="EDIT" />
           <img className="onePlace_icon" src={del} alt="DELETE" />
         </div>
       ));
@@ -72,12 +67,38 @@ function Places() {
   return (
     <>
       <div className="allPlaces">
-        <div className="onePlace">
-          <div className="onePlace_text">Name</div>
-          <div className="onePlace_text">Longitude</div>
-          <div className="onePlace_text">Latitude</div>
-          <div className="onePlace_text">Approved</div>
-          <div className="onePlace_text">Deleted</div>
+        <div className="onePlace" style={{ marginBottom: "5px" }}>
+          <div
+            className="onePlace_text"
+            style={{ border: "1px solid #ffa500" }}
+          >
+            Name
+          </div>
+          <div
+            className="onePlace_text"
+            style={{ border: "1px solid #ffa500" }}
+          >
+            Longitude
+          </div>
+          <div
+            className="onePlace_text"
+            style={{ border: "1px solid #ffa500" }}
+          >
+            Latitude
+          </div>
+          <div
+            className="onePlace_text"
+            style={{ border: "1px solid #ffa500" }}
+          >
+            Approved
+          </div>
+          <div
+            className="onePlace_text"
+            style={{ border: "1px solid #ffa500" }}
+          >
+            Deleted
+          </div>
+          <img className="onePlace_icon_start" src={delwhite} alt="DELETE" />
           <img className="onePlace_icon_start" src={delwhite} alt="DELETE" />
         </div>
         {listPlaces()}

@@ -1,8 +1,9 @@
 import React from "react";
 import OtherHalf from "../assets/person.jpg";
 import Background from "../assets/person-background.png";
-import BackButton from "../assets/left.png"
+import BackButton from "../assets/left.png";
 import "./SignUp.css";
+import axios from "axios";
 import { Link } from "react-router-dom";
 export default function SignUp(props) {
   const [email, setEmail] = React.useState("");
@@ -24,41 +25,32 @@ export default function SignUp(props) {
       if (confirmPassword !== password) {
         alert("Passwords do not match");
       } else {
-        alert(firstName + lastName);
+        SignupAPI();
       }
     }
   }
 
-  //   function LoginAPI() {
-  //     var url = "http://192.168.18.8:3000/api/signin";
-  //     let collection = {};
-  //     (collection.email = email),
-  //       (collection.password = password),
-  //       fetch(url, {
-  //         method: "POST",
-  //         headers: {
-  //           "Access-Control-Allow-Origin": "*",
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(collection),
-  //       })
-  //         .then((resp) => {
-  //           return resp.json();
-  //         })
-  //         .then((responseJson) => {
-  //           if (responseJson.success == "true") {
-  //             signIn(responseJson.user.email);
-  //           } else {
-  //             Alert.alert(responseJson.message);
-  //           }
-  //         })
-  //         .done();
-  //   }
+  function SignupAPI() {
+    axios
+      .post("http://localhost:9002/api/users/register", {
+        name: firstName + " " + lastName,
+        email: email,
+        password: password,
+        password2: confirmPassword,
+      })
+      .then((res) => {
+        if (res.data.success === true) {
+          console.log(res.data);
+        } else {
+          alert(res.data.message);
+        }
+      });
+  }
 
   return (
     <div
       className="signup_whole"
-      style={{ backgroundImage: `url(${Background})`, backgroundSize:"cover" }}
+      style={{ backgroundImage: `url(${Background})`, backgroundSize: "cover" }}
     >
       <div className="signup_container">
         <div className="image_otherhalf">
@@ -68,7 +60,8 @@ export default function SignUp(props) {
           <div className="signup_top_buttons">
             <Link to="/" className="signup_button_container">
               <button type="submit" className="signup_button_top">
-                <img src={BackButton} className="signup_back_button"/><span>Home</span>
+                <img src={BackButton} className="signup_back_button" />
+                <span>Home</span>
               </button>
             </Link>
           </div>

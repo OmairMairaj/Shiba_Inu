@@ -39,7 +39,7 @@ function AdminHome({ setLoggedIn }) {
               onClick={() => {
                 setLoggedIn(false);
               }}
-              className="sidebar_object_absolute"
+              className="sidebar_object"
             >
               <span className="sidebar_text">Logout</span>
             </div>

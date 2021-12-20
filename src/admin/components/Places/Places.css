@@ -2,25 +2,29 @@
   border: 2px solid #ffa500;
   background-color: white;
   border-radius: 5px;
-  min-width: fit-content;
+  min-width: 99%;
+  max-width: 99%;
+  overflow-x: scroll;
   padding: 5px;
 }
 .onePlace {
+    min-width: 100%;
+    max-width: 100%;
   display: flex;
   border-radius: 5px;
-  justify-content: space-evenly;
+  justify-content:stretch;
   align-items: center;
 }
 .onePlace_icon_start {
-  min-height: 25px;
-  max-height: 25px;
+  min-width: 2.5%;
+  max-width: 2.5%;
   border: 1px solid white;
   padding: 4px;
 }
 .onePlace_icon {
   cursor: pointer;
-  min-height: 25px;
-  max-height: 25px;
+  min-width: 2.5%;
+  max-width: 2.5%;
   border: 1px solid white;
   border-radius: 4px;
   padding: 4px;
@@ -34,7 +38,7 @@
   overflow: hidden;
   text-align: center;
   padding: 2px;
-  border-right: 1px solid rgb(129, 129, 129);
+  border: 1px solid rgb(129, 129, 129);
   border-bottom: 1px solid rgb(129, 129, 129);
   font-size: 20px;
   color: black;
