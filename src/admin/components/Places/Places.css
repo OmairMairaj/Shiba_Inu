@@ -1,0 +1,41 @@
+.allPlaces {
+  border: 2px solid #ffa500;
+  background-color: white;
+  border-radius: 5px;
+  min-width: fit-content;
+  padding: 5px;
+}
+.onePlace {
+  display: flex;
+  border-radius: 5px;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.onePlace_icon_start {
+  min-height: 25px;
+  max-height: 25px;
+  border: 1px solid white;
+  padding: 4px;
+}
+.onePlace_icon {
+  cursor: pointer;
+  min-height: 25px;
+  max-height: 25px;
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 4px;
+}
+.onePlace_icon:hover {
+  border: 1px solid red;
+}
+.onePlace_text {
+  min-width: 18%;
+  max-width: 18%;
+  overflow: hidden;
+  text-align: center;
+  padding: 2px;
+  border-right: 1px solid rgb(129, 129, 129);
+  border-bottom: 1px solid rgb(129, 129, 129);
+  font-size: 20px;
+  color: black;
+}

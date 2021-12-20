@@ -1,28 +1,61 @@
-.adminhome_container{
+.adminhome_container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.sidebar {
+  position: fixed;
+  background-color: #ffa500;
+  min-height: 100vh;
+  max-height: 100vh;
+  min-width: 25%;
+  max-width: 25%;
+  padding: 5px;
+}
+.sidebar_object {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center;
+  padding: 10px;
+  border: 1px solid white;
+  cursor: pointer;
+  background-color: transparent;
+  box-shadow: 0px 6px 5px 5px #05050517;
+  align-items: center;
+  margin: 20px 10px;
+  max-width: 80%;
+  border-radius: 25px;
 }
-.sidebar{
-    position: fixed;
-    background-color: rgba(255, 255, 103, 0.815);
-    min-height: 100vh;
-    max-height: 100vh;
-    min-width: 25%;
-    max-width: 25%;
-    padding: 5px;
+.sidebar_object:hover{
+  background-color: #ffb500;
+  box-shadow: 1px 1px 1px 1px rgba(255, 255, 255, 0.555);
 }
-.sidebar_object{
-    padding: 10px;
-    border-bottom: 2px solid white;
+.sidebar_object_absolute{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+  padding: 10px;
+  border: 1px solid white;
+  cursor: pointer;
+  background-color: transparent;
+  box-shadow: 0px 6px 5px 5px #05050517;
+  align-items: center;
+  margin: 20px 10px;
+  max-width: 80%;
+  min-width: 80%;
+  border-radius: 25px;
+  transform: translateY(550%);
 }
-.sidebar_object>span{
-    font-size: 25px;
-    color: black;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+.sidebar_object_absolute:hover{
+    background-color: #ffb500;
+    box-shadow: 1px 1px 1px 1px rgba(255, 255, 255, 0.555);
+  }
+.sidebar_text {
+  font-size: 25px;
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-.admin_content{
-    margin-left: 25%;
-    min-width: 70%;
-    max-width: 70%;
-    background-color: white;
+.admin_content {
+  margin-left: 27%;
+  min-width: 70%;
+  max-width: 70%;
+  background-color: white;
 }
