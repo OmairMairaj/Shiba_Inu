@@ -46,7 +46,7 @@ function Places() {
       return data.map((value) => (
         <div className="onePlace">
           <div className="onePlace_text">{value.place_name}</div>
-          <div className="onePlace_text">{value.lon}</div>
+          <div className="onePlace_text">{value.lng}</div>
           <div className="onePlace_text">{value.lat}</div>
           <div className="onePlace_text">{`${value.is_approved}`}</div>
           <div className="onePlace_text">{`${value.is_deleted}`}</div>
@@ -78,7 +78,7 @@ function Places() {
             className="onePlace_text"
             style={{ border: "1px solid #ffa500" }}
           >
-            Longitude
+            lnggitude
           </div>
           <div
             className="onePlace_text"

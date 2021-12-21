@@ -26,6 +26,7 @@ export default function Login(props) {
         .then((res) => {
           if (res.data.success === true) {
             console.log(res.data.token);
+            //redirect to home
           } else {
             alert(res.data.message);
           }
