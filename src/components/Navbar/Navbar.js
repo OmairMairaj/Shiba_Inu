@@ -1,15 +1,27 @@
 import React from "react";
 import "./Navbar.css";
-import { FaSearch } from "react-icons/fa";
+import axios from "axios"
 import icon from "../../assets/logoicon.png";
 import SearchBar from "../SearchBar/SearchBar";
 import { Link } from "react-router-dom";
 import close from "../../assets/close.png";
 
-function Navbar({ loggedIn, setLoggedIn }) {
+function Navbar({ check, setCheck }) {
   const [pressed, setPressed] = React.useState(false);
-  const [viewProfile, setViewProfile] = React.useState(false);
-  console.log(viewProfile);
+  const [data,setData] = React.useState({})
+  React.useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      axios
+        .post("http://localhost:9002/api/users/getprofile", {
+          token: sessionStorage.getItem("token"),
+        })
+        .then((res) => {
+          if (res.data.success === true) {
+            setData(res.data.data);
+          }
+        });
+    }
+  }, []);
   return (
     <div className="navbar">
       <div className="navbar__container">
@@ -17,7 +29,7 @@ function Navbar({ loggedIn, setLoggedIn }) {
           <img className="icon" src={icon} alt="Icon" />
           <span className="iconText">SHIBA INU</span>
         </div>
-        {loggedIn === false ? (
+        {sessionStorage.getItem('token')===null ? (
           <>
             <div className="search__area">
               <SearchBar />
@@ -38,7 +50,7 @@ function Navbar({ loggedIn, setLoggedIn }) {
             </div>
             <div className="single__auth__button">
               <div className="profile__btn">
-                <div>Hello, FirstName</div>
+                <div>Hello, {`${data.name}`} </div>
                 <img
                   onClick={() => {
                     setPressed(true);
@@ -58,26 +70,23 @@ function Navbar({ loggedIn, setLoggedIn }) {
                   }}
                 />
                 <img className="profile__picture" src={icon} />
-                <div className="profile__one__item">John Doe</div>
-                <div className="profile__one__item">User</div>
+                <div className="profile__one__item">{`${data.name}`}</div>
+                <div className="profile__one__item">{`${data.role}`}</div>
                 <div className="profile__one__item">
                   <div className="profile__one__subitem">
                     <div className="profile__one__boxleft">Email</div>
-                    <div className="profile__one__boxright">john@doe.com</div>
-                  </div>
-                  <div className="profile__one__subitem">
-                    <div className="profile__one__boxleft">Country</div>
-                    <div className="profile__one__boxright">United Kingdom</div>
+                    <div className="profile__one__boxright">{`${data.email}`}</div>
                   </div>
                   <div className="profile__one__subitem">
                     <div className="profile__one__boxleft">Points</div>
-                    <div className="profile__one__boxright">1000</div>
+                    <div className="profile__one__boxright">{`${data.rewardPoints}`}</div>
                   </div>
                 </div>
                 <div
                   className="profile__one__item__logout"
                   onClick={() => {
-                    setLoggedIn(false);
+                    sessionStorage.clear()
+                    setCheck(!check);
                   }}
                 >
                   Logout

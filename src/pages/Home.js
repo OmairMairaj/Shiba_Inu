@@ -7,14 +7,14 @@ import Navbar from "../components/Navbar/Navbar";
 import Slider from "../components/Slider/Slider";
 import "./Home.css";
 
-function Home({loggedIn ,setLoggedIn}) {
+function Home({check ,setCheck}) {
   return (
     <div className="home">
       <div>
-        <Navbar loggedIn={loggedIn} setLoggedIn={(val)=>{setLoggedIn(val)}}/>
+        <Navbar check={check} setCheck={(val)=>{setCheck(val)}}/>
       </div>
       <div className="map">
-        <LeafMap loggedIn={loggedIn}/>
+        <LeafMap />
       </div>
       <div className="footer">
         <Footer />

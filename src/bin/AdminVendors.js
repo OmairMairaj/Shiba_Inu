@@ -2,7 +2,7 @@
 // import "./AdminHome.css";
 // import Vendors from "../components/Places/Places";
 // import {Link } from "react-router-dom";
-// function AdminVendors({setLoggedIn }) {
+// function AdminVendors({setCheck }) {
 //   return (
 //     <>
 //       <div className="adminhome_container">
@@ -26,7 +26,7 @@
 //           <Link to="/">
 //             <div
 //                       onClick={() => {
-//                         setLoggedIn(false);
+//                         setCheck(false);
 //                         sessionStorage.clear();
 //                       }}
 //               className="sidebar_object"

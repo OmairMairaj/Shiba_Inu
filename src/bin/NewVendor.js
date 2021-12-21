@@ -3,7 +3,7 @@
 // import axios from "axios";
 // import {useHistory} from "react-router-dom"
 
-// function Vendor({setLoggedIn}){
+// function Vendor({setCheck}){
 //   const history = useHistory();
 //   const [user, setUser] = React.useState({
 //     name: "",

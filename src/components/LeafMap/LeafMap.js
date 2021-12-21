@@ -53,7 +53,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // Main Function
-export default function LeafMap({ loggedIn }) {
+export default function LeafMap() {
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   //Use States
   const animateRef = useRef(true);
@@ -203,7 +203,7 @@ export default function LeafMap({ loggedIn }) {
       {/* Division : Strip to add place and list */}
       <div className="yellowStrip">
         <div className="user__places">
-          {loggedIn === true ? (
+          {sessionStorage.getItem('token')!==null ? (
             <>
               {" "}
               <div className="normalButton">Lorem Ipsum</div>

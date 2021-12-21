@@ -3,12 +3,13 @@ import OtherHalf from "../assets/fox.png";
 import Background from "../assets/background.jpeg";
 import BackButton from "../assets/left.png";
 import axios from "axios";
+import Error from "./Error"
 import "./Login.css";
-import { Link } from "react-router-dom";
-export default function Login(props) {
+import { useHistory,Link } from "react-router-dom";
+export default function Login({check,setCheck}) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-
+  const history = useHistory();
   function validate() {
     if (email == "" || password == "") {
       alert("Please enter Email and Password");
@@ -18,21 +19,24 @@ export default function Login(props) {
   }
 
   function LoginAPI() {
-      axios
-        .post("http://localhost:9002/api/users/login", {
-          email: email,
-          password: password,
-        })
-        .then((res) => {
-          if (res.data.success === true) {
-            console.log(res.data.token);
-            //redirect to home
-          } else {
-            alert(res.data.message);
-          }
-        });
+    axios
+      .post("http://localhost:9002/api/users/login", {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        if (res.data.success === true) {
+          sessionStorage.setItem('token',res.data.token);
+          setCheck(!check)
+          history.push("/")          
+        } else {
+          alert(res.data.message);
+        }
+      });
   }
-
+  if (sessionStorage.getItem("token")) {
+    return <Error />;
+  }
   return (
     <div
       className="login_whole"

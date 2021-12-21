@@ -2,7 +2,7 @@
 // import "./AdminHome.css";
 // import Users from "../admin/components/Users/Users";
 // import {Link } from "react-router-dom";
-// function AdminUsers({setLoggedIn }) {
+// function AdminUsers({setCheck }) {
 //   return (
 //     <>
 //       <div className="adminhome_container">
@@ -26,7 +26,7 @@
 //           <Link to="/">
 //             <div
 //                      onClick={() => {
-//                         setLoggedIn(false);
+//                         setCheck(false);
 //                         sessionStorage.clear();
 //                       }}
 //               className="sidebar_object"

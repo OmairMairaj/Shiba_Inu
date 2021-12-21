@@ -3,7 +3,7 @@ import "./AdminHome.css";
 import { Link } from "react-router-dom";
 import Users from "../components/Users/Users";
 import Places from "../components/Places/Places";
-function AdminHome({ setLoggedIn }) {
+function AdminHome({ check , setCheck }) {
   const [page, setPage] = React.useState("Home");
   return (
     <>
@@ -37,7 +37,8 @@ function AdminHome({ setLoggedIn }) {
           <Link to="/">
             <div
               onClick={() => {
-                setLoggedIn(false);
+                sessionStorage.clear();
+                setCheck(!check);
               }}
               className="sidebar_object"
             >
