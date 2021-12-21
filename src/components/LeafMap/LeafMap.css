@@ -794,7 +794,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
   background-color: #ffa500;
   border-radius: 10px;
   padding: 5px 0 5px 0;
-  transform: translate(3850%,20%);
+  margin-left: 10px;
+  transform: translate(0,150%);
 }
 .close_icon{
   max-height: 10px;

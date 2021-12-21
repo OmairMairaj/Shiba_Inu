@@ -1,12 +1,27 @@
 import React from "react";
 import Data from "../../data/data.json";
 import "./Search.css";
+import axios from 'axios'
 import cross from "../../assets/close.png";
 import search from "../../assets/search.png";
 
 function Search(props) {
-  const data = Data;
+  let [data,setData] = React.useState([]);
   let [searchField, setSearchField] = React.useState("");
+
+  //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //API Call
+  const getData = async () => {
+    await axios
+      .get("http://localhost:9002/api/places/getapprovedplaces")
+      .then((response) => {
+        setData(response.data.data);
+      });
+  };
+
+  React.useEffect((e) => {
+    getData();
+  }, []);
 
   const getIcon = () => {
     if (searchField !== "") {
@@ -25,33 +40,32 @@ function Search(props) {
   const searchResults = () => {
     if (searchField != "") {
       let All = data.filter((item) =>
-        item.name.toLowerCase().includes(searchField.toLowerCase())
+        item.place_name.toLowerCase().includes(searchField.toLowerCase())
       );
+      console.log(data)
+      console.log(All)
       if (All.length > 0) {
-        All = All.slice(0, 9);
+        All = All.slice(0, 5);
         return (
           <div className="results__search">
             {All.map((item) => {
               return (
                 <div
                   onClick={() => {
-                    // history.push(`/product/${item._id}/${item.cardNumber}`);
-                    // setSearchField("");
                     console.log(item);
                   }}
                   className="oneSearch"
                 >
                   <img
                     style={{ width: "22%", margin: "2px 4px 0px 0" }}
-                    src={item.pictures[0]}
+                    src={item.images}
                   />
                   <div className="allText">
                     <div>
-                      <span className="text">{item.name}</span>
+                      <span className="text">{item.place_name}</span>
                     </div>
-                    {/* <div className="smalltext"><span>{item.category}</span></div> */}
                     <div className="smalltext">
-                      <span>{item.address}</span>
+                      <span>{item.desc}</span>
                     </div>
                   </div>
                 </div>

@@ -19,7 +19,9 @@ import location from "../../assets/placeholder.png";
 import NoPicture from "../../assets/no-pictures.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import Slider from "../Slider/Slider";
-import axios from "axios"
+import axios from "axios";
+import "leaflet-control-geocoder/dist/Control.Geocoder.css";
+import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 //Declaring
@@ -44,10 +46,10 @@ let me = L.icon({
   popupAnchor: [0, -40],
 });
 L.Marker.prototype.options.icon = DefaultIcon;
-const center = {
-  lat: 40.712062139,
-  lng: -74.0131062,
-};
+// const center = {
+//   lat: 40.712062139,
+//   lng: -74.0131062,
+// };
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // Main Function
@@ -56,13 +58,17 @@ export default function LeafMap({ loggedIn }) {
   //Use States
   const animateRef = useRef(true);
   const [markers, setMarkers] = React.useState();
-  const [tempMarker, setTempMarker] = useState(center);
+  const [tempMarker, setTempMarker] = useState({
+    lat: 40.712062139,
+    lng: -74.0131062,
+  });
   const [revName, setRevName] = React.useState("");
   const [revAddress, setRevAddress] = useState("");
   const [addNew, setAddNew] = useState(false);
   const [addReview, setAddReview] = useState(false);
   const [select, setSelect] = useState(null);
   const mapRef = React.useRef();
+  const [start, setStart] = useState(true);
 
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   //API Call
@@ -71,18 +77,13 @@ export default function LeafMap({ loggedIn }) {
     await axios
       .get("http://localhost:9002/api/places/getapprovedplaces")
       .then((response) => {
-        setMarkers(response.data.data)
-        // setMarkers(response.data);
-      })
-      // .catch((error) => {
-      //   console.log(error);
-      //   alert("Unable to fetch data. PLease try again later")
-      // });
+        setMarkers(response.data.data);
+      });
   };
 
   React.useEffect((e) => {
     getData();
-  },[])
+  }, []);
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   // Function : Map Animation
   function SetViewOnClick({ animateRef }) {
@@ -103,8 +104,14 @@ export default function LeafMap({ loggedIn }) {
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   // Function : To get Pictures for a single place
   function getPictures(selection) {
-    if (selection.images!== "") {
-      return <img src={`${selection.images}`} alt="Place Image" className="leafmapPicture" />
+    if (selection.images !== "") {
+      return (
+        <img
+          src={`${selection.images}`}
+          alt="Place Image"
+          className="leafmapPicture"
+        />
+      );
     } else {
       return (
         <img src={NoPicture} alt="Place Image" className="leafmapPicture" />
@@ -137,14 +144,51 @@ export default function LeafMap({ loggedIn }) {
   }
 
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  // Function : Search and pan
+
+  function LeafletControlGeocoder() {
+    const map = useMap();
+    useEffect(() => {
+      var geocoder = L.Control.Geocoder.nominatim();
+      if (typeof URLSearchParams !== "undefined" && location.search) {
+        var params = new URLSearchParams(location.search);
+        var geocoderString = params.get("geocoder");
+        if (geocoderString && L.Control.Geocoder[geocoderString]) {
+          geocoder = L.Control.Geocoder[geocoderString]();
+        } else if (geocoderString) {
+          console.warn("Unsupported geocoder", geocoderString);
+        }
+      }
+      if (start) {
+        L.Control.geocoder({
+          query: "",
+          placeholder: "Search here...",
+          defaultMarkGeocode: false,
+          geocoder,
+        })
+          .on("markgeocode", function (e) {
+            setSelect({})
+            var latlng = e.geocode.center;
+            L.circle(latlng, { radius: 2000, opacity: 0.1 }).addTo(map);
+            setTempMarker({ lat: e.geocode.center.lat , lng: e.geocode.center.lng });
+            map.flyTo(latlng, 14);
+          })
+          .addTo(map);
+        setStart(false);
+      }
+    }, []);
+    return null;
+  }
+
+  //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   // Function : Set cordinates in Setter and fly to selection
   function SetSetter() {
     const map = useMap();
     mapRef.current = map;
     useEffect(() => {
       if (select !== null) {
-        if (select.lat && select.lon) {
-          map.flyTo({ lat: select.lat, lon: select.lon }, map.getZoom());
+        if (select.lat && select.lng) {
+          map.flyTo({ lat: select.lat, lng: select.lng }, map.getZoom());
         }
       }
     }, [select]);
@@ -215,9 +259,9 @@ export default function LeafMap({ loggedIn }) {
                   type="text"
                   value={tempMarker.lat}
                   onChange={(e) => {
-                    setTempMarker({ lat: e.target.value, lon: tempMarker.lon });
+                    setTempMarker({ lat: e.target.value, lng: tempMarker.lng });
                     mapRef.current.setView(
-                      L.latLng(e.target.value, tempMarker.lon),
+                      L.latLng(e.target.value, tempMarker.lng),
                       mapRef.current.getZoom(),
                       {
                         animate: animateRef.current || false,
@@ -232,9 +276,9 @@ export default function LeafMap({ loggedIn }) {
                 <input
                   className="inputField"
                   type="text"
-                  value={tempMarker.lon}
+                  value={tempMarker.lng}
                   onChange={(e) => {
-                    setTempMarker({ lat: tempMarker.lat, lon: e.target.value });
+                    setTempMarker({ lat: tempMarker.lat, lng: e.target.value });
 
                     mapRef.current.setView(
                       L.latLng(tempMarker.lat, e.target.value),
@@ -262,10 +306,6 @@ export default function LeafMap({ loggedIn }) {
                 Country :
                 <input type="text" className="inputField" />
               </div>
-              {/* <div className="oneInput">
-                Optional Details :
-                <input type="text" className="inputField" />
-              </div> */}
               <div>
                 <button className="submit_button">Submit</button>
               </div>
@@ -320,10 +360,6 @@ export default function LeafMap({ loggedIn }) {
                 Comments :
                 <input type="text" className="inputField" />
               </div>
-              {/* <div className="oneInput">
-                Optional Details :
-                <input type="text" className="inputField" />
-              </div> */}
               <div>
                 <button className="submit_button">Submit</button>
               </div>
@@ -333,7 +369,11 @@ export default function LeafMap({ loggedIn }) {
       ) : null}
 
       {/* Division : Map Main */}
-      <MapContainer center={center} zoom={14} scrollWheelZoom={true}>
+      <MapContainer
+        center={{ lat: 40.712062139, lng: -74.0131062 }}
+        zoom={14}
+        scrollWheelZoom={true}
+      >
         {/*  */}
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -342,40 +382,54 @@ export default function LeafMap({ loggedIn }) {
         <SetViewOnClick animateRef={animateRef} />
         <LocationMarker />
         <SetSetter />
-        {markers ? markers.map((marker) => {
-          return (
-            <Marker position={[marker.lat, marker.lon]}>
-              <Popup>
-                <>
-                  <div className="leafmapPictureAll">{getPictures(marker)}</div>
-                  <div>
-                    <span>Name : {marker.place_name}</span>
-                    <br />
-                    <br />
-                    <span>Address : {marker.desc}</span>
-                    <br />
-                    <div
-                      onClick={() => {
-                        setRevName(marker.place_name);
-                        setRevAddress(marker.desc);
-                        setAddReview(true);
-                      }}
-                      style={{ color: "Red", cursor: "pointer" }}
-                    >
-                      Write a review
+        <LeafletControlGeocoder />
+        {markers ? (
+          markers.map((marker) => {
+            return (
+              <Marker position={[marker.lat, marker.lng]}>
+                <Popup>
+                  <>
+                    <div className="leafmapPictureAll">
+                      {getPictures(marker)}
                     </div>
-                  </div>
-                </>
-              </Popup>
-            </Marker>
-          );
-        }) : <div style={{position:"absolute", zIndex:"1000",backgroundColor:"blue"}}>Fetching Data...</div>}
+                    <div>
+                      <span>Name : {marker.place_name}</span>
+                      <br />
+                      <br />
+                      <span>Address : {marker.desc}</span>
+                      <br />
+                      <div
+                        onClick={() => {
+                          setRevName(marker.place_name);
+                          setAddReview(true);
+                        }}
+                        style={{ color: "Red", cursor: "pointer" }}
+                      >
+                        Write a review
+                      </div>
+                    </div>
+                  </>
+                </Popup>
+              </Marker>
+            );
+          })
+        ) : (
+          <div
+            style={{
+              position: "absolute",
+              zIndex: "1000",
+              backgroundColor: "blue",
+            }}
+          >
+            Fetching Data...
+          </div>
+        )}
 
         {/* Condition : Marker to Add Place */}
         {addNew === true ? (
           <>
             <Marker
-              position={[tempMarker.lat, tempMarker.lon]}
+              position={[tempMarker.lat, tempMarker.lng]}
               icon={AddIcon}
             ></Marker>
           </>
@@ -383,13 +437,15 @@ export default function LeafMap({ loggedIn }) {
       </MapContainer>
 
       {/* Slider Main*/}
-      {markers ? <Slider
-        data={markers}
-        select={select}
-        setSelect={(val) => {
-          setSelect(val);
-        }}
-      /> : null}
+      {markers ? (
+        <Slider
+          data={markers}
+          select={select}
+          setSelect={(val) => {
+            setSelect(val);
+          }}
+        />
+      ) : null}
     </div>
   );
 }

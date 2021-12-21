@@ -6,8 +6,6 @@ import "./SearchBar.css";
 
 function SearchBar() {
   const [selected, setSelected] = useState("All");
-  const [search, setSearch] = useState("");
-  const [place, setPlace] = useState();
   return (
     <div className="search__bar">
       <div className="searchContainer">
