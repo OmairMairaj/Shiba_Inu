@@ -5,7 +5,7 @@ import axios from 'axios'
 import cross from "../../assets/close.png";
 import search from "../../assets/search.png";
 
-function Search(props) {
+function Search({setUpperSearch}) {
   let [data,setData] = React.useState([]);
   let [searchField, setSearchField] = React.useState("");
 
@@ -29,6 +29,7 @@ function Search(props) {
         <img
           onClick={() => {
             setSearchField("");
+            setUpperSearch(null)
           }}
           class="search_icon"
           src={cross}
@@ -42,8 +43,8 @@ function Search(props) {
       let All = data.filter((item) =>
         item.place_name.toLowerCase().includes(searchField.toLowerCase())
       );
-      console.log(data)
-      console.log(All)
+      //console.log(data)
+      //console.log(All)
       if (All.length > 0) {
         All = All.slice(0, 5);
         return (
@@ -52,7 +53,7 @@ function Search(props) {
               return (
                 <div
                   onClick={() => {
-                    console.log(item);
+                    setUpperSearch(item)
                   }}
                   className="oneSearch"
                 >

@@ -98,7 +98,7 @@ export default function App() {
         onLoad={onMapLoad}
       >
         {markers.map((marker) => {
-          // console.log(marker.lng);
+          // //console.log(marker.lng);
           return (
             <Marker
               key={`${marker.lat}-${marker.lng}`}
@@ -182,7 +182,7 @@ function Search({ panTo }) {
       const { lat, lng } = await getLatLng(results[0]);
       panTo({ lat, lng });
     } catch (error) {
-      console.log("Error: ", error);
+      //console.log("Error: ", error);
     }
   };
 

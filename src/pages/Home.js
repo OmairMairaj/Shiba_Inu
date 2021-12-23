@@ -8,13 +8,14 @@ import Slider from "../components/Slider/Slider";
 import "./Home.css";
 
 function Home({check ,setCheck}) {
+  const[upperSearch, setUpperSearch] = React.useState(null);
   return (
     <div className="home">
       <div>
-        <Navbar check={check} setCheck={(val)=>{setCheck(val)}}/>
+        <Navbar check={check} setCheck={(val)=>{setCheck(val)}} setUpperSearch={(val)=>{setUpperSearch(val)}}/>
       </div>
       <div className="map">
-        <LeafMap />
+        <LeafMap upperSearch={upperSearch} />
       </div>
       <div className="footer">
         <Footer />

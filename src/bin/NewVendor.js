@@ -27,7 +27,7 @@
 //         axios
 //           .post("http://localhost:9002/api/com/newCompany", user)
 //           .then((res) => {
-//               console.log(res);
+//               //console.log(res);
 //             if (res.data.success === true) {
 //               history.push("/admin");
 //               alert(res.data.message);

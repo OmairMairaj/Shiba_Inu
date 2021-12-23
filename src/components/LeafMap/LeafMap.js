@@ -53,7 +53,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // Main Function
-export default function LeafMap() {
+export default function LeafMap({upperSearch}) {
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   //Use States
   const animateRef = useRef(true);
@@ -66,6 +66,7 @@ export default function LeafMap() {
   const [revAddress, setRevAddress] = useState("");
   const [addNew, setAddNew] = useState(false);
   const [addReview, setAddReview] = useState(false);
+  const [temp, setTemp] = useState(false);
   const [select, setSelect] = useState(null);
   const mapRef = React.useRef();
   const [start, setStart] = useState(true);
@@ -84,6 +85,11 @@ export default function LeafMap() {
   React.useEffect((e) => {
     getData();
   }, []);
+
+  React.useEffect((e) => {
+    if(upperSearch!==null){
+    setSelect(upperSearch);
+  }});
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   // Function : Map Animation
   function SetViewOnClick({ animateRef }) {
@@ -95,8 +101,9 @@ export default function LeafMap() {
           animate: animateRef.current || false,
         });
       }
+      if(select===null){
       setSelect({});
-    });
+    }});
 
     return null;
   }

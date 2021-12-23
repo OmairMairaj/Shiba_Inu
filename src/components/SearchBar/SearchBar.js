@@ -4,7 +4,7 @@ import Dropdown from "../Dropdown/Dropdown";
 import Search from "../Search/Search";
 import "./SearchBar.css";
 
-function SearchBar() {
+function SearchBar({setUpperSearch}) {
   const [selected, setSelected] = useState("All");
   return (
     <div className="search__bar">
@@ -23,7 +23,7 @@ function SearchBar() {
               value={search}
               onChange={(e)=>setSearch(e.target.value)}
             ></input> */}
-            <Search/>
+            <Search setUpperSearch={(val)=>{setUpperSearch(val)}}/>
           </div>
           {/* <button className="btn" type="submit">
             <FaSearch className="fa-search" />

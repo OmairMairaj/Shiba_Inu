@@ -45,7 +45,7 @@ function Users() {
     axios
       .post("http://localhost:9002/admin/deleteuser", { email: email })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         if (res.data.error === false) {
           setBool(!bool);
           alert(res.data.message);
@@ -57,7 +57,7 @@ function Users() {
     axios
       .post("http://localhost:9002/admin/restoreuser", { email: email })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         if (res.data.error === false) {
           setBool(!bool);
           alert(res.data.message);
@@ -72,7 +72,7 @@ function Users() {
         rewardPoints: changePoints,
       })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         if (res.data.error === false) {
           setBool(!bool);
           setShowPanel(false);

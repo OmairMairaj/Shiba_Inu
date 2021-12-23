@@ -6,7 +6,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import { Link } from "react-router-dom";
 import close from "../../assets/close.png";
 
-function Navbar({ check, setCheck }) {
+function Navbar({ setUpperSearch, check, setCheck }) {
   const [pressed, setPressed] = React.useState(false);
   const [data,setData] = React.useState({})
   React.useEffect(() => {
@@ -32,7 +32,7 @@ function Navbar({ check, setCheck }) {
         {sessionStorage.getItem('token')===null ? (
           <>
             <div className="search__area">
-              <SearchBar />
+              <SearchBar setUpperSearch={(val)=>{setUpperSearch(val)}} />
             </div>
             <div className="auth__buttons">
               <Link to="/login" className="login__btn">

@@ -12,8 +12,8 @@ function Places() {
   const [approvedData, setApprovedData] = React.useState(undefined);
   const [pendingData, setPendingData] = React.useState(undefined);
   const [pendingDeletedData, setPendingDeletedData] = React.useState(undefined);
-  const [approvedDeletedData, setApprovedDeletedData] =
-    React.useState(undefined);
+  const [approvedDeletedData, setApprovedDeletedData] = React.useState(undefined);
+  
   let [bool, setBool] = React.useState(true);
   let [showPanel, setShowPanel] = React.useState(false);
   let [changePoints, setChangePoints] = React.useState(0);
@@ -23,7 +23,7 @@ function Places() {
     axios
       .get("http://localhost:9002/admin//getpendingnotdeletedplaces")
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         if (res.data.error === false) {
           setPendingData(res.data.data);
         } else {
@@ -34,7 +34,7 @@ function Places() {
     axios
       .get("http://localhost:9002/admin/getpendingdeletedplaces")
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         if (res.data.error === false) {
           setPendingDeletedData(res.data.data);
         } else {
@@ -45,7 +45,7 @@ function Places() {
     axios
       .get("http://localhost:9002/admin/getapprovednotdeletedplaces")
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         if (res.data.error === false) {
           setApprovedData(res.data.data);
         } else {
@@ -56,7 +56,7 @@ function Places() {
     axios
       .get("http://localhost:9002/admin/getapproveddeletedplaces")
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         if (res.data.error === false) {
           setApprovedDeletedData(res.data.data);
         } else {
@@ -105,7 +105,7 @@ function Places() {
   //       rewardPoints: changePoints,
   //     })
   //     .then((res) => {
-  //       console.log(res);
+  //       //console.log(res);
   //       if (res.data.error === false) {
   //         setBool(!bool);
   //         setShowPanel(false);
@@ -126,7 +126,14 @@ function Places() {
             <div className="onePlace_text">{value.lat}</div>
             <div className="onePlace_text">{`${value.is_approved}`}</div>
             <div className="onePlace_text">{`${value.is_deleted}`}</div>
-            <img className="onePlace_icon" src={del} alt="DELETE" onClick={()=>{deletePlace(value._id)}} />
+            <img
+              className="onePlace_icon"
+              src={del}
+              alt="DELETE"
+              onClick={() => {
+                deletePlace(value._id);
+              }}
+            />
           </div>
         ));
       } else {
@@ -159,8 +166,22 @@ function Places() {
             <div className="onePlace_text">{value.lat}</div>
             <div className="onePlace_text">{`${value.is_approved}`}</div>
             <div className="onePlace_text">{`${value.is_deleted}`}</div>
-            <img className="onePlace_icon" src={del} alt="DELETE" onClick={()=>{deletePlace(value._id)}}  />
-            <img className="onePlace_icon" src={approve} alt="APPROVE" onClick={()=>{approvePlace(value._id)}} />
+            <img
+              className="onePlace_icon"
+              src={del}
+              alt="DELETE"
+              onClick={() => {
+                deletePlace(value._id);
+              }}
+            />
+            <img
+              className="onePlace_icon"
+              src={approve}
+              alt="APPROVE"
+              onClick={() => {
+                approvePlace(value._id);
+              }}
+            />
           </div>
         ));
       } else {
@@ -193,7 +214,14 @@ function Places() {
             <div className="onePlace_text">{value.lat}</div>
             <div className="onePlace_text">{`${value.is_approved}`}</div>
             <div className="onePlace_text">{`${value.is_deleted}`}</div>
-            <img className="onePlace_icon" src={undo} alt="RESTORE" onClick={()=>{restorePlace(value._id)}} />
+            <img
+              className="onePlace_icon"
+              src={undo}
+              alt="RESTORE"
+              onClick={() => {
+                restorePlace(value._id);
+              }}
+            />
           </div>
         ));
       } else {
@@ -226,8 +254,22 @@ function Places() {
             <div className="onePlace_text">{value.lat}</div>
             <div className="onePlace_text">{`${value.is_approved}`}</div>
             <div className="onePlace_text">{`${value.is_deleted}`}</div>
-            <img className="onePlace_icon" src={undo} alt="RESTORE" onClick={()=>{restorePlace(value._id)}} />
-            <img className="onePlace_icon" src={approve} alt="APPROVE" onClick={()=>{approvePlace(value._id)}} />
+            <img
+              className="onePlace_icon"
+              src={undo}
+              alt="RESTORE"
+              onClick={() => {
+                restorePlace(value._id);
+              }}
+            />
+            <img
+              className="onePlace_icon"
+              src={approve}
+              alt="APPROVE"
+              onClick={() => {
+                approvePlace(value._id);
+              }}
+            />
           </div>
         ));
       } else {
@@ -291,7 +333,7 @@ function Places() {
         {listPlacesWithDelete(approvedData)}
       </div>
       <div className="allPlaces">
-      <h2>Pending Places</h2>
+        <h2>Pending Places</h2>
         <div className="onePlace" style={{ marginBottom: "5px" }}>
           <div
             className="onePlace_text"
@@ -329,7 +371,7 @@ function Places() {
         {listPlacesWithDeleteAndApprove(pendingData)}
       </div>
       <div className="allPlaces">
-      <h2>Approved Deleted Places</h2>
+        <h2>Approved Deleted Places</h2>
         <div className="onePlace" style={{ marginBottom: "5px" }}>
           <div
             className="onePlace_text"
@@ -367,7 +409,7 @@ function Places() {
         {listPlacesWithRestore(approvedDeletedData)}
       </div>
       <div className="allPlaces">
-      <h2>Pending Deleted Places</h2>
+        <h2>Pending Deleted Places</h2>
         <div className="onePlace" style={{ marginBottom: "5px" }}>
           <div
             className="onePlace_text"

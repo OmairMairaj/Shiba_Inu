@@ -53,7 +53,7 @@ function Slider({ data, select, setSelect }) {
   };
   const scroll = (scrollOffset) => {
     if (scrollOffset > 0) {
-      console.log(myID);
+      //console.log(myID);
       ref.current.scrollLeft += myID;
     } else ref.current.scrollLeft -= myID;
   };
