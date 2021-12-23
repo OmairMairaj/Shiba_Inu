@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import del from "../../../assets/delete.png";
 import approve from "../../../assets/approve.png";
+import disapprove from "../../../assets/disapprove.png";
 import delwhite from "../../../assets/deletewhite.png";
 import undo from "../../../assets/undo.png";
 import close from "../../../assets/close.png";
@@ -12,8 +13,9 @@ function Places() {
   const [approvedData, setApprovedData] = React.useState(undefined);
   const [pendingData, setPendingData] = React.useState(undefined);
   const [pendingDeletedData, setPendingDeletedData] = React.useState(undefined);
-  const [approvedDeletedData, setApprovedDeletedData] = React.useState(undefined);
-  
+  const [approvedDeletedData, setApprovedDeletedData] =
+    React.useState(undefined);
+
   let [bool, setBool] = React.useState(true);
   let [showPanel, setShowPanel] = React.useState(false);
   let [changePoints, setChangePoints] = React.useState(0);
@@ -98,23 +100,16 @@ function Places() {
       });
   };
 
-  // const editUser = (email) => {
-  //   axios
-  //     .post("http://localhost:9002/admin/editpoints", {
-  //       email: email,
-  //       rewardPoints: changePoints,
-  //     })
-  //     .then((res) => {
-  //       //console.log(res);
-  //       if (res.data.error === false) {
-  //         setBool(!bool);
-  //         setShowPanel(false);
-  //         setChangePoints(0);
-  //         setChangeEmail("");
-  //         alert(res.data.message);
-  //       }
-  //     });
-  // };
+  const disapprovePlace = (_id) => {
+    axios
+      .post("http://localhost:9002/admin/disapproveplace", { _id: _id })
+      .then((res) => {
+        if (res.data.error === false) {
+          setBool(!bool);
+          alert(res.data.message);
+        }
+      });
+  };
 
   const listPlacesWithDelete = (data) => {
     if (data !== undefined) {
@@ -132,6 +127,14 @@ function Places() {
               alt="DELETE"
               onClick={() => {
                 deletePlace(value._id);
+              }}
+            />
+            <img
+              className="onePlace_icon"
+              src={disapprove}
+              alt="DISAPROVE"
+              onClick={() => {
+                disapprovePlace(value._id);
               }}
             />
           </div>
@@ -220,6 +223,14 @@ function Places() {
               alt="RESTORE"
               onClick={() => {
                 restorePlace(value._id);
+              }}
+            />
+            <img
+              className="onePlace_icon"
+              src={disapprove}
+              alt="DISAPROVE"
+              onClick={() => {
+                disapprovePlace(value._id);
               }}
             />
           </div>

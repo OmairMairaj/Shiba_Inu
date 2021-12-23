@@ -27,8 +27,8 @@
   min-width: 2.5%;
   max-width: 2.5%;
   border: 1px solid white;
-  border-radius: 4px;
-  padding: 4px;
+  border-radius: 5px;
+  padding: 2px;
 }
 .onePlace_icon:hover {
   border: 1px solid red;
