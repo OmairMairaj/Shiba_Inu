@@ -4,18 +4,33 @@ import Footer from "../components/Footer/Footer";
 import data from "../data/data.json"
 import LeafMap from "../components/LeafMap/LeafMap";
 import Navbar from "../components/Navbar/Navbar";
-import Slider from "../components/Slider/Slider";
+import axios from 'axios'
 import "./Home.css";
 
 function Home({check ,setCheck}) {
   const[upperSearch, setUpperSearch] = React.useState(null);
+  const [data,setData] = React.useState({})
+  React.useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      axios
+        .post("http://localhost:9002/api/users/getprofile", {
+          token: sessionStorage.getItem("token"),
+        })
+        .then((res) => {
+          if (res.data.success === true) {
+            setData(res.data.data);
+          }
+        });
+    }
+    else{setData(null)}
+  }, []);
   return (
     <div className="home">
       <div>
-        <Navbar check={check} setCheck={(val)=>{setCheck(val)}} setUpperSearch={(val)=>{setUpperSearch(val)}}/>
+        <Navbar data={data} check={check} setCheck={(val)=>{setCheck(val)}} setUpperSearch={(val)=>{setUpperSearch(val)}}/>
       </div>
       <div className="map">
-        <LeafMap upperSearch={upperSearch} />
+        <LeafMap data={data} upperSearch={upperSearch} />
       </div>
       <div className="footer">
         <Footer />

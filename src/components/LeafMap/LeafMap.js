@@ -53,7 +53,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // Main Function
-export default function LeafMap({upperSearch}) {
+export default function LeafMap({ data, upperSearch }) {
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   //Use States
   const animateRef = useRef(true);
@@ -62,17 +62,73 @@ export default function LeafMap({upperSearch}) {
     lat: 40.712062139,
     lng: -74.0131062,
   });
-  const [revName, setRevName] = React.useState("");
-  const [revAddress, setRevAddress] = useState("");
+  const [revPlace, setRevPlace] = React.useState({});
+  const [revNum, setRevNum] = useState(1);
+  const [revText, setRevText] = useState("");
   const [addNew, setAddNew] = useState(false);
   const [addReview, setAddReview] = useState(false);
   const [temp, setTemp] = useState(false);
   const [select, setSelect] = useState(null);
   const mapRef = React.useRef();
   const [start, setStart] = useState(true);
+  const [addPlaceName, setAddPlaceName] = React.useState("");
+  const [addPlaceCategory, setAddPlaceCategory] = React.useState("");
+  const [addPlaceDesc, setAddPlaceDesc] = React.useState("");
+  const [addPlaceWebsite, setAddPlaceWebsite] = React.useState("");
 
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   //API Call
+
+  function addPlaceAPI() {
+    if (data !== null) {
+      axios
+        .post("http://localhost:9002/api/places/addplace", {
+          place_name: addPlaceName,
+          lng: tempMarker.lng,
+          lat: tempMarker.lat,
+          category: addPlaceCategory,
+          images: "https://img.icons8.com/ios/452/no-image.png",
+          desc: addPlaceDesc,
+          website: addPlaceWebsite,
+          createdByEmail: data.email,
+        })
+        .then((response) => {
+          alert(response.data.message);
+          if (response.data.error === false) {
+            setAddPlaceName("");
+            setAddPlaceDesc("");
+            setAddPlaceWebsite("");
+            setAddPlaceCategory("");
+            setAddNew(false);
+          }
+        });
+    } else {
+      alert("Please Login to add a place");
+    }
+  }
+
+  function addReviewAPI() {
+    if (data !== null) {
+      axios
+        .post("http://localhost:9002/api/reviews/addreview", {
+          place: revPlace,
+          rating: revNum,
+          reviewText: revText,
+          authorEmail: data.email,
+        })
+        .then((response) => {
+          console.log(response)
+          alert(response.data.message);
+          if (response.data.error === false) {
+            setRevNum(1);
+            setRevText("");
+            setAddReview(false);
+          }
+        });
+    } else {
+      alert("Please Login to add a review");
+    }
+  }
 
   const getData = async () => {
     await axios
@@ -87,9 +143,10 @@ export default function LeafMap({upperSearch}) {
   }, []);
 
   React.useEffect((e) => {
-    if(upperSearch!==null){
-    setSelect(upperSearch);
-  }});
+    if (upperSearch !== null) {
+      setSelect(upperSearch);
+    }
+  });
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   // Function : Map Animation
   function SetViewOnClick({ animateRef }) {
@@ -101,9 +158,10 @@ export default function LeafMap({upperSearch}) {
           animate: animateRef.current || false,
         });
       }
-      if(select===null){
-      setSelect({});
-    }});
+      if (select === null) {
+        setSelect({});
+      }
+    });
 
     return null;
   }
@@ -174,10 +232,13 @@ export default function LeafMap({upperSearch}) {
           geocoder,
         })
           .on("markgeocode", function (e) {
-            setSelect({})
+            setSelect({});
             var latlng = e.geocode.center;
             L.circle(latlng, { radius: 2000, opacity: 0.1 }).addTo(map);
-            setTempMarker({ lat: e.geocode.center.lat , lng: e.geocode.center.lng });
+            setTempMarker({
+              lat: e.geocode.center.lat,
+              lng: e.geocode.center.lng,
+            });
             map.flyTo(latlng, 14);
           })
           .addTo(map);
@@ -204,13 +265,45 @@ export default function LeafMap({upperSearch}) {
   }
 
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  // Function : Check cordinates and set marker to add place
+
+  const floatRegExp = new RegExp("^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$");
+
+  function checkCordinatesLng(e) {
+    const amount = e.target.value;
+    if (!amount || floatRegExp.test(amount)) {
+      setTempMarker({ lat: tempMarker.lat, lng: amount });
+      mapRef.current.setView(
+        L.latLng(tempMarker.lat, amount),
+        mapRef.current.getZoom(),
+        {
+          animate: animateRef.current || false,
+        }
+      );
+    }
+  }
+  function checkCordinatesLat(e) {
+    const amount = e.target.value;
+    if (!amount || floatRegExp.test(amount)) {
+      setTempMarker({ lat: amount, lng: tempMarker.lng });
+      mapRef.current.setView(
+        L.latLng(amount, tempMarker.lng),
+        mapRef.current.getZoom(),
+        {
+          animate: animateRef.current || false,
+        }
+      );
+    }
+  }
+
+  //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   // Return
   return (
     <div>
       {/* Division : Strip to add place and list */}
       <div className="yellowStrip">
         <div className="user__places">
-          {sessionStorage.getItem('token')!==null ? (
+          {sessionStorage.getItem("token") !== null ? (
             <>
               {" "}
               <div className="normalButton">Lorem Ipsum</div>
@@ -265,16 +358,7 @@ export default function LeafMap({upperSearch}) {
                   className="inputField"
                   type="text"
                   value={tempMarker.lat}
-                  onChange={(e) => {
-                    setTempMarker({ lat: e.target.value, lng: tempMarker.lng });
-                    mapRef.current.setView(
-                      L.latLng(e.target.value, tempMarker.lng),
-                      mapRef.current.getZoom(),
-                      {
-                        animate: animateRef.current || false,
-                      }
-                    );
-                  }}
+                  onChange={(e) => checkCordinatesLat(e)}
                 />
               </div>
 
@@ -284,37 +368,71 @@ export default function LeafMap({upperSearch}) {
                   className="inputField"
                   type="text"
                   value={tempMarker.lng}
+                  onChange={(e) => checkCordinatesLng(e)}
+                />
+                {/* <input
+                  className="inputField"
+                  type="text"
+                  value={tempMarker.lng}
                   onChange={(e) => {
-                    setTempMarker({ lat: tempMarker.lat, lng: e.target.value });
-
-                    mapRef.current.setView(
-                      L.latLng(tempMarker.lat, e.target.value),
-                      mapRef.current.getZoom(),
-                      {
-                        animate: animateRef.current || false,
-                      }
-                    );
+                    
+                  }}
+                /> */}
+              </div>
+              <div className="oneInput">
+                Name :
+                <input
+                  type="text"
+                  className="inputField"
+                  value={addPlaceName}
+                  onChange={(e) => {
+                    setAddPlaceName(e.target.value);
                   }}
                 />
               </div>
               <div className="oneInput">
-                Name :
-                <input type="text" className="inputField" />
+                Category :
+                <input
+                  type="text"
+                  className="inputField"
+                  value={addPlaceCategory}
+                  onChange={(e) => {
+                    setAddPlaceCategory(e.target.value);
+                  }}
+                />
               </div>
               <div className="oneInput">
-                Address :
-                <input type="text" className="inputField" />
+                Description :
+                <input
+                  type="text"
+                  className="inputField"
+                  value={addPlaceDesc}
+                  onChange={(e) => {
+                    setAddPlaceDesc(e.target.value);
+                  }}
+                />
               </div>
               <div className="oneInput">
-                City :
-                <input type="text" className="inputField" />
+                Website :
+                <input
+                  type="text"
+                  className="inputField"
+                  value={addPlaceWebsite}
+                  onChange={(e) => {
+                    setAddPlaceWebsite(e.target.value);
+                  }}
+                />
               </div>
-              <div className="oneInput">
-                Country :
-                <input type="text" className="inputField" />
-              </div>
-              <div>
-                <button className="submit_button">Submit</button>
+                  
+              <div className="submit_button_holder"  >
+                <button
+                  className="submit_button"
+                  onClick={() => {
+                    addPlaceAPI();
+                  }}
+                >
+                  Submit
+                </button>
               </div>
             </div>
           </div>
@@ -330,8 +448,9 @@ export default function LeafMap({upperSearch}) {
               src={close}
               alt="Icon"
               onClick={() => {
-                setRevName("");
-                setRevAddress("");
+                setRevPlace({});
+                setRevNum(1);
+                setRevText("");
                 setAddReview(false);
               }}
             />
@@ -342,33 +461,48 @@ export default function LeafMap({upperSearch}) {
                 <input
                   type="text"
                   className="inputField"
-                  value={revName}
-                  onChange={(e) => {
-                    setRevName(e.target.value);
-                  }}
+                  value={revPlace.place_name}
                 />
               </div>
               <div className="oneInput">
-                Address :
+                Latitude :
                 <input
                   type="text"
                   className="inputField"
-                  value={revAddress}
+                  value={revPlace.lat}
+                />
+              </div>              <div className="oneInput">
+                Longitude :
+                <input
+                  type="text"
+                  className="inputField"
+                  value={revPlace.lng}
+                />
+              </div>
+              <div className="oneInput">
+                Review Score:
+                <input
+                  type="number"
+                  className="inputField"
+                  value={revNum}
                   onChange={(e) => {
-                    setRevAddress(e.target.value);
+                    if (e.target.value >= 1 && e.target.value <= 5)
+                      setRevNum(e.target.value);
                   }}
                 />
               </div>
               <div className="oneInput">
-                Review :
-                <input type="text" className="inputField" />
-              </div>
-              <div className="oneInput">
                 Comments :
-                <input type="text" className="inputField" />
+                <textarea
+                  className="inputFieldBig"
+                  value={revText}
+                  onChange={(e) => {
+                    setRevText(e.target.value);
+                  }}
+                />
               </div>
-              <div>
-                <button className="submit_button">Submit</button>
+              <div className="submit_button_holder">
+                <button className="submit_button" onClick={()=>addReviewAPI()}>Submit</button>
               </div>
             </div>
           </div>
@@ -407,7 +541,7 @@ export default function LeafMap({upperSearch}) {
                       <br />
                       <div
                         onClick={() => {
-                          setRevName(marker.place_name);
+                          setRevPlace(marker);
                           setAddReview(true);
                         }}
                         style={{ color: "Red", cursor: "pointer" }}

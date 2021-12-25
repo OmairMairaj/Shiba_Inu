@@ -6,22 +6,9 @@ import SearchBar from "../SearchBar/SearchBar";
 import { Link } from "react-router-dom";
 import close from "../../assets/close.png";
 
-function Navbar({ setUpperSearch, check, setCheck }) {
+function Navbar({ data , setUpperSearch, check, setCheck }) {
   const [pressed, setPressed] = React.useState(false);
-  const [data,setData] = React.useState({})
-  React.useEffect(() => {
-    if (sessionStorage.getItem("token")) {
-      axios
-        .post("http://localhost:9002/api/users/getprofile", {
-          token: sessionStorage.getItem("token"),
-        })
-        .then((res) => {
-          if (res.data.success === true) {
-            setData(res.data.data);
-          }
-        });
-    }
-  }, []);
+  
   return (
     <div className="navbar">
       <div className="navbar__container">

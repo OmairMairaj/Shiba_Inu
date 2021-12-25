@@ -716,7 +716,20 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	border: 0.5px solid rgba(255, 255, 255, 0.534);
 	border-radius: 7px;
 	padding: 3px;
-  min-width: 65%;
+  min-width: 50%;
+  max-width: 50%;
+}
+.inputFieldBig{
+	margin : 0 5px;
+	color: white;
+	background-color: transparent;
+	border: 0.5px solid rgba(255, 255, 255, 0.534);
+	border-radius: 7px;
+	padding: 3px;
+  min-width: 50%;
+  max-width: 50%;
+  min-height: 10vh;
+  max-height: 10vh;
 }
 .redSection {
   position: absolute;
@@ -751,14 +764,21 @@ svg.leaflet-image-layer.leaflet-interactive path {
   color: white;
   margin: 10px;
   font-weight: bold;
+  
+}
+.submit_button_holder{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .submit_button{
+  cursor: pointer;
   padding: 5px 0;
   font-size: 15px;
   border: 0px;
   background-color: white;
-  border-radius: 5px;
-  width: 100%;
+  border-radius: 500px;
+  width: 40%;
 
 }
 .leaflet-popup-content-wrapper{
