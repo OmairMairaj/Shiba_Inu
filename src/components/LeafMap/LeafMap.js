@@ -10,7 +10,7 @@ import {
   useMapEvent,
   useMap,
 } from "react-leaflet";
-import L from "leaflet";
+import L, { map } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import close from "../../assets/close.png";
 import pin from "../../assets/pin.png";
@@ -171,9 +171,6 @@ export default function LeafMap({ data, upperSearch }) {
           animate: animateRef.current || false,
         });
       }
-      if (select === null) {
-        setSelect({});
-      }
     });
 
     return null;
@@ -319,12 +316,13 @@ export default function LeafMap({ data, upperSearch }) {
   
   React.useEffect(
     (e) => {
-      if((!addNew)&&(select===null)&&(getLocationNow)){
+      if((select===null)&&(getLocationNow)){
         mapRef.current.flyTo(myLoc,14)
       }
     },
-    [addNew,select,getLocationNow]
+    [select,getLocationNow]
   );
+
 
   React.useEffect(
     (e) => {
@@ -377,7 +375,8 @@ export default function LeafMap({ data, upperSearch }) {
       <div
         className="locButton"
         onClick={() => {
-          setSelect(null);
+          mapRef.current.flyTo(myLoc,14)
+          setSelect(null)
         }}
       >
         <img src={location} style={{ width: "2.5vw" }} />
@@ -588,7 +587,7 @@ export default function LeafMap({ data, upperSearch }) {
                       <span>Name : {marker.place_name}</span>
                       <br />
                       <br />
-                      <span>Address : {marker.desc}</span>
+                      <span>Description : {marker.desc}</span>
                       <br />
                       <div
                         onClick={() => {
@@ -640,6 +639,7 @@ export default function LeafMap({ data, upperSearch }) {
           select={select}
           setSelect={(val) => {
             setSelect(val);
+            mapRef.current.flyTo([val.lat,val.lng],16)            
           }}
         />
       ) : null}
