@@ -62,26 +62,36 @@ function Slider({ data, select, setSelect }) {
   };
   return (
     <div className="sliderContainer">
-      <div className="sliderHeader">Places near you</div>
-      <div className="sliderWhole">
-        <img
-          className="sliderIcon"
-          onClick={() => {
-            scroll(-3);
-          }}
-          src={left}
-        />
-        <div className="slider" ref={ref}>
-          {slider()}
-        </div>
-        <img
-          className="sliderIcon"
-          onClick={() => {
-            scroll(3);
-          }}
-          src={right}
-        />
-      </div>
+      {data.length > 0 ? (
+        <>
+          <div className="sliderHeader">Places near you</div>
+          <div className="sliderWhole">
+            {data.length > 3 ? (
+              <img
+                className="sliderIcon"
+                onClick={() => {
+                  scroll(-3);
+                }}
+                src={left}
+              />
+            ) : null}
+            <div className="slider" ref={ref}>
+              {slider()}
+            </div>
+            {data.length > 3 ? (
+              <img
+                className="sliderIcon"
+                onClick={() => {
+                  scroll(3);
+                }}
+                src={right}
+              />
+            ) : null}
+          </div>
+        </>
+      ) : (
+        <div className="sliderHeader">No places found near your location</div>
+      )}
     </div>
   );
 }

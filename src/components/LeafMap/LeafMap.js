@@ -46,10 +46,6 @@ let me = L.icon({
   popupAnchor: [0, -40],
 });
 L.Marker.prototype.options.icon = DefaultIcon;
-// const center = {
-//   lat: 40.712062139,
-//   lng: -74.0131062,
-// };
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // Main Function
@@ -58,6 +54,11 @@ export default function LeafMap({ data, upperSearch }) {
   //Use States
   const animateRef = useRef(true);
   const [markers, setMarkers] = React.useState();
+  const [myLoc, setMyLoc] = React.useState({
+    lat: 40.712062139,
+    lng: -74.0131062,
+  });
+  const [nearbyMarkers, setNearbyMarkers] = React.useState();
   const [tempMarker, setTempMarker] = useState({
     lat: 40.712062139,
     lng: -74.0131062,
@@ -66,8 +67,8 @@ export default function LeafMap({ data, upperSearch }) {
   const [revNum, setRevNum] = useState(1);
   const [revText, setRevText] = useState("");
   const [addNew, setAddNew] = useState(false);
+  const [getLocationNow, setGetLocationNow] = useState(false);
   const [addReview, setAddReview] = useState(false);
-  const [temp, setTemp] = useState(false);
   const [select, setSelect] = useState(null);
   const mapRef = React.useRef();
   const [start, setStart] = useState(true);
@@ -117,7 +118,7 @@ export default function LeafMap({ data, upperSearch }) {
           authorEmail: data.email,
         })
         .then((response) => {
-          console.log(response)
+          //console.log(response);
           alert(response.data.message);
           if (response.data.error === false) {
             setRevNum(1);
@@ -135,6 +136,18 @@ export default function LeafMap({ data, upperSearch }) {
       .get("http://localhost:9002/api/places/getapprovedplaces")
       .then((response) => {
         setMarkers(response.data.data);
+      });
+  };
+  const getNearbyData = async (Loc) => {
+    // console.log(Loc.lat)
+    await axios
+      .post("http://localhost:9002/api/places/getnearby", {
+        lat: Loc.lat,
+        lng: Loc.lng,
+      })
+      .then((response) => {
+        //console.log(response)
+        setNearbyMarkers(response.data.data);
       });
   };
 
@@ -187,25 +200,24 @@ export default function LeafMap({ data, upperSearch }) {
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   // Function : Get User Location and pan to it
   function LocationMarker() {
-    const [position, setPosition] = useState(null);
-    const map = useMap();
-    mapRef.current = map;
-    const [bbox, setBbox] = useState([]);
-    useEffect(() => {
-      if (!addNew && select === null) {
-        map.locate().on("locationfound", function (e) {
-          setPosition(e.latlng);
-          map.flyTo(e.latlng, 14);
-          setBbox(e.bounds.toBBoxString().split(","));
-        });
-      }
-    }, []);
-
-    return position === null ? null : (
-      <Marker position={position} icon={me}>
-        <Popup>You are here : {bbox[0]}</Popup>
-      </Marker>
-    );
+    // const [position, setPosition] = useState(null);
+    // const map = useMap();
+    // mapRef.current = map;
+    // const [bbox, setBbox] = useState([]);
+    // useEffect(() => {
+    //   if (!addNew && select === null) {
+    //     map.locate().on("locationfound", function (e) {
+    //       setPosition(e.latlng);
+    //       map.flyTo(e.latlng, 14);
+    //       setBbox(e.bounds.toBBoxString().split(","));
+    //     });
+    //   }
+    // }, []);
+    // return (position === null) ? null : (
+    //   <Marker position={position} icon={me}>
+    //     <Popup>You are here : {bbox[0]}</Popup>
+    //   </Marker>
+    // );
   }
 
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -295,6 +307,39 @@ export default function LeafMap({ data, upperSearch }) {
       );
     }
   }
+
+  function userLoc() {
+    if (mapRef.current) {
+        mapRef.current.locate().on("locationfound", function (e) {
+          setMyLoc(e.latlng);
+          setGetLocationNow(true);
+        });
+    }
+  }
+  
+  React.useEffect(
+    (e) => {
+      if((!addNew)&&(select===null)&&(getLocationNow)){
+        mapRef.current.flyTo(myLoc,14)
+      }
+    },
+    [addNew,select,getLocationNow]
+  );
+
+  React.useEffect(
+    (e) => {
+      userLoc();
+    },
+    [mapRef.current]
+  );
+  React.useEffect(
+    (e) => {
+      if (getLocationNow) {
+        getNearbyData(myLoc);
+      }
+    },
+    [getLocationNow]
+  );
 
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   // Return
@@ -423,8 +468,8 @@ export default function LeafMap({ data, upperSearch }) {
                   }}
                 />
               </div>
-                  
-              <div className="submit_button_holder"  >
+
+              <div className="submit_button_holder">
                 <button
                   className="submit_button"
                   onClick={() => {
@@ -471,7 +516,8 @@ export default function LeafMap({ data, upperSearch }) {
                   className="inputField"
                   value={revPlace.lat}
                 />
-              </div>              <div className="oneInput">
+              </div>{" "}
+              <div className="oneInput">
                 Longitude :
                 <input
                   type="text"
@@ -502,7 +548,12 @@ export default function LeafMap({ data, upperSearch }) {
                 />
               </div>
               <div className="submit_button_holder">
-                <button className="submit_button" onClick={()=>addReviewAPI()}>Submit</button>
+                <button
+                  className="submit_button"
+                  onClick={() => addReviewAPI()}
+                >
+                  Submit
+                </button>
               </div>
             </div>
           </div>
@@ -521,7 +572,7 @@ export default function LeafMap({ data, upperSearch }) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <SetViewOnClick animateRef={animateRef} />
-        <LocationMarker />
+        {/* <LocationMarker /> */}
         <SetSetter />
         <LeafletControlGeocoder />
         {markers ? (
@@ -575,12 +626,17 @@ export default function LeafMap({ data, upperSearch }) {
             ></Marker>
           </>
         ) : null}
+        {myLoc ? (
+          <>
+            <Marker position={myLoc} icon={me}></Marker>
+          </>
+        ) : null}
       </MapContainer>
 
       {/* Slider Main*/}
-      {markers ? (
+      {nearbyMarkers ? (
         <Slider
-          data={markers}
+          data={nearbyMarkers}
           select={select}
           setSelect={(val) => {
             setSelect(val);
