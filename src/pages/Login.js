@@ -20,7 +20,7 @@ export default function Login({check,setCheck}) {
 
   function LoginAPI() {
     axios
-      .post("http://localhost:9002/api/users/login", {
+      .post("https://afternoon-anchorage-53514.herokuapp.com/api/users/login", {
         email: email,
         password: password,
       })

@@ -13,7 +13,7 @@ function Search({setUpperSearch}) {
   //API Call
   const getData = async () => {
     await axios
-      .get("http://localhost:9002/api/places/getapprovedplaces")
+      .get("https://afternoon-anchorage-53514.herokuapp.com/api/places/getapprovedplaces")
       .then((response) => {
         setData(response.data.data);
       });

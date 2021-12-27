@@ -13,7 +13,7 @@ function Home({check ,setCheck}) {
   React.useEffect(() => {
     if (sessionStorage.getItem("token")) {
       axios
-        .post("http://localhost:9002/api/users/getprofile", {
+        .post("https://afternoon-anchorage-53514.herokuapp.com/api/users/getprofile", {
           token: sessionStorage.getItem("token"),
         })
         .then((res) => {

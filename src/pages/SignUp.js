@@ -33,7 +33,7 @@ export default function SignUp({check,setCheck}) {
 
   function SignupAPI() {
     axios
-      .post("http://localhost:9002/api/users/register", {
+      .post("https://afternoon-anchorage-53514.herokuapp.com/api/users/register", {
         name: firstName + " " + lastName,
         email: email,
         password: password,
@@ -42,7 +42,7 @@ export default function SignUp({check,setCheck}) {
       .then((res) => {
         if (res.data.success === true) {
           axios
-            .post("http://localhost:9002/api/users/login", {
+            .post("https://afternoon-anchorage-53514.herokuapp.com/api/users/login", {
               email: res.data.user.email,
               password: password,
             })

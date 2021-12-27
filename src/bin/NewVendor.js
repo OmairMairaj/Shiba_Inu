@@ -25,7 +25,7 @@
 //     if (name && email && password && country) {
 //       if (email.includes(".com")) {
 //         axios
-//           .post("http://localhost:9002/api/com/newCompany", user)
+//           .post("https://afternoon-anchorage-53514.herokuapp.com/api/com/newCompany", user)
 //           .then((res) => {
 //               //console.log(res);
 //             if (res.data.success === true) {

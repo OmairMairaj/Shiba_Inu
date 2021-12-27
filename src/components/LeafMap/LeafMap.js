@@ -83,7 +83,7 @@ export default function LeafMap({ data, upperSearch }) {
   function addPlaceAPI() {
     if (data !== null) {
       axios
-        .post("http://localhost:9002/api/places/addplace", {
+        .post("https://afternoon-anchorage-53514.herokuapp.com/api/places/addplace", {
           place_name: addPlaceName,
           lng: tempMarker.lng,
           lat: tempMarker.lat,
@@ -111,7 +111,7 @@ export default function LeafMap({ data, upperSearch }) {
   function addReviewAPI() {
     if (data !== null) {
       axios
-        .post("http://localhost:9002/api/reviews/addreview", {
+        .post("https://afternoon-anchorage-53514.herokuapp.com/api/reviews/addreview", {
           place: revPlace,
           rating: revNum,
           reviewText: revText,
@@ -133,7 +133,7 @@ export default function LeafMap({ data, upperSearch }) {
 
   const getData = async () => {
     await axios
-      .get("http://localhost:9002/api/places/getapprovedplaces")
+      .get("https://afternoon-anchorage-53514.herokuapp.com/api/places/getapprovedplaces")
       .then((response) => {
         setMarkers(response.data.data);
       });
@@ -141,7 +141,7 @@ export default function LeafMap({ data, upperSearch }) {
   const getNearbyData = async (Loc) => {
     // console.log(Loc.lat)
     await axios
-      .post("http://localhost:9002/api/places/getnearby", {
+      .post("https://afternoon-anchorage-53514.herokuapp.com/api/places/getnearby", {
         lat: Loc.lat,
         lng: Loc.lng,
       })

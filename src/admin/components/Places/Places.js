@@ -23,7 +23,7 @@ function Places() {
 
   React.useEffect(() => {
     axios
-      .get("http://localhost:9002/admin//getpendingnotdeletedplaces")
+      .get("https://afternoon-anchorage-53514.herokuapp.com/admin//getpendingnotdeletedplaces")
       .then((res) => {
         //console.log(res);
         if (res.data.error === false) {
@@ -34,7 +34,7 @@ function Places() {
       });
 
     axios
-      .get("http://localhost:9002/admin/getpendingdeletedplaces")
+      .get("https://afternoon-anchorage-53514.herokuapp.com/admin/getpendingdeletedplaces")
       .then((res) => {
         //console.log(res);
         if (res.data.error === false) {
@@ -45,7 +45,7 @@ function Places() {
       });
 
     axios
-      .get("http://localhost:9002/admin/getapprovednotdeletedplaces")
+      .get("https://afternoon-anchorage-53514.herokuapp.com/admin/getapprovednotdeletedplaces")
       .then((res) => {
         //console.log(res);
         if (res.data.error === false) {
@@ -56,7 +56,7 @@ function Places() {
       });
 
     axios
-      .get("http://localhost:9002/admin/getapproveddeletedplaces")
+      .get("https://afternoon-anchorage-53514.herokuapp.com/admin/getapproveddeletedplaces")
       .then((res) => {
         //console.log(res);
         if (res.data.error === false) {
@@ -69,7 +69,7 @@ function Places() {
 
   const deletePlace = (_id) => {
     axios
-      .post("http://localhost:9002/admin/deleteplace", { _id: _id })
+      .post("https://afternoon-anchorage-53514.herokuapp.com/admin/deleteplace", { _id: _id })
       .then((res) => {
         if (res.data.error === false) {
           setBool(!bool);
@@ -80,7 +80,7 @@ function Places() {
 
   const restorePlace = (_id) => {
     axios
-      .post("http://localhost:9002/admin/restoreplace", { _id: _id })
+      .post("https://afternoon-anchorage-53514.herokuapp.com/admin/restoreplace", { _id: _id })
       .then((res) => {
         if (res.data.error === false) {
           setBool(!bool);
@@ -91,7 +91,7 @@ function Places() {
 
   const approvePlace = (_id) => {
     axios
-      .post("http://localhost:9002/admin/approveplace", { _id: _id })
+      .post("https://afternoon-anchorage-53514.herokuapp.com/admin/approveplace", { _id: _id })
       .then((res) => {
         if (res.data.error === false) {
           setBool(!bool);
@@ -102,7 +102,7 @@ function Places() {
 
   const disapprovePlace = (_id) => {
     axios
-      .post("http://localhost:9002/admin/disapproveplace", { _id: _id })
+      .post("https://afternoon-anchorage-53514.herokuapp.com/admin/disapproveplace", { _id: _id })
       .then((res) => {
         if (res.data.error === false) {
           setBool(!bool);
