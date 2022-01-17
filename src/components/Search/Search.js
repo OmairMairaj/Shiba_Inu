@@ -1,10 +1,10 @@
 import React from "react";
-import Data from "../../data/data.json";
+// import Data from "../../data/data.json";
 import "./Search.css";
 import axios from "axios";
 import cross from "../../assets/close.png";
 import search from "../../assets/search.png";
-import onClickOutside from "react-onclickoutside";
+// import onClickOutside from "react-onclickoutside";
 
 function Search({ setUpperSearch }) {
   let [data, setData] = React.useState([]);
@@ -26,10 +26,10 @@ function Search({ setUpperSearch }) {
     getData();
   }, []);
 
-  Search.handleClickOutside = () => {
-    setSearchField("");
-    setUpperSearch(null);
-  };
+  // Search.handleClickOutside = () => {
+  //   setSearchField("");
+  //   setUpperSearch(null);
+  // };
 
   const getIcon = () => {
     if (searchField !== "") {
@@ -37,7 +37,6 @@ function Search({ setUpperSearch }) {
         <img
           onClick={() => {
             setSearchField("");
-            setUpperSearch(null);
           }}
           class="search_icon"
           src={cross}
@@ -62,6 +61,7 @@ function Search({ setUpperSearch }) {
                 <div
                   onClick={() => {
                     setUpperSearch(item);
+                    setSearchField("")
                   }}
                   className="oneSearch"
                 >
@@ -113,8 +113,10 @@ function Search({ setUpperSearch }) {
   );
 }
 
-const clickOutsideConfig = {
-  handleClickOutside: () => Search.handleClickOutside,
-};
+// const clickOutsideConfig = {
+//   handleClickOutside: () => Search.handleClickOutside,
+// };
 
-export default onClickOutside(Search, clickOutsideConfig);
+// export default onClickOutside(Search, clickOutsideConfig);
+
+export default Search;

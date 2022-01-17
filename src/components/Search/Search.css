@@ -13,12 +13,11 @@
   .resultBox__search {
     position: absolute !important;
     width: 22.5vw;
-    z-index: 1001 !important;
+    z-index: 990 !important;
     display: flex;
     justify-content: center;
     margin-top: 1vh;
     border: 0px;
-    transform: translateX(-2.5%);
   }
 
   textarea:focus, input:focus{
@@ -36,7 +35,7 @@
     border-radius: 2px;
     font-size: 20px;
     color: black;
-    z-index: 1001 !important;
+    z-index: 990 !important;
   }
   .oneSearch:hover {
     background-color: rgba(196, 196, 196, 0.719);
