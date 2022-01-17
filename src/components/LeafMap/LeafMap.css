@@ -760,6 +760,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   padding: 5px;
 }
 .write_a_review{
+  display: block;
   font-size: 20px;
   color: white;
   margin: 10px;

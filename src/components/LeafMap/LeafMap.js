@@ -81,9 +81,10 @@ export default function LeafMap({ data, upperSearch }) {
   //API Call
 
   function addPlaceAPI() {
+    // if(addPlaceWebsite===""){}
     if (data !== null) {
       axios
-        .post("https://afternoon-anchorage-53514.herokuapp.com/api/places/addplace", {
+        .post("http://localhost:7000/api/places/addplace", {
           place_name: addPlaceName,
           lng: tempMarker.lng,
           lat: tempMarker.lat,
@@ -395,9 +396,10 @@ export default function LeafMap({ data, upperSearch }) {
               }}
             />
             <div style={{ paddingTop: "15px" }}>
-              <span className="write_a_review">Add a Place</span>
+            <span className="write_a_review">Add a Place</span>
+              <span className="write_a_review" style={{fontSize:"12px",color:"#ffa500"}}>* fields are not to be left blank</span>
               <div className="oneInput">
-                Latitude :
+                * Latitude :
                 <input
                   className="inputField"
                   type="text"
@@ -407,7 +409,7 @@ export default function LeafMap({ data, upperSearch }) {
               </div>
 
               <div className="oneInput">
-                Longitude :
+                * Longitude :
                 <input
                   className="inputField"
                   type="text"
@@ -424,7 +426,7 @@ export default function LeafMap({ data, upperSearch }) {
                 /> */}
               </div>
               <div className="oneInput">
-                Name :
+                * Place Name :
                 <input
                   type="text"
                   className="inputField"
@@ -435,7 +437,7 @@ export default function LeafMap({ data, upperSearch }) {
                 />
               </div>
               <div className="oneInput">
-                Category :
+                * Category :
                 <input
                   type="text"
                   className="inputField"

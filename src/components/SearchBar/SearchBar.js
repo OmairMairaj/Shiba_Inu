@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import Dropdown from "../Dropdown/Dropdown";
 import Search from "../Search/Search";
-import "./SearchBar.css";
+import "./SearchBar.css"; 
 
 function SearchBar({setUpperSearch}) {
   const [selected, setSelected] = useState("All");
@@ -16,18 +16,8 @@ function SearchBar({setUpperSearch}) {
             setSelected={setSelected}
           />
           <div className="search">
-            {/* <input
-              type="text"
-              className="search__input"
-              placeholder="Search for a place...."
-              value={search}
-              onChange={(e)=>setSearch(e.target.value)}
-            ></input> */}
             <Search setUpperSearch={(val)=>{setUpperSearch(val)}}/>
           </div>
-          {/* <button className="btn" type="submit">
-            <FaSearch className="fa-search" />
-          </button> */}
         </div>
       </div>
     </div>

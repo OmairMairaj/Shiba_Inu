@@ -1,19 +1,22 @@
 import React from "react";
 import Data from "../../data/data.json";
 import "./Search.css";
-import axios from 'axios'
+import axios from "axios";
 import cross from "../../assets/close.png";
 import search from "../../assets/search.png";
+import onClickOutside from "react-onclickoutside";
 
-function Search({setUpperSearch}) {
-  let [data,setData] = React.useState([]);
+function Search({ setUpperSearch }) {
+  let [data, setData] = React.useState([]);
   let [searchField, setSearchField] = React.useState("");
 
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   //API Call
   const getData = async () => {
     await axios
-      .get("https://afternoon-anchorage-53514.herokuapp.com/api/places/getapprovedplaces")
+      .get(
+        "https://afternoon-anchorage-53514.herokuapp.com/api/places/getapprovedplaces"
+      )
       .then((response) => {
         setData(response.data.data);
       });
@@ -23,13 +26,18 @@ function Search({setUpperSearch}) {
     getData();
   }, []);
 
+  Search.handleClickOutside = () => {
+    setSearchField("");
+    setUpperSearch(null);
+  };
+
   const getIcon = () => {
     if (searchField !== "") {
       return (
         <img
           onClick={() => {
             setSearchField("");
-            setUpperSearch(null)
+            setUpperSearch(null);
           }}
           class="search_icon"
           src={cross}
@@ -53,7 +61,7 @@ function Search({setUpperSearch}) {
               return (
                 <div
                   onClick={() => {
-                    setUpperSearch(item)
+                    setUpperSearch(item);
                   }}
                   className="oneSearch"
                 >
@@ -75,7 +83,11 @@ function Search({setUpperSearch}) {
           </div>
         );
       } else {
-        return <div className="results__search"><p className="oneSearch text">No Results Found</p></div>;
+        return (
+          <div className="results__search">
+            <p className="oneSearch text">No Results Found</p>
+          </div>
+        );
       }
     } else {
       return <></>;
@@ -100,4 +112,9 @@ function Search({setUpperSearch}) {
     </>
   );
 }
-export default Search;
+
+const clickOutsideConfig = {
+  handleClickOutside: () => Search.handleClickOutside,
+};
+
+export default onClickOutside(Search, clickOutsideConfig);

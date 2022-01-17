@@ -1,14 +1,14 @@
 import React from "react";
 import "./Navbar.css";
-import axios from "axios"
+import axios from "axios";
 import icon from "../../assets/logoicon.png";
 import SearchBar from "../SearchBar/SearchBar";
 import { Link } from "react-router-dom";
 import close from "../../assets/close.png";
 
-function Navbar({ data , setUpperSearch, check, setCheck }) {
+function Navbar({ data, setUpperSearch, check, setCheck }) {
   const [pressed, setPressed] = React.useState(false);
-  
+
   return (
     <div className="navbar">
       <div className="navbar__container">
@@ -16,10 +16,14 @@ function Navbar({ data , setUpperSearch, check, setCheck }) {
           <img className="icon" src={icon} alt="Icon" />
           <span className="iconText">SHIBA INU</span>
         </div>
-        {sessionStorage.getItem('token')===null ? (
+        {sessionStorage.getItem("token") === null ? (
           <>
             <div className="search__area">
-              <SearchBar setUpperSearch={(val)=>{setUpperSearch(val)}} />
+              <SearchBar
+                setUpperSearch={(val) => {
+                  setUpperSearch(val);
+                }}
+              />
             </div>
             <div className="auth__buttons">
               <Link to="/login" className="login__btn">
@@ -36,15 +40,14 @@ function Navbar({ data , setUpperSearch, check, setCheck }) {
               <SearchBar />
             </div>
             <div className="single__auth__button">
-              <div className="profile__btn">
+              <div
+                className="profile__btn"
+                onClick={() => {
+                  setPressed(true);
+                }}
+              >
                 <div>Hello, {`${data.name}`} </div>
-                <img
-                  onClick={() => {
-                    setPressed(true);
-                  }}
-                  className="user__icon"
-                  src={icon}
-                />
+                <img className="user__icon" src={icon} />
               </div>
             </div>
             {pressed ? (
@@ -72,7 +75,7 @@ function Navbar({ data , setUpperSearch, check, setCheck }) {
                 <div
                   className="profile__one__item__logout"
                   onClick={() => {
-                    sessionStorage.clear()
+                    sessionStorage.clear();
                     setCheck(!check);
                   }}
                 >
