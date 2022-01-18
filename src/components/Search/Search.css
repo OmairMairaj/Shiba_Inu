@@ -34,7 +34,7 @@
     background-color: white;
     border-radius: 2px;
     font-size: 20px;
-    color: black;
+    color: #ffa500;
     z-index: 990 !important;
   }
   .oneSearch:hover {
@@ -54,11 +54,11 @@
     min-width: 100%;
     display: flex;
     flex-wrap: wrap;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid lightgray;
     padding-bottom: 5px;
   }
   .text {
-    color: black;
+    color: #ffa500;
     font-size: 15px;
   }
   .smalltext {

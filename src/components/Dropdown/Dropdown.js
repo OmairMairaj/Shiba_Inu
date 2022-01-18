@@ -1,9 +1,33 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Dropdown.css";
+import axios from "axios";
 
 function Dropdown({ selected, setSelected }) {
+  const [options, setOptions] = React.useState(["All"]);
+  const [data, setData] = React.useState();
+  const [isActive, setIsActive] = useState(false);
   const wrapperRef = useRef(null);
+  //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //API Call
+  const getData = async () => {
+    await axios
+      .get("http://localhost:7000/api/categories/getcategories")
+      .then((response) => {
+        let arr = [];
+        for (var i = 0; i < response.data.data.length; i++) {
+          arr.push(response.data.data[i].name);
+        }
+        arr = arr.sort();
+        for (var i = 0; i < arr.length; i++) {
+          options.push(arr[i]);
+        }
+        console.log(options);
+      });
+  };
+  //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //Use Effect
   useEffect(() => {
+    getData();
     function handleClickOutside(event) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setIsActive(false);
@@ -15,13 +39,9 @@ function Dropdown({ selected, setSelected }) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [wrapperRef]);
-  const [isActive, setIsActive] = useState(false);
-  const options = [
-    "All",
-    "Shop",
-    "Restaurant",
-    "Lorem Ipsum",
-  ];
+
+  //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  //Return
   return (
     <div ref={wrapperRef} className="dropdown">
       <div className="dropdown__btn" onClick={(e) => setIsActive(!isActive)}>

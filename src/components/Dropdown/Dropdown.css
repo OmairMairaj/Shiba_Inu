@@ -17,7 +17,7 @@
   padding: 0px 10px;
   height: 100%;
   align-items: center;
-  color: #ffa308;
+  color: #ffa500;
 }
 .dropdown .dropdown__contentdrawer {
   position: absolute;
@@ -27,9 +27,8 @@
   left: 0;
   padding: 10px;
   background: white;
-  /* box-shadow: 0px 50px 100px 1px rgb(2, 2, 2); */
   border-radius: 5px;
-  color: #ffa308;
+  color: #ffa500;
   width: 90%;
 }
 .dropdown .dropdown__contentdrawer .dropdown__item {
@@ -40,4 +39,11 @@
 
 .dropdown .dropdown__contentdrawer .dropdown__item:hover {
   background: #e6e6e6f8;
+}
+
+.dropdown__contentdrawer{
+  min-height: 580%;
+  max-height: 580%;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }

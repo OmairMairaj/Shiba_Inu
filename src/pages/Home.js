@@ -30,7 +30,7 @@ function Home({check ,setCheck}) {
         <Navbar data={data} check={check} setCheck={(val)=>{setCheck(val)}} setUpperSearch={(val)=>{setUpperSearch(val)}}/>
       </div>
       <div className="map">
-        <LeafMap data={data} upperSearch={upperSearch} />
+        <LeafMap data={data} upperSearch={upperSearch} setUpperSearch={(val)=>{setUpperSearch(val)}} />
       </div>
       <div className="footer">
         <Footer />

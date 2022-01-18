@@ -49,7 +49,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // Main Function
-export default function LeafMap({ data, upperSearch }) {
+export default function LeafMap({ data, upperSearch,setUpperSearch}) {
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   //Use States
   const animateRef = useRef(true);
@@ -376,8 +376,9 @@ export default function LeafMap({ data, upperSearch }) {
       <div
         className="locButton"
         onClick={() => {
-          mapRef.current.flyTo(myLoc,14)
           setSelect(null)
+          setUpperSearch(null)
+          mapRef.current.flyTo(myLoc,14)          
         }}
       >
         <img src={location} style={{ width: "2.5vw" }} />
