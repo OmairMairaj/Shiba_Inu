@@ -22,6 +22,7 @@ import Slider from "../Slider/Slider";
 import axios from "axios";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 import "leaflet-control-geocoder/dist/Control.Geocoder.js";
+import AddPlaceDropdown from "../AddPlaceDropdown/AddPlaceDropdown";
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 //Declaring
@@ -49,7 +50,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 // Main Function
-export default function LeafMap({ data, upperSearch,setUpperSearch}) {
+export default function LeafMap({ data, upperSearch, setUpperSearch }) {
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   //Use States
   const animateRef = useRef(true);
@@ -73,7 +74,7 @@ export default function LeafMap({ data, upperSearch,setUpperSearch}) {
   const mapRef = React.useRef();
   const [start, setStart] = useState(true);
   const [addPlaceName, setAddPlaceName] = React.useState("");
-  const [addPlaceCategory, setAddPlaceCategory] = React.useState("");
+  const [addPlaceCategory, setAddPlaceCategory] = React.useState("All");
   const [addPlaceDesc, setAddPlaceDesc] = React.useState("");
   const [addPlaceWebsite, setAddPlaceWebsite] = React.useState("");
 
@@ -112,12 +113,15 @@ export default function LeafMap({ data, upperSearch,setUpperSearch}) {
   function addReviewAPI() {
     if (data !== null) {
       axios
-        .post("https://afternoon-anchorage-53514.herokuapp.com/api/reviews/addreview", {
-          place: revPlace,
-          rating: revNum,
-          reviewText: revText,
-          authorEmail: data.email,
-        })
+        .post(
+          "https://afternoon-anchorage-53514.herokuapp.com/api/reviews/addreview",
+          {
+            place: revPlace,
+            rating: revNum,
+            reviewText: revText,
+            authorEmail: data.email,
+          }
+        )
         .then((response) => {
           //console.log(response);
           alert(response.data.message);
@@ -134,7 +138,9 @@ export default function LeafMap({ data, upperSearch,setUpperSearch}) {
 
   const getData = async () => {
     await axios
-      .get("https://afternoon-anchorage-53514.herokuapp.com/api/places/getapprovedplaces")
+      .get(
+        "https://afternoon-anchorage-53514.herokuapp.com/api/places/getapprovedplaces"
+      )
       .then((response) => {
         setMarkers(response.data.data);
       });
@@ -142,10 +148,13 @@ export default function LeafMap({ data, upperSearch,setUpperSearch}) {
   const getNearbyData = async (Loc) => {
     // console.log(Loc.lat)
     await axios
-      .post("https://afternoon-anchorage-53514.herokuapp.com/api/places/getnearby", {
-        lat: Loc.lat,
-        lng: Loc.lng,
-      })
+      .post(
+        "https://afternoon-anchorage-53514.herokuapp.com/api/places/getnearby",
+        {
+          lat: Loc.lat,
+          lng: Loc.lng,
+        }
+      )
       .then((response) => {
         //console.log(response)
         setNearbyMarkers(response.data.data);
@@ -308,22 +317,21 @@ export default function LeafMap({ data, upperSearch,setUpperSearch}) {
 
   function userLoc() {
     if (mapRef.current) {
-        mapRef.current.locate().on("locationfound", function (e) {
-          setMyLoc(e.latlng);
-          setGetLocationNow(true);
-        });
+      mapRef.current.locate().on("locationfound", function (e) {
+        setMyLoc(e.latlng);
+        setGetLocationNow(true);
+      });
     }
   }
-  
+
   React.useEffect(
     (e) => {
-      if((select===null)&&(getLocationNow)){
-        mapRef.current.flyTo(myLoc,14)
+      if (select === null && getLocationNow) {
+        mapRef.current.flyTo(myLoc, 14);
       }
     },
-    [select,getLocationNow]
+    [select, getLocationNow]
   );
-
 
   React.useEffect(
     (e) => {
@@ -376,9 +384,9 @@ export default function LeafMap({ data, upperSearch,setUpperSearch}) {
       <div
         className="locButton"
         onClick={() => {
-          setSelect(null)
-          setUpperSearch(null)
-          mapRef.current.flyTo(myLoc,14)          
+          setSelect(null);
+          setUpperSearch(null);
+          mapRef.current.flyTo(myLoc, 14);
         }}
       >
         <img src={location} style={{ width: "2.5vw" }} />
@@ -397,8 +405,13 @@ export default function LeafMap({ data, upperSearch,setUpperSearch}) {
               }}
             />
             <div style={{ paddingTop: "15px" }}>
-            <span className="write_a_review">Add a Place</span>
-              <span className="write_a_review" style={{fontSize:"12px",color:"#ffa500"}}>* fields are not to be left blank</span>
+              <span className="write_a_review">Add a Place</span>
+              <span
+                className="write_a_review"
+                style={{ fontSize: "12px", color: "#ffa500" }}
+              >
+                * fields are not to be left blank
+              </span>
               <div className="oneInput">
                 * Latitude :
                 <input
@@ -437,16 +450,25 @@ export default function LeafMap({ data, upperSearch,setUpperSearch}) {
                   }}
                 />
               </div>
+              {/* <div className="oneInput">
+              </div> */}
               <div className="oneInput">
                 * Category :
-                <input
+                  <AddPlaceDropdown
+                    cat={addPlaceCategory}
+                    setCat={(val) => {
+                      setAddPlaceCategory(val);
+                      console.log(addPlaceCategory)
+                    }}
+                  />
+                {/* <input
                   type="text"
                   className="inputField"
                   value={addPlaceCategory}
                   onChange={(e) => {
                     setAddPlaceCategory(e.target.value);
                   }}
-                />
+                /> */}
               </div>
               <div className="oneInput">
                 Description :
@@ -642,7 +664,7 @@ export default function LeafMap({ data, upperSearch,setUpperSearch}) {
           select={select}
           setSelect={(val) => {
             setSelect(val);
-            mapRef.current.flyTo([val.lat,val.lng],16)            
+            mapRef.current.flyTo([val.lat, val.lng], 16);
           }}
         />
       ) : null}
