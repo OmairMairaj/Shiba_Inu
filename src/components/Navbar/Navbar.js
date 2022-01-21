@@ -37,7 +37,11 @@ function Navbar({ data, setUpperSearch, check, setCheck }) {
         ) : (
           <>
             <div className="search__area">
-              <SearchBar />
+              <SearchBar
+                setUpperSearch={(val) => {
+                  setUpperSearch(val);
+                }}
+              />
             </div>
             <div className="single__auth__button">
               <div

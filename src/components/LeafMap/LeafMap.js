@@ -395,42 +395,44 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
       {/* Condition : Add Place */}
       {addNew ? (
         <>
-          <div className="redSection">
-            <img
-              className="close_icon"
-              src={close}
-              alt="Icon"
-              onClick={() => {
-                setAddNew(false);
-              }}
-            />
-            <div style={{ paddingTop: "15px" }}>
-              <span className="write_a_review">Add a Place</span>
-              <span
-                className="write_a_review"
-                style={{ fontSize: "12px", color: "#ffa500" }}
-              >
-                * fields are not to be left blank
-              </span>
-              <div className="oneInput">
-                * Latitude :
-                <input
-                  className="inputField"
-                  type="text"
-                  value={tempMarker.lat}
-                  onChange={(e) => checkCordinatesLat(e)}
+          {data !== null ? (
+            <>
+              <div className="redSection">
+                <img
+                  className="close_icon"
+                  src={close}
+                  alt="Icon"
+                  onClick={() => {
+                    setAddNew(false);
+                  }}
                 />
-              </div>
+                <div style={{ paddingTop: "15px" }}>
+                  <span className="write_a_review">Add a Place</span>
+                  <span
+                    className="write_a_review"
+                    style={{ fontSize: "12px", color: "#ffa500" }}
+                  >
+                    * fields are not to be left blank
+                  </span>
+                  <div className="oneInput">
+                    * Latitude :
+                    <input
+                      className="inputField"
+                      type="text"
+                      value={tempMarker.lat}
+                      onChange={(e) => checkCordinatesLat(e)}
+                    />
+                  </div>
 
-              <div className="oneInput">
-                * Longitude :
-                <input
-                  className="inputField"
-                  type="text"
-                  value={tempMarker.lng}
-                  onChange={(e) => checkCordinatesLng(e)}
-                />
-                {/* <input
+                  <div className="oneInput">
+                    * Longitude :
+                    <input
+                      className="inputField"
+                      type="text"
+                      value={tempMarker.lng}
+                      onChange={(e) => checkCordinatesLng(e)}
+                    />
+                    {/* <input
                   className="inputField"
                   type="text"
                   value={tempMarker.lng}
@@ -438,30 +440,30 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
                     
                   }}
                 /> */}
-              </div>
-              <div className="oneInput">
-                * Place Name :
-                <input
-                  type="text"
-                  className="inputField"
-                  value={addPlaceName}
-                  onChange={(e) => {
-                    setAddPlaceName(e.target.value);
-                  }}
-                />
-              </div>
-              {/* <div className="oneInput">
+                  </div>
+                  <div className="oneInput">
+                    * Place Name :
+                    <input
+                      type="text"
+                      className="inputField"
+                      value={addPlaceName}
+                      onChange={(e) => {
+                        setAddPlaceName(e.target.value);
+                      }}
+                    />
+                  </div>
+                  {/* <div className="oneInput">
               </div> */}
-              <div className="oneInput">
-                * Category :
-                  <AddPlaceDropdown
-                    cat={addPlaceCategory}
-                    setCat={(val) => {
-                      setAddPlaceCategory(val);
-                      console.log(addPlaceCategory)
-                    }}
-                  />
-                {/* <input
+                  <div className="oneInput">
+                    * Category :
+                    <AddPlaceDropdown
+                      cat={addPlaceCategory}
+                      setCat={(val) => {
+                        setAddPlaceCategory(val);
+                        console.log(addPlaceCategory);
+                      }}
+                    />
+                    {/* <input
                   type="text"
                   className="inputField"
                   value={addPlaceCategory}
@@ -469,42 +471,61 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
                     setAddPlaceCategory(e.target.value);
                   }}
                 /> */}
-              </div>
-              <div className="oneInput">
-                Description :
-                <input
-                  type="text"
-                  className="inputField"
-                  value={addPlaceDesc}
-                  onChange={(e) => {
-                    setAddPlaceDesc(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="oneInput">
-                Website :
-                <input
-                  type="text"
-                  className="inputField"
-                  value={addPlaceWebsite}
-                  onChange={(e) => {
-                    setAddPlaceWebsite(e.target.value);
-                  }}
-                />
-              </div>
+                  </div>
+                  <div className="oneInput">
+                    Description :
+                    <input
+                      type="text"
+                      className="inputField"
+                      value={addPlaceDesc}
+                      onChange={(e) => {
+                        setAddPlaceDesc(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className="oneInput">
+                    Website :
+                    <input
+                      type="text"
+                      className="inputField"
+                      value={addPlaceWebsite}
+                      onChange={(e) => {
+                        setAddPlaceWebsite(e.target.value);
+                      }}
+                    />
+                  </div>
 
-              <div className="submit_button_holder">
-                <button
-                  className="submit_button"
-                  onClick={() => {
-                    addPlaceAPI();
-                  }}
-                >
-                  Submit
-                </button>
+                  <div className="submit_button_holder">
+                    <button
+                      className="submit_button"
+                      onClick={() => {
+                        addPlaceAPI();
+                      }}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            </>
+          ) : (
+            <>
+              {" "}
+              <div className="redSection">
+                <img
+                  className="close_icon"
+                  src={close}
+                  alt="Icon"
+                  onClick={() => {
+                    setAddNew(false);
+                  }}
+                />
+                <div style={{ paddingTop: "15px" }}>
+                  <span className="write_a_review">Please Login to add a place</span>
+                </div>
+              </div>
+            </>
+          )}
         </>
       ) : null}
 
