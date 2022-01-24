@@ -767,6 +767,20 @@ svg.leaflet-image-layer.leaflet-interactive path {
   max-height: 68vh;
   padding: 10px 10px;
 }
+.Right__RedSection{
+  position: absolute;
+  border-radius: 5px;
+  right: 0;
+  transform: translateY(-0.5%);
+  min-height: 80vh;
+  background-color: red;
+  z-index: 1002;
+  min-width: 25vw;
+  max-width: 30vw;
+  min-height: 68vh;
+  max-height: 68vh;
+  padding: 10px 10px;
+}
 .oneInput {
   font-size: 15px;
 	color: white;

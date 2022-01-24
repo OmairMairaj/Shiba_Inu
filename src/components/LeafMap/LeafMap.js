@@ -70,6 +70,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
   const [addNew, setAddNew] = useState(false);
   const [getLocationNow, setGetLocationNow] = useState(false);
   const [addReview, setAddReview] = useState(false);
+  const [showReview, setShowReview] = useState(false);
   const [select, setSelect] = useState(null);
   const mapRef = React.useRef();
   const [start, setStart] = useState(true);
@@ -654,27 +655,50 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
               </div>
             </div>
           </>
-        ) : <>
-        {" "}
-        <div className="redSection">
-          <img
-            className="close_icon"
-            src={close}
-            alt="Icon"
-            onClick={() => {
-              setRevPlace({});
-              setRevNum(1);
-              setRevText("");
-              setAddReview(false);
-            }}
-          />
-          <div style={{ paddingTop: "15px" }}>
-            <span className="write_a_review">
-              Please Login to write a review
-            </span>
+        ) : (
+          <>
+            {" "}
+            <div className="redSection">
+              <img
+                className="close_icon"
+                src={close}
+                alt="Icon"
+                onClick={() => {
+                  setRevPlace({});
+                  setRevNum(1);
+                  setRevText("");
+                  setAddReview(false);
+                }}
+              />
+              <div style={{ paddingTop: "15px" }}>
+                <span className="write_a_review">
+                  Please Login to write a review
+                </span>
+              </div>
+            </div>
+          </>
+        )
+      ) : null}
+
+      {/* Condition : Show Reviews */}
+      {showReview ? (
+        <>
+          <div className="Right__RedSection">
+            <img
+              className="close_icon"
+              src={close}
+              alt="Icon"
+              onClick={() => {
+                setRevPlace({});
+                setShowReview(false);
+              }}
+            />
+            <div style={{ paddingTop: "5px" }}>
+              <span className="write_a_review">Reviews</span>
+              
+            </div>
           </div>
-        </div>
-      </>
+        </>
       ) : null}
 
       {/* Division : Map Main */}
@@ -704,9 +728,17 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
                     <div>
                       <span>Name : {marker.place_name}</span>
                       <br />
-                      <br />
                       <span>Description : {marker.desc}</span>
                       <br />
+                      <div
+                        onClick={() => {
+                          setRevPlace(marker);
+                          setShowReview(true);
+                        }}
+                        style={{ color: "Green", cursor: "pointer" }}
+                      >
+                        See Reviews
+                      </div>
                       <div
                         onClick={() => {
                           setRevPlace(marker);
@@ -714,7 +746,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
                         }}
                         style={{ color: "Red", cursor: "pointer" }}
                       >
-                        Write a review
+                        Write a Review
                       </div>
                     </div>
                   </>
