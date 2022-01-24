@@ -666,6 +666,15 @@ svg.leaflet-image-layer.leaflet-interactive path {
   min-width: 80%;
   margin: 0 0 4px 0;
 }
+.user__places__with__places{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:left;
+  max-width: 80%;
+  min-width: 80%;
+  overflow: hidden;
+  margin: 0 0 4px 0;
+}
 .addButton {
   align-self: right;
   margin-right: 3vw;
@@ -695,6 +704,19 @@ svg.leaflet-image-layer.leaflet-interactive path {
   text-align: center;
   max-height: 6vh;
   min-height: 6vh;
+  border-radius: 100px;
+  background: #05050517;
+  margin: 0 10px;
+}
+.normalButtonText{
+  font-weight: bold;
+  color: white;
+  display: flex;
+  align-items: center;
+  max-height: 6vh;
+  min-height: 6vh;
+  left: 0;
+  padding: 0 20px;
 }
 .normalButtonLong{
 	display: flex;

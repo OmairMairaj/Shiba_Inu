@@ -77,6 +77,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
   const [addPlaceCategory, setAddPlaceCategory] = React.useState("All");
   const [addPlaceDesc, setAddPlaceDesc] = React.useState("");
   const [addPlaceWebsite, setAddPlaceWebsite] = React.useState("");
+  const [userPlaces, setUserPlaces] = React.useState([]);
 
   //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   //API Call
@@ -136,6 +137,21 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
     }
   }
 
+  const getPlacesByUser = async () => {
+    axios
+      .post("http://localhost:7000/api/places/getapprovedplacesforoneuser", {
+        createdByEmail: data.email,
+      })
+      .then((response) => {
+        console.log(response.data.data);
+        if (response.data.error === false) {
+          setUserPlaces(response.data.data);
+        } else {
+          alert(response.data.message);
+        }
+      });
+  };
+
   const getData = async () => {
     await axios
       .get(
@@ -164,6 +180,17 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
   React.useEffect((e) => {
     getData();
   }, []);
+
+  React.useEffect(
+    (e) => {
+      // console.log("data is checking");
+      if (data !== null) {
+        // console.log("data is not null");
+        getPlacesByUser();
+      }
+    },
+    [data]
+  );
 
   React.useEffect((e) => {
     if (upperSearch !== null) {
@@ -354,16 +381,37 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
     <div>
       {/* Division : Strip to add place and list */}
       <div className="yellowStrip">
-        <div className="user__places">
+        <div
+          className={
+            userPlaces.length === 0 && sessionStorage.getItem("token") !== null
+              ? "user__places"
+              : "user__places__with__places"
+          }
+        >
           {sessionStorage.getItem("token") !== null ? (
-            <>
-              {" "}
-              <div className="normalButton">Lorem Ipsum</div>
-              <div className="normalButton">Lorem Ipsum</div>
-              <div className="normalButton">Lorem Ipsum</div>
-              <div className="normalButton">Lorem Ipsum</div>
-              <div className="normalButton">Lorem Ipsum</div>
-            </>
+            userPlaces.length === 0 ? (
+              <div className="normalButtonLong">
+                You have not added any place yet. Add your first one today!
+              </div>
+            ) : (
+              <>
+                <div className="normalButtonText">Your Places : </div>
+                {userPlaces.slice(0, 5).map((item) => {
+                  return (
+                    <>
+                      <div
+                        className="normalButton"
+                        onClick={() => {
+                          setUpperSearch(item);
+                        }}
+                      >
+                        {item.place_name}
+                      </div>
+                    </>
+                  );
+                })}
+              </>
+            )
           ) : (
             <div className="normalButtonLong">
               Log In to view your Added Places
@@ -395,7 +443,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
       {/* Condition : Add Place */}
       {addNew ? (
         <>
-          {data !== null ? (
+          {sessionStorage.getItem("token") !== null ? (
             <>
               <div className="redSection">
                 <img
@@ -521,7 +569,9 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
                   }}
                 />
                 <div style={{ paddingTop: "15px" }}>
-                  <span className="write_a_review">Please Login to add a place</span>
+                  <span className="write_a_review">
+                    Please Login to add a place
+                  </span>
                 </div>
               </div>
             </>
@@ -531,78 +581,100 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
 
       {/* Condition : Add Review */}
       {addReview ? (
-        <>
-          <div className="redSection">
-            <img
-              className="close_icon"
-              src={close}
-              alt="Icon"
-              onClick={() => {
-                setRevPlace({});
-                setRevNum(1);
-                setRevText("");
-                setAddReview(false);
-              }}
-            />
-            <div style={{ paddingTop: "15px" }}>
-              <span className="write_a_review">Write a Review</span>
-              <div className="oneInput">
-                Name :
-                <input
-                  type="text"
-                  className="inputField"
-                  value={revPlace.place_name}
-                />
-              </div>
-              <div className="oneInput">
-                Latitude :
-                <input
-                  type="text"
-                  className="inputField"
-                  value={revPlace.lat}
-                />
-              </div>{" "}
-              <div className="oneInput">
-                Longitude :
-                <input
-                  type="text"
-                  className="inputField"
-                  value={revPlace.lng}
-                />
-              </div>
-              <div className="oneInput">
-                Review Score:
-                <input
-                  type="number"
-                  className="inputField"
-                  value={revNum}
-                  onChange={(e) => {
-                    if (e.target.value >= 1 && e.target.value <= 5)
-                      setRevNum(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="oneInput">
-                Comments :
-                <textarea
-                  className="inputFieldBig"
-                  value={revText}
-                  onChange={(e) => {
-                    setRevText(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="submit_button_holder">
-                <button
-                  className="submit_button"
-                  onClick={() => addReviewAPI()}
-                >
-                  Submit
-                </button>
+        sessionStorage.getItem("token") !== null ? (
+          <>
+            <div className="redSection">
+              <img
+                className="close_icon"
+                src={close}
+                alt="Icon"
+                onClick={() => {
+                  setRevPlace({});
+                  setRevNum(1);
+                  setRevText("");
+                  setAddReview(false);
+                }}
+              />
+              <div style={{ paddingTop: "15px" }}>
+                <span className="write_a_review">Write a Review</span>
+                <div className="oneInput">
+                  Name :
+                  <input
+                    type="text"
+                    className="inputField"
+                    value={revPlace.place_name}
+                  />
+                </div>
+                <div className="oneInput">
+                  Latitude :
+                  <input
+                    type="text"
+                    className="inputField"
+                    value={revPlace.lat}
+                  />
+                </div>{" "}
+                <div className="oneInput">
+                  Longitude :
+                  <input
+                    type="text"
+                    className="inputField"
+                    value={revPlace.lng}
+                  />
+                </div>
+                <div className="oneInput">
+                  Review Score:
+                  <input
+                    type="number"
+                    className="inputField"
+                    value={revNum}
+                    onChange={(e) => {
+                      if (e.target.value >= 1 && e.target.value <= 5)
+                        setRevNum(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="oneInput">
+                  Comments :
+                  <textarea
+                    className="inputFieldBig"
+                    value={revText}
+                    onChange={(e) => {
+                      setRevText(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="submit_button_holder">
+                  <button
+                    className="submit_button"
+                    onClick={() => addReviewAPI()}
+                  >
+                    Submit
+                  </button>
+                </div>
               </div>
             </div>
+          </>
+        ) : <>
+        {" "}
+        <div className="redSection">
+          <img
+            className="close_icon"
+            src={close}
+            alt="Icon"
+            onClick={() => {
+              setRevPlace({});
+              setRevNum(1);
+              setRevText("");
+              setAddReview(false);
+            }}
+          />
+          <div style={{ paddingTop: "15px" }}>
+            <span className="write_a_review">
+              Please Login to write a review
+            </span>
           </div>
-        </>
+        </div>
+      </>
       ) : null}
 
       {/* Division : Map Main */}
