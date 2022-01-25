@@ -861,3 +861,9 @@ svg.leaflet-image-layer.leaflet-interactive path {
   transform: translateX(3300%);
   cursor: pointer;
 }
+.right_close_icon{
+  max-height: 10px;
+  min-height: 10px;
+  position: absolute;
+  cursor: pointer;
+}

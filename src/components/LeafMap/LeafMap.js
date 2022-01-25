@@ -55,6 +55,8 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
   //Use States
   const animateRef = useRef(true);
   const [markers, setMarkers] = React.useState();
+  const [reviews, setReviews] = React.useState(null);
+  const [reviewRating, setReviewRating] = React.useState("#");
   const [myLoc, setMyLoc] = React.useState({
     lat: 40.712062139,
     lng: -74.0131062,
@@ -136,6 +138,21 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
     } else {
       alert("Please Login to add a review");
     }
+  }
+
+  function getReviews(id) {
+    axios
+      .post("http://localhost:7000/api/reviews/getplacereviews", {
+        place: id,
+      })
+      .then((response) => {
+        if (response.data.error === false) {
+          setReviews(response.data.data.reviews);
+          setReviewRating(response.data.data.rating);
+        } else {
+          alert(response.data.message);
+        }
+      });
   }
 
   const getPlacesByUser = async () => {
@@ -303,7 +320,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
     useEffect(() => {
       if (select !== null) {
         if (select.lat && select.lng) {
-          map.flyTo({ lat: select.lat, lng: select.lng }, map.getZoom());
+          map.flyTo({ lat: select.lat, lng: select.lng }, 14);
         }
       }
     }, [select]);
@@ -685,17 +702,18 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
         <>
           <div className="Right__RedSection">
             <img
-              className="close_icon"
+              className="right_close_icon"
               src={close}
               alt="Icon"
               onClick={() => {
                 setRevPlace({});
                 setShowReview(false);
+                setReviews(null)
               }}
             />
-            <div style={{ paddingTop: "5px" }}>
-              <span className="write_a_review">Reviews</span>
-              
+            <div style={{ paddingTop: "10px" }}>
+              <div className="write_a_review">Reviews</div>
+              {reviews ? (reviews.length===0 ? <><div> No Reviews Available for this place</div></>:<><div> {reviews[0].reviewText}</div></>):<><div> Fetching Reviews</div></>}
             </div>
           </div>
         </>
@@ -734,6 +752,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
                         onClick={() => {
                           setRevPlace(marker);
                           setShowReview(true);
+                          getReviews(marker._id);
                         }}
                         style={{ color: "Green", cursor: "pointer" }}
                       >
@@ -789,7 +808,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
           select={select}
           setSelect={(val) => {
             setSelect(val);
-            mapRef.current.flyTo([val.lat, val.lng], 16);
+            setUpperSearch(val)
           }}
         />
       ) : null}
