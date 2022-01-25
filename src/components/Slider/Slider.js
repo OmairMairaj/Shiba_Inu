@@ -24,7 +24,7 @@ function Slider({ data, select, setSelect }) {
             <span className="oneName">{marker.place_name}</span>
           </div>
           <div>
-            <span className="oneAddress">{marker.desc}</span>
+            <span className="oneAddress">Category : {marker.desc}</span>
           </div>
         </div>
       ) : (
@@ -45,7 +45,7 @@ function Slider({ data, select, setSelect }) {
             <span className="oneName">{marker.place_name}</span>
           </div>
           <div>
-            <span className="oneAddress">{marker.desc}</span>
+            <span className="oneAddress">Category : {marker.desc}</span>
           </div>
         </div>
       )

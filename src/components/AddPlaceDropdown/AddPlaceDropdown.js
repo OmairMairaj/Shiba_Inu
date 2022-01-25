@@ -21,7 +21,7 @@ function AddPlaceDropdown({ cat, setCat }) {
         for (var i = 0; i < arr.length; i++) {
           options.push(arr[i]);
         }
-        console.log(options);
+        // console.log(options);
       });
   };
   

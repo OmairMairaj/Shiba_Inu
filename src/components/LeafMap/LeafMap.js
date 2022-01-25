@@ -17,6 +17,7 @@ import pin from "../../assets/pin.png";
 import icon from "../../assets/locationicon.png";
 import location from "../../assets/placeholder.png";
 import NoPicture from "../../assets/no-pictures.png";
+import star from "../../assets/star.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import Slider from "../Slider/Slider";
 import axios from "axios";
@@ -127,7 +128,6 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
           }
         )
         .then((response) => {
-          //console.log(response);
           alert(response.data.message);
           if (response.data.error === false) {
             setRevNum(1);
@@ -161,7 +161,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
         createdByEmail: data.email,
       })
       .then((response) => {
-        console.log(response.data.data);
+        // console.log(response.data.data);
         if (response.data.error === false) {
           setUserPlaces(response.data.data);
         } else {
@@ -526,7 +526,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
                       cat={addPlaceCategory}
                       setCat={(val) => {
                         setAddPlaceCategory(val);
-                        console.log(addPlaceCategory);
+                        // console.log(addPlaceCategory);
                       }}
                     />
                     {/* <input
@@ -708,12 +708,66 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
               onClick={() => {
                 setRevPlace({});
                 setShowReview(false);
-                setReviews(null)
+                setReviews(null);
               }}
             />
-            <div style={{ paddingTop: "10px" }}>
+            <div>
               <div className="write_a_review">Reviews</div>
-              {reviews ? (reviews.length===0 ? <><div> No Reviews Available for this place</div></>:<><div> {reviews[0].reviewText}</div></>):<><div> Fetching Reviews</div></>}
+              {reviews ? (
+                reviews.length === 0 ? (
+                  <>
+                    <div className="write_a_review">
+                      {" "}
+                      No Reviews Available for this place
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="review_box">
+                      <div className="review_box_desc">
+                        <div className="review_box_oneLine">
+                          Place : {revPlace.place_name}
+                        </div>
+                        <div className="review_box_oneDesc">
+                          Latitude : {revPlace.lat}
+                        </div>
+                        <div className="review_box_oneDesc">
+                          Longitude : {revPlace.lng}
+                        </div>
+                      </div>
+                      <div className="review_box_rating">
+                        <span >Average Rating : </span>
+                        <img className="review_box_onePicture" src={star} />
+                        <span >
+                          {reviewRating}
+                        </span>
+                      </div>
+                      <div className="review_box_revs">
+                        {reviews.map((item) => {
+                          return (
+                            <div className="review_box_revs_entire">
+                              <div className="review_box_revs_rat">
+                                <img
+                                  src={star}
+                                  className="review_box_onePicture"
+                                />
+                                <span>{item.rating}</span>
+                              </div>
+                              <div className="review_box_revs_text">
+                                {item.reviewText}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </>
+                )
+              ) : (
+                <>
+                  <div className="write_a_review"> Fetching Reviews...</div>
+                </>
+              )}
             </div>
           </div>
         </>
@@ -752,6 +806,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
                         onClick={() => {
                           setRevPlace(marker);
                           setShowReview(true);
+                          setAddReview(false);
                           getReviews(marker._id);
                         }}
                         style={{ color: "Green", cursor: "pointer" }}
@@ -762,6 +817,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
                         onClick={() => {
                           setRevPlace(marker);
                           setAddReview(true);
+                          setShowReview(false)
                         }}
                         style={{ color: "Red", cursor: "pointer" }}
                       >
@@ -808,7 +864,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
           select={select}
           setSelect={(val) => {
             setSelect(val);
-            setUpperSearch(val)
+            setUpperSearch(val);
           }}
         />
       ) : null}

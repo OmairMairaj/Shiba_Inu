@@ -14,9 +14,12 @@ function App() {
   React.useEffect(() => {
     if (sessionStorage.getItem("token")) {
       axios
-        .post("https://afternoon-anchorage-53514.herokuapp.com/api/users/getprofile", {
-          token: sessionStorage.getItem("token"),
-        })
+        .post(
+          "https://afternoon-anchorage-53514.herokuapp.com/api/users/getprofile",
+          {
+            token: sessionStorage.getItem("token"),
+          }
+        )
         .then((res) => {
           if (res.data.success === true) {
             setUserRole(res.data.data.role);
@@ -31,12 +34,21 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <Home
-              check={check}
-              setCheck={(val) => {
-                setCheck(val);
-              }}
-            />
+            {userRole === "admin" ? (
+              <AdminHome
+                check={check}
+                setCheck={(val) => {
+                  setCheck(val);
+                }}
+              />
+            ) : (
+              <Home
+                check={check}
+                setCheck={(val) => {
+                  setCheck(val);
+                }}
+              />
+            )}
           </Route>
           <Route exact path="/login">
             <Login
@@ -54,18 +66,9 @@ function App() {
               }}
             />
           </Route>
-          <Route exact path="/admin">
-            {userRole === "admin" ? (
-              <AdminHome
-                check={check}
-                setCheck={(val) => {
-                  setCheck(val);
-                }}
-              />
-            ) : (
-              <Error />
-            )}
-          </Route>
+          {/* <Route exact path="/admin">
+            
+          </Route> */}
         </Switch>
       </Router>
     </>

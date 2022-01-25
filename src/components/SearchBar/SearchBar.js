@@ -6,7 +6,7 @@ import "./SearchBar.css";
 
 function SearchBar({ setUpperSearch }) {
   const [selected, setSelected] = useState("All");
-  console.log(selected);
+  // console.log(selected);
   return (
     <div className="search__bar">
       <div className="searchContainer">

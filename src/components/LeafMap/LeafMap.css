@@ -800,6 +800,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   font-size: 20px;
   color: white;
   margin: 10px;
+  margin-top: 20px;
   font-weight: bold;
   
 }
@@ -866,4 +867,62 @@ svg.leaflet-image-layer.leaflet-interactive path {
   min-height: 10px;
   position: absolute;
   cursor: pointer;
+}
+.review_box{
+  padding: 0px 10px;
+  color: white;
+}
+.review_box_oneDesc{
+  font-size: 10px;
+}
+.review_box_onePicture{
+  max-width: 20px;
+  padding: 0 5px;
+}
+.review_box_desc{
+  padding: 5px;
+  border: 1px solid white;
+  border-radius: 5px;
+  margin: 10px 0;
+  align-items: center;
+  text-align: left;
+}
+.review_box_rating{
+  padding: 2px;
+  align-items: center;
+  display: flex;
+  text-align: left;
+}
+.review_box_revs{
+  margin : 10px 0;
+  text-align: left;
+  overflow-y: scroll;
+  max-height: 40vh;
+  min-height: max-content;
+}
+.review_box_revs_entire{
+  padding: 7px 4px;
+  border: 1px solid white;
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  margin:2px;
+  width: 95%;
+}
+.review_box_revs_rat{
+  display: flex;
+  align-items:flex-start;
+  margin: 0 10px 0 0 ;
+}
+.review_box_revs_text{
+    background: #05050517;
+  border-radius: 10px;
+    font-size: 13px;
+  color: #ffce52;
+  border-left:1px solid white;
+  align-items: center;
+  display: flex;
+  padding: 0 10px 0 10px;
+  max-width: 80%;
 }
