@@ -201,9 +201,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
 
   React.useEffect(
     (e) => {
-      // console.log("data is checking");
-      if (data !== null) {
-        // console.log("data is not null");
+      if (sessionStorage.getItem("token") !== null) {
         getPlacesByUser();
       }
     },
@@ -414,7 +412,8 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
             ) : (
               <>
                 <div className="normalButtonText">Your Places : </div>
-                {userPlaces.slice(0, 5).map((item) => {
+                <div className="all_user_places">
+                  {userPlaces.map((item) => {
                   return (
                     <>
                       <div
@@ -428,6 +427,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
                     </>
                   );
                 })}
+                </div>
               </>
             )
           ) : (

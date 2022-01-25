@@ -672,8 +672,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   justify-content:left;
   max-width: 80%;
   min-width: 80%;
-  overflow: hidden;
-  margin: 0 0 4px 0;
+  margin: 0 0 4px  0;
 }
 .addButton {
   align-self: right;
@@ -695,7 +694,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 }
 .normalButton{
 	display: flex;
-	width: 20%;
+	min-width: 20%;
   font-weight: bold;
   color: white;
   justify-content: center;
@@ -762,7 +761,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   background-color: red;
   z-index: 1002;
   min-width: 25vw;
-  max-width: 30vw;
+  max-width: 25vw;
   min-height: 68vh;
   max-height: 68vh;
   padding: 10px 10px;
@@ -776,7 +775,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   background-color: red;
   z-index: 1002;
   min-width: 25vw;
-  max-width: 30vw;
+  max-width: 25vw;
   min-height: 68vh;
   max-height: 68vh;
   padding: 10px 10px;
@@ -924,5 +923,13 @@ svg.leaflet-image-layer.leaflet-interactive path {
   align-items: center;
   display: flex;
   padding: 0 10px 0 10px;
+  max-width: 70%;
+}
+.all_user_places{
   max-width: 80%;
+  min-width: 85%;
+  border-radius: 10px;
+  display: flex;
+  justify-content:left;
+  overflow-x: scroll;
 }

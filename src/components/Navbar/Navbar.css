@@ -145,19 +145,20 @@
 }
 .profile__one__boxleft{
   text-align: right;
-  min-width: 30%;
-  max-width: 30%;
+  min-width: 20%;
+  max-width: 20%;
   margin: 3px 2px;
   font-size: 12px;
   color: #ffa500;
   border-radius: 2px ;
-  padding: 2px 5px;
+  padding: 2px 0px;
 
 }
 .profile__one__boxright{
   text-align: left;
-  min-width: 48%;
-  max-width: 48%;
+  min-width: 65%;
+  max-width: 65%;
+  overflow:hidden ;
   margin: 3px 2px;
   font-size: 12px;
   color: #ffa500;
