@@ -90,7 +90,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
     // if(addPlaceWebsite===""){}
     if (data !== null) {
       axios
-        .post("http://localhost:7000/api/places/addplace", {
+        .post("https://afternoon-anchorage-53514.herokuapp.com/api/places/addplace", {
           place_name: addPlaceName,
           lng: tempMarker.lng,
           lat: tempMarker.lat,
@@ -142,7 +142,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
 
   function getReviews(id) {
     axios
-      .post("http://localhost:7000/api/reviews/getplacereviews", {
+      .post("https://afternoon-anchorage-53514.herokuapp.com/api/reviews/getplacereviews", {
         place: id,
       })
       .then((response) => {
@@ -157,7 +157,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
 
   const getPlacesByUser = async () => {
     axios
-      .post("http://localhost:7000/api/places/getapprovedplacesforoneuser", {
+      .post("https://afternoon-anchorage-53514.herokuapp.com/api/places/getapprovedplacesforoneuser", {
         createdByEmail: data.email,
       })
       .then((response) => {
