@@ -1,0 +1,21 @@
+.container{
+    background-color: #ffa500;
+}
+.social_icons{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.one_icon{
+    width: 40px;
+    margin: 40px 10px 10px 10px ;
+    transition: transform 0.2s;
+}
+.one_icon:hover{
+    background-color: white;
+    border-radius: 500px;
+    transform: scale(1.5) translateY(-30%);
+    box-shadow: 3px 2px 3px  rgba(255, 255, 255, 0.521);
+}
