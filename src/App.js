@@ -35,18 +35,12 @@ function App() {
         <Switch>
           <Route exact path="/">
             {userRole === "admin" ? (
-              // <AdminHome
-              //   check={check}
-              //   setCheck={(val) => {
-              //     setCheck(val);
-              //   }}
-              // />
-              <Home
-              check={check}
-              setCheck={(val) => {
-                setCheck(val);
-              }}
-            />
+              <AdminHome
+                check={check}
+                setCheck={(val) => {
+                  setCheck(val);
+                }}
+              />
             ) : (
               <Home
                 check={check}
