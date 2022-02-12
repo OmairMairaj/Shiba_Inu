@@ -14,7 +14,7 @@ function Search({ selected, setUpperSearch }) {
   const getData = async () => {
     await axios
       .get(
-        "https://afternoon-anchorage-53514.herokuapp.com/api/places/getapprovedplaces"
+        ""+ process.env.REACT_APP_BACKEND_URL + "/api/places/getapprovedplaces"
       )
       .then((response) => {
         setData(response.data.data);

@@ -90,7 +90,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
     // if(addPlaceWebsite===""){}
     if (data !== null) {
       axios
-        .post("https://afternoon-anchorage-53514.herokuapp.com/api/places/addplace", {
+        .post(""+ process.env.REACT_APP_BACKEND_URL + "/api/places/addplace", {
           place_name: addPlaceName,
           lng: tempMarker.lng,
           lat: tempMarker.lat,
@@ -119,7 +119,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
     if (data !== null) {
       axios
         .post(
-          "https://afternoon-anchorage-53514.herokuapp.com/api/reviews/addreview",
+          ""+ process.env.REACT_APP_BACKEND_URL + "/api/reviews/addreview",
           {
             place: revPlace,
             rating: revNum,
@@ -142,7 +142,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
 
   function getReviews(id) {
     axios
-      .post("https://afternoon-anchorage-53514.herokuapp.com/api/reviews/getplacereviews", {
+      .post(""+ process.env.REACT_APP_BACKEND_URL + "/api/reviews/getplacereviews", {
         place: id,
       })
       .then((response) => {
@@ -157,7 +157,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
 
   const getPlacesByUser = async () => {
     axios
-      .post("https://afternoon-anchorage-53514.herokuapp.com/api/places/getapprovedplacesforoneuser", {
+      .post(""+ process.env.REACT_APP_BACKEND_URL + "/api/places/getapprovedplacesforoneuser", {
         createdByEmail: data.email,
       })
       .then((response) => {
@@ -171,11 +171,13 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
   };
 
   const getData = async () => {
+    console.log(process.env.BACKEND_URL);
     await axios
       .get(
-        "https://afternoon-anchorage-53514.herokuapp.com/api/places/getapprovedplaces"
+        ""+ process.env.REACT_APP_BACKEND_URL + "/api/places/getapprovedplaces"
       )
       .then((response) => {
+        console.log(response)
         setMarkers(response.data.data);
       });
   };
@@ -183,7 +185,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
     // console.log(Loc.lat)
     await axios
       .post(
-        "https://afternoon-anchorage-53514.herokuapp.com/api/places/getnearby",
+        ""+ process.env.REACT_APP_BACKEND_URL + "/api/places/getnearby",
         {
           lat: Loc.lat,
           lng: Loc.lng,

@@ -17,7 +17,7 @@ function Users() {
   let [changeEmail, setChangeEmail] = React.useState("");
 
   React.useEffect(() => {
-    axios.get("https://afternoon-anchorage-53514.herokuapp.com/admin/usersall").then((res) => {
+    axios.get(""+ process.env.REACT_APP_BACKEND_URL + "/admin/usersall").then((res) => {
       if (res.data.error === false) {
         if (res.data.data === undefined) {
           setData([]);
@@ -28,7 +28,7 @@ function Users() {
         alert("Unable to fetch data. Try again later");
       }
     });
-    axios.get("https://afternoon-anchorage-53514.herokuapp.com/admin/getdeletedusers").then((res) => {
+    axios.get(""+ process.env.REACT_APP_BACKEND_URL + "/admin/getdeletedusers").then((res) => {
       if (res.data.error === false) {
         if (res.data.data === undefined) {
           setDeletedData([]);
@@ -43,7 +43,7 @@ function Users() {
 
   const deleteUser = (email) => {
     axios
-      .post("https://afternoon-anchorage-53514.herokuapp.com/admin/deleteuser", { email: email })
+      .post(""+ process.env.REACT_APP_BACKEND_URL + "/admin/deleteuser", { email: email })
       .then((res) => {
         //console.log(res);
         if (res.data.error === false) {
@@ -55,7 +55,7 @@ function Users() {
 
   const restoreUser = (email) => {
     axios
-      .post("https://afternoon-anchorage-53514.herokuapp.com/admin/restoreuser", { email: email })
+      .post(""+ process.env.REACT_APP_BACKEND_URL + "/admin/restoreuser", { email: email })
       .then((res) => {
         //console.log(res);
         if (res.data.error === false) {
@@ -67,7 +67,7 @@ function Users() {
 
   const editUser = (email) => {
     axios
-      .post("https://afternoon-anchorage-53514.herokuapp.com/admin/editpoints", {
+      .post(""+ process.env.REACT_APP_BACKEND_URL + "/admin/editpoints", {
         email: email,
         rewardPoints: changePoints,
       })

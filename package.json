@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.24.0",
     "date-fns": "^2.26.0",
+    "dotenv": "^16.0.0",
     "leaflet": "^1.6.0",
     "leaflet-control-geocoder": "^2.3.0",
     "react": "^17.0.2",

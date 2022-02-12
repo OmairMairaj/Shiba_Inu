@@ -11,7 +11,7 @@ function AddPlaceDropdown({ cat, setCat }) {
   //API Call
   const getData = async () => {
     await axios
-      .get("https://afternoon-anchorage-53514.herokuapp.com/api/categories/getcategories")
+      .get(""+ process.env.REACT_APP_BACKEND_URL + "/api/categories/getcategories")
       .then((response) => {
         let arr = [];
         for (var i = 0; i < response.data.data.length; i++) {

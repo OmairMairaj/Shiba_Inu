@@ -7,6 +7,7 @@ import React from "react";
 import axios from "axios";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AdminHome from "./admin/pages/AdminHome";
+require("dotenv").config();
 
 function App() {
   const [check, setCheck] = React.useState(true);
@@ -15,7 +16,7 @@ function App() {
     if (sessionStorage.getItem("token")) {
       axios
         .post(
-          "https://afternoon-anchorage-53514.herokuapp.com/api/users/getprofile",
+          ""+ process.env.REACT_APP_BACKEND_URL + "/api/users/getprofile",
           {
             token: sessionStorage.getItem("token"),
           }
