@@ -15,11 +15,11 @@ export default function SignUp({check,setCheck}) {
   const history = useHistory();
   function validate() {
     if (
-      email == "" ||
-      password == "" ||
-      confirmPassword == "" ||
-      firstName == "" ||
-      lastName == ""
+      email === "" ||
+      password === "" ||
+      confirmPassword === "" ||
+      firstName === "" ||
+      lastName === ""
     ) {
       alert("Please enter All Details");
     } else {
@@ -70,13 +70,13 @@ export default function SignUp({check,setCheck}) {
     >
       <div className="signup_container">
         <div className="image_otherhalf">
-          <img src={OtherHalf} className="signup_image" />
+          <img alt="button" src={OtherHalf} className="signup_image" />
         </div>
         <div className="signup_otherhalf">
           <div className="signup_top_buttons">
             <Link to="/" className="signup_button_container">
               <button type="submit" className="signup_button_top">
-                <img src={BackButton} className="signup_back_button" />
+                <img alt="button" src={BackButton} className="signup_back_button" />
                 <span>Home</span>
               </button>
             </Link>

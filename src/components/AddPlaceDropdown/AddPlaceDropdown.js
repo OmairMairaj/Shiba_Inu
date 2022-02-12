@@ -3,7 +3,7 @@ import "./AddPlaceDropdown.css";
 import axios from "axios";
 
 function AddPlaceDropdown({ cat, setCat }) {
-  const [options, setOptions] = React.useState(["All"]);
+  const [options] = React.useState(["All"]);
   const [isActive, setIsActive] = useState(false);
   const wrapperRef = useRef(null);
   
@@ -18,8 +18,8 @@ function AddPlaceDropdown({ cat, setCat }) {
           arr.push(response.data.data[i].name);
         }
         arr = arr.sort();
-        for (var i = 0; i < arr.length; i++) {
-          options.push(arr[i]);
+        for (var j = 0; j < arr.length; j++) {
+          options.push(arr[j]);
         }
         // console.log(options);
       });

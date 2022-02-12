@@ -6,7 +6,7 @@ import NoPicture from "../../assets/no-pictures.png";
 
 function Slider({ data, select, setSelect }) {
   const ref = React.useRef(null);
-  const [myID, setmyID] = React.useState(830);
+  const [myID] = React.useState(830);
   const slider = () => {
     return data.map((marker) =>
       select && select.id === marker._id ? (
@@ -16,9 +16,9 @@ function Slider({ data, select, setSelect }) {
           style={{ backgroundColor: "#ff8400", border: "2px solid white" }}
         >
           {marker.images !== "" ? (
-            <img className="onePicture" src={`${marker.images}`} />
+            <img alt="place_picture" className="onePicture" src={`${marker.images}`} />
           ) : (
-            <img className="NoPicture" src={NoPicture} />
+            <img alt="place_picture" className="NoPicture" src={NoPicture} />
           )}
           <div>
             <span className="oneName">{marker.place_name}</span>
@@ -37,9 +37,9 @@ function Slider({ data, select, setSelect }) {
           className="oneBox"
         >
           {marker.images !== "" ? (
-            <img className="onePicture" src={`${marker.images}`} />
+            <img alt="place_picture" className="onePicture" src={`${marker.images}`} />
           ) : (
-            <img className="NoPicture" src={NoPicture} />
+            <img alt="place_picture" className="NoPicture" src={NoPicture} />
           )}
           <div>
             <span className="oneName">{marker.place_name}</span>
@@ -67,7 +67,7 @@ function Slider({ data, select, setSelect }) {
           <div className="sliderHeader">Places near you</div>
           <div className="sliderWhole">
             {data.length > 3 ? (
-              <img
+              <img alt="place_picture"
                 className="sliderIcon"
                 onClick={() => {
                   scroll(-3);
@@ -79,7 +79,7 @@ function Slider({ data, select, setSelect }) {
               {slider()}
             </div>
             {data.length > 3 ? (
-              <img
+              <img alt="place_picture"
                 className="sliderIcon"
                 onClick={() => {
                   scroll(3);

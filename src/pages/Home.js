@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "../components/Footer/Footer";
 // import Map from "./components/Map/Map";
-import data from "../data/data.json"
+// import data from "../data/data.json"
 import LeafMap from "../components/LeafMap/LeafMap";
 import Navbar from "../components/Navbar/Navbar";
 import axios from 'axios'

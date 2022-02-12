@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaSearch } from "react-icons/fa";
+// import { FaSearch } from "react-icons/fa";
 import Dropdown from "../Dropdown/Dropdown";
 import Search from "../Search/Search";
 import "./SearchBar.css";

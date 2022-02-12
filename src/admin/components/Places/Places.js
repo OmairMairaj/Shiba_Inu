@@ -5,7 +5,7 @@ import approve from "../../../assets/approve.png";
 import disapprove from "../../../assets/disapprove.png";
 import delwhite from "../../../assets/deletewhite.png";
 import undo from "../../../assets/undo.png";
-import close from "../../../assets/close.png";
+// import close from "../../../assets/close.png";
 
 import "./Places.css";
 
@@ -17,9 +17,9 @@ function Places() {
     React.useState(undefined);
 
   let [bool, setBool] = React.useState(true);
-  let [showPanel, setShowPanel] = React.useState(false);
-  let [changePoints, setChangePoints] = React.useState(0);
-  let [changeEmail, setChangeEmail] = React.useState("");
+  // let [showPanel, setShowPanel] = React.useState(false);
+  // let [changePoints, setChangePoints] = React.useState(0);
+  // let [changeEmail, setChangeEmail] = React.useState("");
 
   React.useEffect(() => {
     axios

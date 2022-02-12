@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import "./Search.css";
 import axios from "axios";
 import cross from "../../assets/close.png";
@@ -14,7 +14,7 @@ function Search({ selected, setUpperSearch }) {
   const getData = async () => {
     await axios
       .get(
-        ""+ process.env.REACT_APP_BACKEND_URL + "/api/places/getapprovedplaces"
+        "" + process.env.REACT_APP_BACKEND_URL + "/api/places/getapprovedplaces"
       )
       .then((response) => {
         setData(response.data.data);
@@ -41,6 +41,7 @@ function Search({ selected, setUpperSearch }) {
     if (searchField !== "") {
       return (
         <img
+          alt="icon"
           onClick={() => {
             setSearchField("");
           }}
@@ -48,7 +49,7 @@ function Search({ selected, setUpperSearch }) {
           src={cross}
         />
       );
-    } else return <img class="search_icon" src={search} />;
+    } else return <img alt="icon" class="search_icon" src={search} />;
   };
 
   const searchResults = () => {
@@ -77,6 +78,7 @@ function Search({ selected, setUpperSearch }) {
                 className="oneSearch"
               >
                 <img
+                  alt="icon"
                   style={{ width: "22%", margin: "2px 4px 0px 0" }}
                   src={item.images}
                 />
@@ -111,14 +113,14 @@ function Search({ selected, setUpperSearch }) {
           placeholder="Search for a place..."
           value={searchField}
           onChange={(e) => {
-            setIsActive(true)
+            setIsActive(true);
             setSearchField(e.target.value);
           }}
         />
         {getIcon()}
       </div>
-      <div className="resultBox__search" >
-        {(isActive && searchField!=="") ? searchResults() : null}
+      <div className="resultBox__search">
+        {isActive && searchField !== "" ? searchResults() : null}
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ export default function Login({check,setCheck}) {
   const [password, setPassword] = React.useState("");
   const history = useHistory();
   function validate() {
-    if (email == "" || password == "") {
+    if (email === "" || password === "") {
       alert("Please enter Email and Password");
     } else {
       LoginAPI();
@@ -44,13 +44,13 @@ export default function Login({check,setCheck}) {
     >
       <div className="login_container">
         <div className="image_otherhalf">
-          <img src={OtherHalf} className="login_image" />
+          <img alt="IMG" src={OtherHalf} className="login_image" />
         </div>
         <div className="login_otherhalf">
           <div className="login_top_buttons">
             <Link to="/" className="login_button_container">
               <button type="submit" className="login_button_top">
-                <img src={BackButton} className="login_back_button" />
+                <img alt="back" src={BackButton} className="login_back_button" />
                 <span>Home</span>
               </button>
             </Link>

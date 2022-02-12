@@ -2,7 +2,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import Error from "./pages/Error";
+// import Error from "./pages/Error";
 import React from "react";
 import axios from "axios";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
