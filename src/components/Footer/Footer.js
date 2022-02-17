@@ -1,11 +1,9 @@
 import React from "react";
 import "./Footer.css";
-import facebook from "../../assets/facebook.png";
-import instagram from "../../assets/instagram.png";
-import twitter from "../../assets/twitter.png";
+// import facebook from "../../assets/facebook.png";
+// import instagram from "../../assets/instagram.png";
+// import twitter from "../../assets/twitter.png";
 import close from "../../assets/close.png";
-// import { Modal,Button } from 'react-bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Footer() {
   const [DisclaimerShow, setDisclaimerShow] = React.useState(false);
@@ -166,6 +164,8 @@ function Footer() {
         <div
           className="one__modal__link"
           onClick={() => {
+            setPrivacyPolicyShow(false);
+            setDonationsShow(false);
             setDisclaimerShow(true);
           }}
         >
@@ -174,7 +174,9 @@ function Footer() {
         <div
           className="one__modal__link"
           onClick={() => {
+            setPrivacyPolicyShow(false);
             setDonationsShow(true);
+            setDisclaimerShow(false);
           }}
         >
           Donations
@@ -183,6 +185,8 @@ function Footer() {
           className="one__modal__link"
           onClick={() => {
             setPrivacyPolicyShow(true);
+            setDonationsShow(false);
+            setDisclaimerShow(false);
           }}
         >
           Privacy Policy
