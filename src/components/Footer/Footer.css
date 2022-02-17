@@ -28,7 +28,7 @@
 }
 .one__modal__link:hover{
 transform: scale(1.4);
-    color: red;
+    color: #CC0000;
     text-decoration: none;
 }
 .contact__us{
@@ -36,7 +36,7 @@ transform: scale(1.4);
     min-width: 100%;
     margin: 20px auto 30px auto;
     font-size: 14px;
-    color: red;
+    color: #CC0000;
 }
 .one_icon{
     width: 40px;
@@ -59,7 +59,7 @@ transform: scale(1.4);
     z-index: 999 !important;
     border: 2px solid #ffa500;
     border-radius: 10px;
-    background-color: red;
+    background-color: #CC0000;
     padding: 10px;
     margin: auto;
     overflow-y: scroll;

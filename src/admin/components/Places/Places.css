@@ -31,7 +31,7 @@
   padding: 2px;
 }
 .onePlace_icon:hover {
-  border: 1px solid red;
+  border: 1px solid #CC0000;
 }
 .onePlace_text {
   min-width: 18%;

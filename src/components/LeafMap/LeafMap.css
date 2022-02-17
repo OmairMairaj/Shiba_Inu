@@ -681,7 +681,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   display: flex;
   width: 7vw;
   font-weight: bolder;
-  color: red;
+  color: #CC0000;
   justify-content: center;
   border-radius: 25px;
   cursor: pointer;
@@ -758,7 +758,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   left: 0;
   transform: translateY(-0.5%);
   min-height: 80vh;
-  background-color: red;
+  background-color: #CC0000;
   z-index: 1002;
   min-width: 25vw;
   max-width: 25vw;
@@ -772,7 +772,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   right: 0;
   transform: translateY(-0.5%);
   min-height: 80vh;
-  background-color: red;
+  background-color: #CC0000;
   z-index: 1002;
   min-width: 25vw;
   max-width: 25vw;

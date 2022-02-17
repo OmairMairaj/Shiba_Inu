@@ -821,7 +821,7 @@ export default function LeafMap({ data, upperSearch, setUpperSearch }) {
                           setAddReview(true);
                           setShowReview(false)
                         }}
-                        style={{ color: "Red", cursor: "pointer" }}
+                        style={{ color: "#CC0000", cursor: "pointer" }}
                       >
                         Write a Review
                       </div>

@@ -8,10 +8,9 @@ import close from "../../assets/close.png";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Footer() {
-  const [DisclaimerShow, setDisclaimerShow] = React.useState(true);
-  const [PrivacyPolicyShow, setPrivacyPolicyShow] = React.useState(true);
-  const [DonationsShow, setDonationsShow] = React.useState(true);
-  // const [ContactUsShow, setContactUsShow] = React.useState(true);
+  const [DisclaimerShow, setDisclaimerShow] = React.useState(false);
+  const [PrivacyPolicyShow, setPrivacyPolicyShow] = React.useState(false);
+  const [DonationsShow, setDonationsShow] = React.useState(false);
 
   return (
     <div className="container">
